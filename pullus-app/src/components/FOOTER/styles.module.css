@@ -15,6 +15,7 @@ footer {
     overflow-y: hidden;
     /* outline: 1px solid red; */
     margin: 0;
+    background-color: #f2f4f5;
 }
 
 footer > div > p {
