@@ -6,80 +6,29 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap');
 
-.home {
+.navbar {
     display: flex;
-    height: auto;
-    margin: 0;
-    min-height: 85vh;
-    max-height: 90vh;
-}
-
-.boxOne {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 47%;
-}
-
-.boxOne > h1 {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 92px;
-    color: #307C31;
-    margin: 0;
-}
-
-.boxOne > p:first-of-type {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.3rem;
-    line-height: 46px;
-    color: #307C31;
-    width: 70%;
-    margin: 0.5rem 0;
-}
-
-.boxOne > p:last-of-type {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 1.2rem;
-    line-height: 46px;
-    color: #307C31;
-    margin: 0.5rem 0;
-}
-
-.btnDiv {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.5rem 0;
-    height: auto;
-    width: 45%;
-    margin: 1.5rem auto;
+    /* width: 100%; */
+    min-width: 90%;
+    padding: 0.8rem 1.5rem;
+    overflow-y: hidden;
     /* outline: 1px solid red; */
 }
 
-.btnDiv > p {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 30px;
-    color: #307C31;
-    margin: 0;
+.logo {
+    width: 130px;
+    height: auto;
 }
 
-.btnDiv > button {
+.navbar > button {
     font-family: 'Jost', sans-serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 1.1rem;
-    width: 35%;
+    font-size: 1.2rem;
+    height: 9%;
+    width: 8%;
     padding: 0.5rem 0.5rem;
     cursor: pointer;
     border: none;
@@ -87,13 +36,4 @@
     color: #FCFCFC;
     background: linear-gradient(90deg, #81C341 0%, #2E602F 73.44%);
     box-shadow: 0px 41px 16px rgba(0, 0, 0, 0.01), 0px 23px 14px rgba(0, 0, 0, 0.05), 0px 10px 10px rgba(0, 0, 0, 0.09), 0px 3px 6px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
-}
-
-.boxTwo {
-    width: 53%;
-}
-
-.boxTwo > img {
-    height: 100%;
-    width: 100%;
 }

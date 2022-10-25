@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap');
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* min-width: 90%; */
+    padding: 0.5rem 1.5rem;
+    overflow-y: hidden;
+    /* outline: 1px solid red; */
+    margin: 0;
+}
+
+footer > div > p {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 29px;
+    color: #307C31;
+}
+
+footer > nav {
+    /* height: 30px; */
+    width: 35%;
+    /* outline: 1px solid red; */
+}
+
+footer > nav > a {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 29px;
+    border-right: 1px solid rgba(46, 96, 47, 0.5);
+    padding: 0 1rem;
+    text-decoration: none;
+    color: #307C31;
+}
+
+footer > nav > a:last-of-type {
+    border-right: none;
+}

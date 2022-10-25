@@ -6,94 +6,80 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap');
 
-.home {
+.login {
     display: flex;
-    height: auto;
-    margin: 0;
-    min-height: 85vh;
-    max-height: 90vh;
-}
-
-.boxOne {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 47%;
-}
-
-.boxOne > h1 {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 92px;
-    color: #307C31;
-    margin: 0;
-}
-
-.boxOne > p:first-of-type {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.3rem;
-    line-height: 46px;
-    color: #307C31;
-    width: 70%;
-    margin: 0.5rem 0;
-}
-
-.boxOne > p:last-of-type {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 1.2rem;
-    line-height: 46px;
-    color: #307C31;
-    margin: 0.5rem 0;
-}
-
-.btnDiv {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.5rem 0;
     height: auto;
-    width: 45%;
-    margin: 1.5rem auto;
+    min-height: 80vh;
+}
+
+.login > form {
+    width: 50%;
+    height: auto;
     /* outline: 1px solid red; */
 }
 
-.btnDiv > p {
+.first {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 18%;
+    margin: 0 auto;
+    color: #307C31;
+    /* outline: 1px solid red; */
+}
+
+.first > img {
+    width: 28px;
+    height: 32px;
+}
+
+.second {
+    width: 90%;
+    height: auto;
+    color: #307C31;
+    margin: 0 auto;
+}
+
+.second > div:first-of-type {
+    color: #307C31;
+    margin: 1rem 0 1rem 5rem;
+    width: 20%;
+    /* outline: 1px solid red; */
+}
+
+/* input > :only-of-type[checkbox] {
+    margin: 0 1rem;
+} */
+
+.second > input {
     font-family: 'Jost';
     font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 30px;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 0 1.5rem;
+    margin: 1rem auto;
+    width: 70%;
+    height: 50px;
     color: #307C31;
-    margin: 0;
+    background: #FFFFFF;
+    border-radius: 30px;
+    border: 1px solid rgba(46, 96, 47, 0.1);
+    box-shadow: 0px 31px 13px rgba(0, 0, 0, 0.01), 0px 18px 11px rgba(0, 0, 0, 0.05), 0px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
 }
 
-.btnDiv > button {
-    font-family: 'Jost', sans-serif;
-    font-weight: 700;
+.loginBtn {
+    font-family: 'Jost';
     font-style: normal;
-    font-size: 1.1rem;
-    width: 35%;
-    padding: 0.5rem 0.5rem;
-    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 0 1.5rem;
+    width: 77%;
+    height: 50px;
     border: none;
-    border-radius: 50px;
-    color: #FCFCFC;
+    border-radius: 30px;
+    color: #FFFFFF;
     background: linear-gradient(90deg, #81C341 0%, #2E602F 73.44%);
     box-shadow: 0px 41px 16px rgba(0, 0, 0, 0.01), 0px 23px 14px rgba(0, 0, 0, 0.05), 0px 10px 10px rgba(0, 0, 0, 0.09), 0px 3px 6px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
-}
-
-.boxTwo {
-    width: 53%;
-}
-
-.boxTwo > img {
-    height: 100%;
-    width: 100%;
 }
