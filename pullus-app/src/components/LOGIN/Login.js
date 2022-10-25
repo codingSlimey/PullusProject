@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.css';
 import lockIcon from './icons/lockIcon.png';
 
@@ -7,6 +7,23 @@ import Footer from '../FOOTER/Footer';
 
 
 export default function Login() {
+
+    const [formData, setFormData] = useState({email: '', password: ''});
+
+    console.log(formData);
+
+    // FUNCTION TO CONTROL LOGIN FORM INPUTS
+    function handleFormChange(event) {
+        const {name, value} = event.target
+
+        setFormData(prev => {
+            return {
+                ...prev,
+                [name]: value
+            }
+        })
+    }
+
   return (
     <>
         <Navbar />
@@ -19,8 +36,8 @@ export default function Login() {
                 </div>
 
                 <div className={styles.second}>
-                    <input type={'email'} placeholder={'Email'} />
-                    <input type={'password'} placeholder={'Password'} />
+                    <input type={'email'} placeholder={'Email'} name='email' value={formData.email} onChange={handleFormChange} />
+                    <input type={'password'} placeholder={'Password'} name='password' value={formData.password} onChange={handleFormChange}  />
                     <div>
                         <input type={'checkbox'} name={'remember'}  />
                         <label htmlFor={'remember'}>Remember me</label>
