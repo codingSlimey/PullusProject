@@ -83,3 +83,114 @@
     background: linear-gradient(90deg, #81C341 0%, #2E602F 73.44%);
     box-shadow: 0px 41px 16px rgba(0, 0, 0, 0.01), 0px 23px 14px rgba(0, 0, 0, 0.05), 0px 10px 10px rgba(0, 0, 0, 0.09), 0px 3px 6px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
 }
+
+
+/* FORGOT PASSWORD */
+.forgotPassword {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.forgot {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    min-width: 450px;
+    min-height: 40%;
+    padding: 1rem;
+    /* outline: 1px solid red; */
+}
+
+.forgot > h1 {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 36px;
+    color:  #307C31;
+    text-align: left;
+    margin: 1.2rem 0;
+}
+
+.forgot > p:last-of-type {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: #307C31;
+    margin: 0.6rem 0;
+}
+
+.forgotBox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #307C31;
+    border-radius: 14px;
+    width: 90%;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #307C31;
+    
+}
+
+.forgotBox:hover {
+    color: #FFFFFF;
+    background-color: #307C31;
+}
+
+.iconBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    width: 70px;
+    border-radius: 60%;
+    /* padding: 0.5rem 0; */
+    background-color: #ededed;
+    /* outline: 1px solid red; */
+}
+
+.forgotBoxIcon {
+    width: 35px;
+    height: 30px;
+}
+
+.forgotBoxInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 0 1rem;
+    height: auto;
+    min-height: 45px;
+    width: 60%;
+    /* outline: 1px solid red; */
+}
+
+.forgotBoxInner > span {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 20px;
+    /* color: rgba(46, 96, 47, 0.5); */
+    margin: 0;
+}
+
+.forgotBoxInner > p {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.1;
+    line-height: 26px;
+    /* color: #307C31; */
+    margin: 0;
+}
