@@ -28,7 +28,7 @@ export default function ForgotPassword() {
                 </div>
                 <div className={styles.forgotBoxInner}>
                   <span>via Email</span>
-                  <p>jo******@outlook.com</p>
+                  <p>Br******@outlook.com</p>
                 </div>
               </div>
             </div>
