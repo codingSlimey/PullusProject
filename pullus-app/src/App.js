@@ -4,6 +4,7 @@ import Home from './components/HOME/Home'
 import Login from './components/LOGIN/Login'
 import ForgotPassword from './components/LOGIN/ForgotPassword'
 import ResetPassword from './components/LOGIN/ResetPassword'
+import NewPassword from './components/LOGIN/NewPassword'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Login />
         <ForgotPassword />
         <ResetPassword />
+        <NewPassword />
     </div>
   );
 }
