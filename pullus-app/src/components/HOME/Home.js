@@ -16,7 +16,7 @@ export default function Home() {
 
                 <p>We connect poultry farmers to quality Input, Services, Market & Finance.</p>
 
-                <p>Begin your journey as a:</p>
+                <p>Begin your journey as a</p>
 
                 <div className={styles.btnDiv}>
                     <button>BUYER</button>
@@ -25,9 +25,9 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className={styles.boxTwo}>
+            {/* <section className={styles.boxTwo}>
                 <img src={homeImg} alt='An image of a poultry' />
-            </section>
+            </section> */}
         </main>
 
         <Footer />

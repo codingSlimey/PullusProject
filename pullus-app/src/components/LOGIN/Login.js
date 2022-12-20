@@ -44,10 +44,17 @@ export default function Login() {
                     </div>
                     <button className={styles.loginBtn}>LOGIN</button>
                     <p>Forgot your password?</p>
-                    <p>Don't have an account? <a href='#'>Signup</a> </p>
+                    {/* <p>Don't have an account? <a href='#'>Signup</a> </p> */}
                 </div>
 
             </form>
+
+            <section className={styles.loginRight}>
+                <h1>New Here?</h1>
+                <p>Sign up and experience the best poultry solution in Africa.</p>
+                <button>Sign up</button>
+
+            </section>
         </section>
 
         <Footer />
