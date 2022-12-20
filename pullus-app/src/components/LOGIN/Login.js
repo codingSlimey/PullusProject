@@ -53,7 +53,6 @@ export default function Login() {
                 <h1>New Here?</h1>
                 <p>Sign up and experience the best poultry solution in Africa.</p>
                 <button>Sign up</button>
-
             </section>
         </section>
 
