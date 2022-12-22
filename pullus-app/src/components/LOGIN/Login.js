@@ -24,12 +24,19 @@ export default function Login() {
         })
     }
 
+    // FUNCTION TO HANDLE LOGIN
+    function handleLogin(event) {
+        event.preventDefault();
+
+
+    }
+
   return (
     <>
         <Navbar />
 
         <section className={styles.login}>
-            <form>
+            <form onSubmit={handleLogin}>
                 <div className={styles.first}>
                     <img src={lockIcon} alt='lock icon' />
                     <h2>Login</h2>
