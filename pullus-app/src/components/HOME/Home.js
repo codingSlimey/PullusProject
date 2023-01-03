@@ -21,7 +21,7 @@ export default function Home() {
                 <div className={styles.btnDiv}>
                     <button>BUYER</button>
                     <p>OR</p>
-                    <button>FARMER</button>
+                    <button>VENDOR</button>
                 </div>
             </section>
 

@@ -1,4 +1,4 @@
-import './App.css'
+import { Routes, Route } from "react-router-dom";
 
 import Home from './components/HOME/Home'
 import Login from './components/LOGIN/Login'
@@ -10,15 +10,17 @@ import Signup from './components/SIGNUP/Signup'
 
 function App() {
   return (
-    <div className="App">
-        <Home /> 
-        <Login />
-        <Signup />
-        <ForgotPassword />
-        <ResetPassword />
-        <NewPassword />
-        <Privacy />
-    </div>
+    <main className="App">
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/sign-up' element={<Signup />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/new-password' element={<NewPassword />} />
+        <Route path='/privacy' element={<Privacy />} />
+      </Routes>
+    </main>
   );
 }
 

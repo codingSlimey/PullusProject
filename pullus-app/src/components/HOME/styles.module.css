@@ -38,12 +38,15 @@
 .boxOne > p:first-of-type {
     font-family: 'Jost';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.3rem;
     line-height: 46px;
     /* color: #307C31; */
     width: 70%;
-    margin: 0.5rem 0;
+    margin: 0.5rem auto;
+    text-align: center;
+    /* outline: 1px solid red; */
+
 }
 
 .boxOne > p:last-of-type {
