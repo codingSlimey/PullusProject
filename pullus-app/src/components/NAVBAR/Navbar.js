@@ -9,10 +9,12 @@ export default function Navbar() {
   return (
     <>
         <section className={styles.navbar}>
-            <img src={logo} alt='Logo image' className={styles.logo} />
+            <img src={logo} alt='Logo image' className={styles.logo} onClick={() => navigate('/')}/>
 
             <button onClick={() => navigate('/login')}>Login</button>
         </section>
     </>
   )
 }
+
+

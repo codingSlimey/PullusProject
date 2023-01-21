@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 import lockIcon from './icons/lockIcon.png';
+import axios from 'axios';
 
 import Navbar from '../NAVBAR/Navbar';
 import Footer from '../FOOTER/Footer';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
 
-    const [formData, setFormData] = useState({email: '', password: ''});
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({username: '', password: ''});
 
-    console.log(formData);
+    console.log('Form Data =>' + formData);
 
     // FUNCTION TO CONTROL LOGIN FORM INPUTS
     function handleFormChange(event) {
@@ -28,7 +31,16 @@ export default function Login() {
     function handleLogin(event) {
         event.preventDefault();
 
+        const url = 'https://pullusafrica.com.ng:8080/authenticate';
 
+        axios
+            .post(url,formData)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
 
   return (
@@ -36,30 +48,37 @@ export default function Login() {
         <Navbar />
 
         <section className={styles.login}>
-            <form onSubmit={handleLogin}>
-                <div className={styles.first}>
-                    <img src={lockIcon} alt='lock icon' />
-                    <h2>Login</h2>
-                </div>
-
-                <div className={styles.second}>
-                    <input type={'email'} placeholder={'Email'} name='email' value={formData.email} onChange={handleFormChange} />
-                    <input type={'password'} placeholder={'Password'} name='password' value={formData.password} onChange={handleFormChange}  />
-                    <div>
-                        <input type={'checkbox'} name={'remember'}  />
-                        <label htmlFor={'remember'}>Remember me</label>
+            <section className={styles.loginLeft}>
+                <>
+                    <h1>Login to Your Account</h1>
+                    <p>Login using social networks</p>
+                    <div className={styles.iconsDiv}>
+                      
                     </div>
-                    <button className={styles.loginBtn}>LOGIN</button>
-                    <p>Forgot your password?</p>
-                    {/* <p>Don't have an account? <a href='#'>Signup</a> </p> */}
-                </div>
+                </>
+                <form onSubmit={handleLogin}>
+                    <div className={styles.first}>
+                        <img src={lockIcon} alt='lock icon' />
+                        <h2>Login</h2>
+                    </div>
 
-            </form>
+                    <div className={styles.second}>
+                        <input type={'email'} placeholder={'Email'} name='username' value={formData.username} onChange={handleFormChange} />
+                        <input type={'password'} placeholder={'Password'} name='password' value={formData.password} onChange={handleFormChange}  />
+                        <div>
+                            <input type={'checkbox'} name={'remember'}  />
+                            <label htmlFor={'remember'}>Remember me</label>
+                        </div>
+                        <button className={styles.loginBtn}>LOGIN</button>
+                        <p>Forgot your password?</p>
+                    </div>
+                </form>
+            </section>
 
             <section className={styles.loginRight}>
                 <h1>New Here?</h1>
                 <p>Sign up and experience the best poultry solution in Africa.</p>
-                <button>Sign up</button>
+                <button onClick={() => navigate('/sign-up')}>Sign up</button>
             </section>
         </section>
 

@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap');
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-height: 80vh;
+}
+
+.signUpLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    min-width: 60%;
+    height: auto;
+}
+
+.login > form {
+    width: auto;
+    min-width: 60%;
+    height: auto;
+    /* outline: 1px solid red; */
+}
+
+.first {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 15%;
+    margin: 0 auto;
+    color: #307C31;
+    /* outline: 1px solid red; */
+}
+
+.first > img {
+    width: 28px;
+    height: 32px;
+}
+
+.second {
+    width: 70%;
+    height: auto;
+    color: #307C31;
+    margin: 0 auto;
+}
+
+.second > div:first-of-type {
+    color: #307C31;
+    margin: 1rem 0 1rem 5rem;
+    width: 22%;
+    /* outline: 1px solid red; */
+}
+
+.second > input {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 0 1.5rem;
+    margin: 1rem auto;
+    width: 70%;
+    height: 50px;
+    color: #307C31;
+    background: #FFFFFF;
+    border-radius: 30px;
+    border: 1px solid rgba(46, 96, 47, 0.1);
+    box-shadow: 0px 31px 13px rgba(0, 0, 0, 0.01), 0px 18px 11px rgba(0, 0, 0, 0.05), 0px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.signUpRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    height: auto;
+    min-height: 80vh;
+    width: auto;
+    min-width: 40%;
+    background-image: url('https://res.cloudinary.com/dmyvdqjso/image/upload/v1671530893/loginImg_h5gsff.jpg');
+    background-size: cover;
+}
+
+.signUpRight > h1 {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 2rem;
+    margin: 1rem 0;
+    
+}
+
+.signUpRight > p {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    width: 40%;
+    margin: 0.5rem 0;
+}
+
+.signUpRight > button {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    color: #307C31;
+    width: 180px;
+    border: none;
+    border-radius: 30px;
+    padding: 0.8rem 1.8rem;
+    margin: 1rem 0;
+}
