@@ -9,8 +9,8 @@ export default function BioDataAddress() {
     <>
         <Navbar />
             <section className={styles.biodata}>
-                <h1>Address</h1>
                 <form>
+                  <h1 className={styles.addy}>Address</h1>
                     <input type={'text'} placeholder={'Country'} />
                     <input type={'text'} placeholder={'State'} />
                     <input type={'text'} placeholder={'City'} />

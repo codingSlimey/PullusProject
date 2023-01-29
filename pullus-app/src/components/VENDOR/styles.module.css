@@ -15,14 +15,25 @@
     width: 100%;
 }
 
-.biodata > h1 {
+.biodata > form > .addy {
     color: #307C31;
     font-family: 'Jost';
     font-style: normal;
     font-weight: 700;
     font-size: 26px;
     line-height: 28px;
-    margin-left: -32%;
+    margin-left: -52%;
+    padding: none;
+}
+
+.biodata > form > h1 {
+    color: #307C31;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 28px;
+    margin-left: -20%;
     padding: none;
     /* outline: 1px solid red; */
     /* margin: 1rem auto; */
@@ -89,6 +100,17 @@
     /* outline: 1px solid red; */
 }
 
+.first > h1 {
+    color: #307C31;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 28px;
+    margin-left: -25%;
+    padding: none;
+}
+
 .first > div {
     display: flex;
     justify-content: flex-start;
@@ -109,7 +131,7 @@
     box-shadow: 0px 31px 13px rgba(0, 0, 0, 0.01), 0px 18px 11px rgba(0, 0, 0, 0.05), 0px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
 }
 
-.first > input {
+.first > input, .second > input {
     width: 80%;
     height: 55px;
     color: #FCFCFC;
@@ -126,4 +148,69 @@
     line-height: 32px;
     background: linear-gradient(90deg, #81C341 0%, #2E602F 73.44%);
     box-shadow: 0px 41px 16px rgba(0, 0, 0, 0.01), 0px 23px 14px rgba(0, 0, 0, 0.05), 0px 10px 10px rgba(0, 0, 0, 0.09), 0px 3px 6px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.second {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    height: 85%;
+    padding: 0.5rem 0.5rem;
+    /* outline: 1px solid red; */
+}
+
+.second > h1 {
+    color: #307C31;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 28px;
+    margin-left: -30%;
+    padding: none;
+}
+
+.second > div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    height: 60px;
+    color: #307C31;
+    margin: 0.75rem 3rem;
+    /* padding-right: 20px; */
+    background-color: #FFFFFF;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0px 31px 13px rgba(0, 0, 0, 0.01), 0px 18px 11px rgba(0, 0, 0, 0.05), 0px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.second > input {
+    width: 70%;
+    height: 55px;
+    color: #FCFCFC;
+    padding-left: 20px;
+    margin: 1rem 3rem;
+    background: #FFFFFF;
+    border: 1px solid rgba(46, 96, 47, 0.1);
+    box-shadow: 0px 31px 13px rgba(0, 0, 0, 0.01), 0px 18px 11px rgba(0, 0, 0, 0.05), 0px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+    background: linear-gradient(90deg, #81C341 0%, #2E602F 73.44%);
+    box-shadow: 0px 41px 16px rgba(0, 0, 0, 0.01), 0px 23px 14px rgba(0, 0, 0, 0.05), 0px 10px 10px rgba(0, 0, 0, 0.09), 0px 3px 6px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.inner > h2 {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 32px;
+    margin-left: 2.5rem;
 }

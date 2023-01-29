@@ -24,8 +24,9 @@ export default function ServiceToProvide() {
     <>
         <Navbar />
             <section className={styles.biodata}>
-                <h1>Choose a service to proceed</h1>
                 <section className={styles.first}>
+                    <h1>Choose a service to proceed</h1>
+
                     <div onClick={getSelectedService}>Input Supplier</div>
                     <div onClick={getSelectedService}>Insurance Provider</div>
                     <div onClick={getSelectedService}>Extension Service</div>

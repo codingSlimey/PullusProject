@@ -9,8 +9,8 @@ export default function BioDataBusinessInfo() {
     <>
         <Navbar />
             <section className={styles.biodata}>
-                <h1>Business/Company Information</h1>
                 <form>
+                    <h1>Business/Company Information</h1>
                     <input type={'text'} placeholder={'Company Name'} name={''} value={''} />
                     <input type={'text'} placeholder={'Registeration Date'} name={''} value={''} />
                     <input type={'text'} placeholder={'RC Number'} name={''} value={''} />
