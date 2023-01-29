@@ -1,24 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Footer from '../FOOTER/Footer'
 import Navbar from '../NAVBAR/Navbar'
 import styles from './styles.module.css'
 
-export default function BioData() {
+export default function BioData({ func }) {
 
-    const [biodata, setBiodata] = useState({firstName: '', middleName: '', email: '', phoneNumber: '', nin: '', });
+    const navigate = useNavigate('')
+    const [biodata, setBiodata] = useState({firstName: '', middleName: '', email: '', phoneNumber: '', nin: '' });
+
+    useEffect(() => {
+        func(biodata)
+    },[biodata])
+
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        setBiodata(prev => {
+            return {
+                ...prev,
+                [name]:value
+            }
+        })
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        setTimeout(navigate('/vendor/biodata/information/address'), 2000);
+    }
+
+    // console.log(biodata)
   return (
     <>
         <Navbar />
             <section className={styles.biodata}>
-                <h1>Bio Data</h1>
                 <form>
-                    <input type={'text'} placeholder={'First Name'} name={''} value={''} />
-                    <input type={'text'} placeholder={'Last Name'} name={''} value={''} />
-                    <input type={'text'} placeholder={'Email'} name={''} value={''} />
-                    <input type={'tel'} placeholder={'Phone Number'} name={''} value={''} />
-                    <input type={'text'} placeholder={'NIN Number'} name={''} value={''} />
+                    <h1>Bio Data</h1>
 
-                    <input type={'button'} value={'Continue'} name={''} />
+                    <input type={'text'} placeholder={'First Name'} name={'firstName'} value={biodata.firstName} onChange={handleChange} />
+                    <input type={'text'} placeholder={'Last Name'} name={'middleName'} value={biodata.middleName} onChange={handleChange} />
+                    <input type={'text'} placeholder={'Email'} name={'email'} value={biodata.email} onChange={handleChange} />
+                    <input type={'tel'} placeholder={'Phone Number'} name={'phoneNumber'} value={biodata.phoneNumber} onChange={handleChange} />
+                    <input type={'text'} placeholder={'NIN Number'} name={'nin'} value={biodata.nin} onChange={handleChange} />
+
+                    <input type={'button'} value={'Continue'} onClick={handleClick} />
                 </form>
             </section>
         <Footer />

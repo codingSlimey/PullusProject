@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Footer from '../FOOTER/Footer'
 import Navbar from '../NAVBAR/Navbar'
 import styles from './styles.module.css'
 
-export default function ServiceToProvide() {
+export default function ServiceToProvide({ func }) {
 
-    const [serviceToProvide, setServiceToProvide] = useState({venderServiceType: ''})
+    const navigate = useNavigate('');
+    const [serviceToProvide, setServiceToProvide] = useState({venderServiceType: ''});
 
-    console.log(serviceToProvide)
+    useEffect(() => {
+        func(serviceToProvide)
+    }, [serviceToProvide]);
 
     const getSelectedService = (event) => {
         let option = event.target;
@@ -18,6 +22,11 @@ export default function ServiceToProvide() {
             }
         })
         return option.innerText;
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        setTimeout(navigate('/vendor/biodata/information/documents-upload'), 2000);
     }
 
   return (
@@ -32,7 +41,7 @@ export default function ServiceToProvide() {
                     <div onClick={getSelectedService}>Extension Service</div>
                     <div onClick={getSelectedService}>Veterinary Service</div>
                     <div onClick={getSelectedService}>Financial Service</div>
-                    <input type={'button'} value={'Continue'} />
+                    <input type={'button'} value={'Continue'} onClick={handleClick} />
                 </section>
 
             </section>

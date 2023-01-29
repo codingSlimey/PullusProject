@@ -12,8 +12,36 @@ import BioDataAddress from "./components/VENDOR/BioDataAddress";
 import ServiceToProvide from "./components/VENDOR/ServiceToProvide";
 import BioDataBusinessInfo from "./components/VENDOR/BioDataBusinessInfo";
 import BioDataDocUpload from "./components/VENDOR/BioDataDocUpload";
+import { useState } from "react";
 
 function App() {
+
+  const [biodataState, setBiodataState] = useState('');
+  const [addressDataState, setAddressDataState] = useState('');
+  const [businessDataState, setBusinessDataState] = useState('');
+  const [serviceState, setServiceState] = useState('');
+
+
+  const getBiodata = (data) => {
+    setBiodataState(data);
+  }
+
+  const getAddressData = (data) => {
+    setAddressDataState(data)
+  }
+
+  const getBusinessInfo = (data) => {
+    setBusinessDataState(data)
+  }
+
+  const getSelectedService = (data) => {
+    setServiceState(data)
+  }
+
+  console.log('Data => ' + JSON.stringify(biodataState))
+  console.log('Address Data => ' + JSON.stringify(addressDataState))
+  console.log('Business Data => ' + JSON.stringify(businessDataState))
+  console.log('Service => ' + JSON.stringify(serviceState))
   return (
     <main className="App">
       <Routes>
@@ -24,10 +52,10 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/new-password' element={<NewPassword />} />
         <Route path='/privacy' element={<Privacy />} />
-        <Route path='/vendor/biodata/information' element={<BioData />} />
-        <Route path='/vendor/biodata/information/address' element={<BioDataAddress />} />
-        <Route path='/vendor/biodata/information/business' element={<BioDataBusinessInfo />} />
-        <Route path='/vendor/biodata/information/service-to-provide' element={<ServiceToProvide />} />
+        <Route path='/vendor/biodata/information' element={<BioData func={getBiodata} />} />
+        <Route path='/vendor/biodata/information/address' element={<BioDataAddress func={getAddressData} />} />
+        <Route path='/vendor/biodata/information/business' element={<BioDataBusinessInfo func={getBusinessInfo} />} />
+        <Route path='/vendor/biodata/information/service-to-provide' element={<ServiceToProvide func={getSelectedService} />} />
         <Route path='/vendor/biodata/information/documents-upload' element={<BioDataDocUpload />} />
       </Routes>
     </main>
