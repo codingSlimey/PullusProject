@@ -3,14 +3,91 @@ import Footer from '../FOOTER/Footer'
 import Navbar from '../NAVBAR/Navbar'
 import styles from './styles.module.css'
 import Dropzone from 'react-dropzone'
+import axios from 'axios'
 
 export default function BioDataDocUpload() {
 
-    // CONVERT UPLOADS TO MULTIPART LIKE IN nextpaths INDIVIDUAL.JS
-    
     const [profPicState, setProfPicState] = useState('')
     const [cacState, setCacState] = useState('')
     const [nationalIdState, setNationalIdState] = useState('')
+
+    // FUNCTION TO HANDLE ALL DOCUMENTS UPLOAD
+    const handleDocSubmit = () => {
+        uploadNationalId();
+        uploadCacImg();
+        uploadProfilePicture();
+    }
+
+    // FUNCTION TO HANDLE PROFILE PICTURE UPLOAD
+    const uploadCacImg = () => {
+        const params = new URLSearchParams({ email: 'superslimeysl@gmail.com' }).toString();
+        const url = 'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/imagesUpload/cacImage/upload' + '?' + params;
+        const config = {
+            headers:{
+                "Content-type": "multipart/form-data"
+            }
+        }
+        const formData = new FormData();
+        formData.append("file", cacState);
+        console.log('FormData =>' + JSON.stringify(formData))
+
+        axios
+            .post(url, formData, config)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
+    // FUNCTION TO HANDLE NATIONAL ID UPLOAD
+    const uploadNationalId = () => {
+        const params = new URLSearchParams({ email: 'superslimeysl@gmail.com' }).toString();
+        const url = 'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/imagesUpload/nationalId/upload' + '?' + params;
+        const config = {
+            headers:{
+                "Content-type": "multipart/form-data"
+            }
+        }
+        const formData = new FormData();
+        formData.append("file", nationalIdState);
+        console.log('FormData =>' + JSON.stringify(formData))
+
+        axios
+            .post(url, formData, config)
+            .then((response)=>{
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
+    // FUNCTION TO HANDLE PROFILE PICTURE UPLOAD
+    const uploadProfilePicture = () => {
+        const params = new URLSearchParams({ email: 'superslimeysl@gmail.com' }).toString();
+        const url = 'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/imagesUpload/profilePicture/upload' + '?' + params;
+        const config = {
+            headers:{
+                "Content-type": "multipart/form-data"
+            }
+        }
+        const formData = new FormData();
+        formData.append("file", profPicState);
+        console.log('FormData =>' + JSON.stringify(formData))
+
+        axios
+            .post(url, formData, config)
+            .then((response)=>{
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
+
   return (
     <>
         <Navbar />
@@ -63,7 +140,7 @@ export default function BioDataDocUpload() {
                         </Dropzone>
                     </div>
 
-                    <input type={'button'} value={'Continue'} />
+                    <input type={'button'} value={'Continue'} onClick={handleDocSubmit} />
                 </section>
             </section>
         <Footer />
