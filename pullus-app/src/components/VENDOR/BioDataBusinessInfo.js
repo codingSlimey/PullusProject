@@ -29,6 +29,7 @@ export default function BioDataBusinessInfo({ func }) {
     event.preventDefault();
     setTimeout(navigate('/vendor/biodata/information/service-to-provide'), 2000);
   }
+  
   return (
     <>
         <Navbar />

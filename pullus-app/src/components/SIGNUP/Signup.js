@@ -8,7 +8,6 @@ import lockIcon from './lockIcon.png';
 
 export default function Signup() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({username: '', password: ''});
 
   const handleFormChange = (event) => {
@@ -25,6 +24,8 @@ export default function Signup() {
     event.preventDefault();
 
     const url = '';
+
+    navigate("/vendor/biodata/information");
   }
 
   return (
@@ -52,7 +53,7 @@ export default function Signup() {
                               <input type={'checkbox'} name={'remember'}  />
                               <label htmlFor={'remember'}>Remember me</label>
                           </div>
-                          <button className={styles.loginBtn}>LOGIN</button>
+                          <button className={styles.loginBtn}>Sign Up</button>
                           <p>Forgot your password?</p>
                       </div>
                   </form>

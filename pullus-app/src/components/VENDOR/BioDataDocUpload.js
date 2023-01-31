@@ -1,21 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../FOOTER/Footer'
 import Navbar from '../NAVBAR/Navbar'
 import styles from './styles.module.css'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
 
-export default function BioDataDocUpload() {
+export default function BioDataDocUpload({ func }) {
 
     const [profPicState, setProfPicState] = useState('')
     const [cacState, setCacState] = useState('')
     const [nationalIdState, setNationalIdState] = useState('')
+    const [test, setTest] = useState(false)
+
+    useEffect(() => {
+        func(test)
+    }, [test])
 
     // FUNCTION TO HANDLE ALL DOCUMENTS UPLOAD
     const handleDocSubmit = () => {
         uploadNationalId();
         uploadCacImg();
         uploadProfilePicture();
+        setTest(prev => !prev);
     }
 
     // FUNCTION TO HANDLE PROFILE PICTURE UPLOAD

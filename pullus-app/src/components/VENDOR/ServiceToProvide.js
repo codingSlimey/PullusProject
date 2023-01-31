@@ -7,7 +7,9 @@ import styles from './styles.module.css'
 export default function ServiceToProvide({ func }) {
 
     const navigate = useNavigate('');
-    const [serviceToProvide, setServiceToProvide] = useState({venderServiceType: ''});
+    const [serviceToProvide, setServiceToProvide] = useState({vendorServiceType: ''});
+    const [backgroundColor, setBackgroundColor] = useState('white');
+    const [color, setColor] = useState('#307C31');
 
     useEffect(() => {
         func(serviceToProvide)
@@ -15,15 +17,22 @@ export default function ServiceToProvide({ func }) {
 
     const getSelectedService = (event) => {
         let option = event.target;
+        setColor(color === '#307C31' ? 'white' : '#307C31');
+        setBackgroundColor(backgroundColor === 'white' ? '#307C31' : 'white');
         setServiceToProvide(prev => {
             return {
                 ...prev,
-                venderServiceType: option.innerText,
+                vendorServiceType: option.innerText,
             }
         })
-        return option.innerText;
+        console.log(option)
+        return (
+            <div onClick={getSelectedService} style={{backgroundColor}}>
+                {option.innerText}
+            </div>
+        )
     }
-
+    
     const handleClick = (e) => {
         e.preventDefault();
         setTimeout(navigate('/vendor/biodata/information/documents-upload'), 2000);

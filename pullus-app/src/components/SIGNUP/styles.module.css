@@ -31,6 +31,21 @@
     /* outline: 1px solid red; */
 }
 
+.loginBtn {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 0 1.5rem;
+    width: 77%;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    color: #FFFFFF;
+    background: linear-gradient(90deg, #81C341 0%, #2E602F 73.44%);
+    box-shadow: 0px 41px 16px rgba(0, 0, 0, 0.01), 0px 23px 14px rgba(0, 0, 0, 0.05), 0px 10px 10px rgba(0, 0, 0, 0.09), 0px 3px 6px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
 .first {
     display: flex;
     justify-content: space-around;

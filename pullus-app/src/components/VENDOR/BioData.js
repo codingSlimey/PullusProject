@@ -11,7 +11,7 @@ export default function BioData({ func }) {
 
     useEffect(() => {
         func(biodata)
-    },[biodata])
+    }, [biodata])
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -39,7 +39,7 @@ export default function BioData({ func }) {
                     <input type={'text'} placeholder={'First Name'} name={'firstName'} value={biodata.firstName} onChange={handleChange} />
                     <input type={'text'} placeholder={'Last Name'} name={'middleName'} value={biodata.middleName} onChange={handleChange} />
                     <input type={'text'} placeholder={'Email'} name={'email'} value={biodata.email} onChange={handleChange} />
-                    <input type={'tel'} placeholder={'Phone Number'} name={'phoneNumber'} value={biodata.phoneNumber} onChange={handleChange} />
+                    <input type={'tel'} min={'11'} max={'11'} placeholder={'Phone Number'} name={'phoneNumber'} value={biodata.phoneNumber} onChange={handleChange} />
                     <input type={'text'} placeholder={'NIN Number'} name={'nin'} value={biodata.nin} onChange={handleChange} />
 
                     <input type={'button'} value={'Continue'} onClick={handleClick} />

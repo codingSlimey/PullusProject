@@ -117,10 +117,9 @@
     align-items: center;
     width: 70%;
     height: 50px;
-    color: #307C31;
+    /* color: #307C31; */
     margin: 0.75rem 3rem;
     padding-left: 50px;
-    background-color: #FFFFFF;
     border-radius: 40px;
     font-family: 'Jost';
     font-style: normal;
@@ -129,6 +128,10 @@
     line-height: 32px;
     cursor: pointer;
     box-shadow: 0px 31px 13px rgba(0, 0, 0, 0.01), 0px 18px 11px rgba(0, 0, 0, 0.05), 0px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.first > div:hover {
+    background-color: #307C31;
 }
 
 .first > input, .second > input {
