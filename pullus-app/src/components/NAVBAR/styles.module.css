@@ -23,6 +23,24 @@
     height: auto;
 }
 
+.navbar > nav {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+    height: auto;
+    min-height: 80px;
+    outline: 1px solid red;
+}
+
+.navbar > nav > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    outline: 1px solid red;
+}
+
 .navbar > button {
     font-family: 'Jost', sans-serif;
     font-weight: 700;

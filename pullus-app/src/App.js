@@ -14,6 +14,7 @@ import BioDataBusinessInfo from "./components/VENDOR/BioDataBusinessInfo";
 import BioDataDocUpload from "./components/VENDOR/BioDataDocUpload";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Dashboard from "./components/VENDOR/Dashboard";
 
 function App() {
 
@@ -157,6 +158,7 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/new-password' element={<NewPassword />} />
         <Route path='/privacy' element={<Privacy />} />
+        <Route path='/vendor/dashboard' element={<Dashboard />} />
         <Route path='/vendor/biodata/information' element={<BioData func={getBiodata} />} />
         <Route path='/vendor/biodata/information/address' element={<BioDataAddress func={getAddressData} />} />
         <Route path='/vendor/biodata/information/business' element={<BioDataBusinessInfo func={getBusinessInfo} />} />
