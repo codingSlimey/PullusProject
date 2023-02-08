@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 
 import Home from './components/HOME/Home'
 import Login from './components/LOGIN/Login'
@@ -12,6 +12,9 @@ import BioDataAddress from "./components/VENDOR/BioDataAddress";
 import ServiceToProvide from "./components/VENDOR/ServiceToProvide";
 import BioDataBusinessInfo from "./components/VENDOR/BioDataBusinessInfo";
 import BioDataDocUpload from "./components/VENDOR/BioDataDocUpload";
+
+//Farmer//
+import Farmer from './pages/FARMER';
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -162,6 +165,7 @@ function App() {
         <Route path='/vendor/biodata/information/business' element={<BioDataBusinessInfo func={getBusinessInfo} />} />
         <Route path='/vendor/biodata/information/service-to-provide' element={<ServiceToProvide func={getSelectedService} />} />
         <Route path='/vendor/biodata/information/documents-upload' element={<BioDataDocUpload func={print}/>} />
+        <Route path='/farmer/*' element={<Farmer />} />
       </Routes>
     </main>
   );
