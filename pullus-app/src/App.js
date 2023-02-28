@@ -15,6 +15,13 @@ import BioDataDocUpload from "./components/VENDOR/BioDataDocUpload";
 
 //Farmer//
 import Farmer from './pages/FARMER';
+
+import MarketPlace from './pages/MARKET/marketPlace';
+import ProductDetail from './pages/MARKET/productDetail';
+import Cart from './pages/CART/cart';
+import SelectVendor from './pages/CART/selectVendor';
+import Checkout from './pages/CART/checkout';
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -166,6 +173,11 @@ function App() {
         <Route path='/vendor/biodata/information/service-to-provide' element={<ServiceToProvide func={getSelectedService} />} />
         <Route path='/vendor/biodata/information/documents-upload' element={<BioDataDocUpload func={print}/>} />
         <Route path='/farmer/*' element={<Farmer />} />
+        <Route path='/market-place' element={<MarketPlace />} />
+        <Route path='/product-detail' element={<ProductDetail />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/select-vendor' element={<SelectVendor />} />
+        <Route path='/checkout' element={<Checkout />} />
       </Routes>
     </main>
   );
