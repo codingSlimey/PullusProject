@@ -67,7 +67,7 @@ function ProductDetail() {
 					<div className='mt-12 flex  gap-16 '>
 						<button
 							// onClick={() => navigate('/farmer/settings')}
-							className={`w-[fit] bg-custom text-[#fff] text-lg font-bold py-4 px-24 flex  items-center rounded-full shadow-xl  my-auto`}
+							className={`w-[fit] bg-fade text-[#fff] text-lg font-bold py-4 px-24 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Add to Cart
 						</button>

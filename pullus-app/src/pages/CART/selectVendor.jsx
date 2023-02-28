@@ -155,7 +155,7 @@ function SelectVendor(props) {
 			<div className='mt-12 flex  gap-16 '>
 				<button
 					onClick={() => navigate('/checkout')}
-					className={`flex-1 bg-custom text-[#fff] text-lg font-bold py-4  flex justify-center  items-center rounded-full shadow-xl  my-auto`}
+					className={`flex-1 bg-fade text-[#fff] text-lg font-bold py-4  flex justify-center  items-center rounded-full shadow-xl  my-auto`}
 				>
 					Checkout
 				</button>

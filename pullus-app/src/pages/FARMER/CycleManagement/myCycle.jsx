@@ -33,7 +33,7 @@ function MyCycle(props) {
 							onClick={() => setActiveTab(item)}
 							className={`capitalize h-[70px] w-[180px] flex items-center justify-center ${
 								activeTab === item
-									? 'bg-custom text-[#fff]'
+									? 'bg-fade text-[#fff]'
 									: 'border-primary text-primary border'
 							}  cursor-pointer`}
 						>

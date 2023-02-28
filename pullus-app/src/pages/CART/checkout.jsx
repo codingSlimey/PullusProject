@@ -128,7 +128,7 @@ function Checkout(props) {
 					<div className='mt-12 w-full flex  gap-16 '>
 						<button
 							onClick={() => setSuccess(true)}
-							className={`w-full bg-custom text-[#fff] text-lg font-bold py-4  flex justify-center  items-center rounded-full shadow-xl  my-auto`}
+							className={`w-full bg-fade text-[#fff] text-lg font-bold py-4  flex justify-center  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Checkout
 						</button>
@@ -189,7 +189,7 @@ function Checkout(props) {
 						</button>
 						<button
 							onClick={() => setAddressDialog(false)}
-							className={`w-[fit] bg-custom text-[#fff] text-base font-bold py-3 px-8 flex  items-center justify-center rounded-full shadow-xl  my-auto`}
+							className={`w-[fit] bg-fade text-[#fff] text-base font-bold py-3 px-8 flex  items-center justify-center rounded-full shadow-xl  my-auto`}
 						>
 							Apply
 						</button>
@@ -239,7 +239,7 @@ function Checkout(props) {
 					<div className='mt-4 flex w-full gap-6 justify-center '>
 						<button
 							onClick={() => setShippingDialog(false)}
-							className={`w-[fit] bg-custom text-[#fff] text-base font-bold py-3 px-8 flex  items-center rounded-full shadow-xl  my-auto`}
+							className={`w-[fit] bg-fade text-[#fff] text-base font-bold py-3 px-8 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Apply
 						</button>
@@ -271,7 +271,7 @@ function Checkout(props) {
 					<div className='mt-4 grid w-full gap-6 justify-center '>
 						<button
 							onClick={() => setSuccess(false)}
-							className={`w-full bg-custom text-[#fff] text-base font-bold py-3 px-8 flex justify-center  items-center rounded-full shadow-xl  my-auto`}
+							className={`w-full bg-fade text-[#fff] text-base font-bold py-3 px-8 flex justify-center  items-center rounded-full shadow-xl  my-auto`}
 						>
 							View Dashboard
 						</button>

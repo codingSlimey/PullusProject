@@ -1,15 +1,15 @@
 import { FaPlay } from 'react-icons/fa'
 
-function Button(props) {
+function Button({action,color,title,icon}) {
 	return (
 		<button
-			onClick={props.action}
-			className={`w-fit bg-${props.color} ${
-				props.color === 'fade' ? 'text-[#fff]' : 'text-primary'
+			onClick={action}
+			className={`w-fit bg-${color} ${
+				color === 'fade' ? 'text-[#fff]' : 'text-primary'
 			} py-4 px-10 flex  items-center rounded-full shadow-xl  my-auto`}
 		>
-			{props.title}
-			{props.icon ? <FaPlay className='ml-3 h-4 w-4' /> : ''}
+			{title}
+			{icon ? <FaPlay className='ml-3 h-4 w-4' /> : ''}
 		</button>
 	)
 }

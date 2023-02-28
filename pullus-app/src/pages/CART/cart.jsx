@@ -122,7 +122,7 @@ function Cart(props) {
 					<div className='mt-6 flex  gap-16 '>
 						<button
 							onClick={() => navigate('/select-vendor')}
-							className={`w-[fit] bg-custom text-[#fff] text-lg font-bold py-4 px-24 flex  items-center rounded-full shadow-xl  my-auto`}
+							className={`w-[fit] bg-fade text-[#fff] text-lg font-bold py-4 px-24 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Checkout
 						</button>
@@ -169,7 +169,7 @@ function Cart(props) {
 						</button>
 						<button
 							onClick={() => setDialog(false)}
-							className={`w-[fit] bg-custom text-[#fff] text-base font-bold py-3 px-8 flex  items-center rounded-full shadow-xl  my-auto`}
+							className={`w-[fit] bg-fade text-[#fff] text-base font-bold py-3 px-8 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Yes, Remove
 						</button>

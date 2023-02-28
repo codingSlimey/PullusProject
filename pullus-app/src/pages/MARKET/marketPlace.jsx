@@ -29,7 +29,7 @@ function MarketPlace(props) {
 				<Button
 					title={'Search'}
 					icon={false}
-					color={'primary'}
+					color={'fade'}
 				/>
 			</div>
 			<div className='flex px-16  gap-14 mt-12'>
