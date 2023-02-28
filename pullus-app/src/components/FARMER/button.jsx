@@ -5,7 +5,7 @@ function Button(props) {
 		<button
 			onClick={props.action}
 			className={`w-fit bg-${props.color} ${
-				props.color === 'primary' ? 'text-[#fff]' : 'text-primary'
+				props.color === 'fade' ? 'text-[#fff]' : 'text-primary'
 			} py-4 px-10 flex  items-center rounded-full shadow-xl  my-auto`}
 		>
 			{props.title}

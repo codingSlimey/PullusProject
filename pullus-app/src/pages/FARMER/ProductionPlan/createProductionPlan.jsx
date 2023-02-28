@@ -1,6 +1,8 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/FARMER/button'
+import Input from '../../../components/FARMER/Input'
+import Select from '../../../components/FARMER/Select'
 
 import { Checkbox } from 'flowbite-react'
 
@@ -22,79 +24,59 @@ function CreateProductionPlan(props) {
 			<div className='flex gap-16 mt-12'>
 				<div className='flex-1'>
 					<div className='grid'>
-						<label className='mb-3 text-primary'>Poultry Type</label>
-						<select
-							id='countries'
-							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal mb-6 shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
-						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
-						</select>
+						<Select name="poultry" label='Poultry Type' id='countries'>
+							<option >Broilers </option>
+							<option>Layers (DoC) </option>
+							<option>Noilers </option>
+							<option>Turkey </option>
+
+
+						</Select>
+					</div>
+					<div className='grid mt-4'>
+					  <Input type='text' placeholder='12.08.2022' label='Start date' />
 					</div>
 
 					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>Start date</label>
-						<input
-							type='text'
-							placeholder='12.08.2022'
-							className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none '
-						/>
+						<Input type='text' placeholder="Enter a specific number (minimum)" label='Number of birds to be reared:'/>
 					</div>
-
 					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>
-							Number of birds to be reared:
-						</label>
-						<input
-							type='text'
-							placeholder='Enter a specific number (minimum of 500)'
-							className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none '
-						/>
-					</div>
-
-					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>
-							Enter a specific number (minimum of 500)
-						</label>
-						<select
-							id='countries'
-							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal mb-6 shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
-						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
-						</select>
+						<Select label='Enter a specific number (minimum of 500)' id="minimum" name='mimimum'>
+							{[...Array(23)].map((_, i )=>{
+								const num = i +3
+								return(
+									<option>{num + 1}</option>
+								)
+							})}
+						</Select>
 					</div>
 				</div>
 
 				<div className='flex-1'>
 					<div className='grid'>
-						<label className='mb-3 text-primary'>DoC brand</label>
-						<select
-							id='countries'
-							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal mb-6 shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
-						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
-						</select>
+					<Select label='Doc brand' id='feed' name='feed'>
+						<option>Agrited </option>
+						<option>Amo </option>
+						<option>CHI</option>
+						<option>Farm Support</option>
+						<option>Fidan</option>
+						<option>OLAM</option>
+						<option>Sayed</option>
+						<option> Zartech </option>
+					</Select>
 					</div>
 
 					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>Feed brand</label>
-						<select
-							id='countries'
-							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal mb-6 shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
-						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
-						</select>
+						<Select label='Feed brand' id='brand' name='brand'>
+							<option>Breedwell </option>
+							<option>Chikun </option>
+							<option>Hybrid </option>
+							<option> Sunseed </option>
+							<option> Ultima</option>
+							<option> TopFeed</option>
+							<option>VitaFeed </option>
+
+							</Select>					
 					</div>
 
 					<div className='grid mt-4'>
@@ -102,9 +84,12 @@ function CreateProductionPlan(props) {
 						<p className='text-[grey] mb-5 text-sm'>
 							Select any service(s) you would like to enjoy
 						</p>
+						
 						<div className='flex items-center gap-2 h-14 px-6 mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none'>
 							<Checkbox id='remember' />
-							<label className='text-primary font-normal'>Insurance</label>
+							<label className='text-primary font-normal'>
+								Insurance
+							</label>
 						</div>
 
 						<div className='flex items-center gap-2 h-14 px-6 mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none'>
@@ -126,7 +111,7 @@ function CreateProductionPlan(props) {
 				<Button
 					title={'Generate production Plan'}
 					icon={true}
-					color={'primary'}
+					color={'fade'}
 					action={() => navigate('summary')}
 				/>
 			</div>

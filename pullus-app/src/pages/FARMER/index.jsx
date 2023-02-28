@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation, Link, Route, Routes, useNavigate } from 'react-router-dom'
+import { useLocation, Link, Route, Routes, useNavigate, NavLink } from 'react-router-dom'
 import { Tabs } from '../../components/FARMER/tabs'
 
 import MyCycle from './CycleManagement/myCycle'
@@ -24,8 +24,8 @@ import AddCard from './Settings/addCard'
 import Security from './Settings/security'
 
 function Farmer() {
-	const location = useLocation()
-	const navigate = useNavigate()
+	// const location = useLocation()
+	// const navigate = useNavigate()
 	// const [currentTab, setCurrentTab] = useState('cycle-management')
 
 	const tabs = Tabs
@@ -37,24 +37,27 @@ function Farmer() {
 					<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
 						{tabs.map((item, index) => {
 							return (
-								<Link
-									key={index}
-									to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
-									// onClick={() =>
-									// 	setCurrentTab(item.name.replaceAll(' ', '-').toLowerCase())
-									// }
-									className={`py-3 px-10  w-[20%] rounded-full font-semibold shadow-xl ${
-										location.pathname.includes(
-											item.replaceAll(' ', '-').toLowerCase()
-										) ||
-										item.toLowerCase().includes(location.pathname.split('-')[1])
-											? // item.name.replaceAll(' ', '-').toLowerCase() === currentTab
-											  'bg-primary text-[#fff]'
-											: 'text-primary'
-									}`}
-								>
-									{item}
-								</Link>
+
+								<NavLink key={index} to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
+								 className={`py-3 px-10  w-[20%] rounded-full font-semibold shadow-xl `} style={({isActive})=> isActive? {background: "#307C31" , color:"#fff"} : {color : "#307c31"} } >  {item} </NavLink>
+								// <Link
+								// 	key={index}
+								// 	to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
+								// 	// onClick={() =>
+								// 	// 	setCurrentTab(item.name.replaceAll(' ', '-').toLowerCase())
+								// 	// }
+								// 	className={`py-3 px-10  w-[20%] rounded-full font-semibold shadow-xl ${
+								// 		location.pathname.includes(
+								// 			item.replaceAll(' ', '-').toLowerCase()
+								// 		) ||
+								// 		item.toLowerCase().includes(location.pathname.split('-')[1])
+								// 			? // item.name.replaceAll(' ', '-').toLowerCase() === currentTab
+								// 			  'bg-primary text-[#fff]'
+								// 			: 'text-primary'
+								// 	}`}
+								// >
+								// 	{item}
+								// </Link>
 							)
 						})}
 					</li>

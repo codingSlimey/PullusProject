@@ -107,7 +107,7 @@ function ProductionSchedule(props) {
 				<Button
 					title={'Proceed to Marketplace'}
 					icon={true}
-					color={'primary'}
+					color={'fade'}
 					action={() => navigate('production-schedule')}
 				/>
 			</div>

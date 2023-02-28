@@ -132,7 +132,7 @@ function Summary(props) {
 				<Button
 					title={'Proceed to Production Schedule'}
 					icon={true}
-					color={'primary'}
+					color={'fade'}
 					action={() => navigate('production-schedule')}
 				/>
 			</div>

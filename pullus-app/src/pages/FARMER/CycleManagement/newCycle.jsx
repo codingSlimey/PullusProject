@@ -1,5 +1,29 @@
 import { useNavigate } from 'react-router-dom'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
+import Input from '../../../components/FARMER/Input'
+
+const inputData=[
+	{
+		placeholder: "Cycle 1",
+		label:"Start a New Cycle",
+		type:"text"
+	},
+	{
+		placeholder:'9/12/2022',
+		label:"Date (at day one old)",
+		type:'text'
+	},
+	{
+		placeholder:"Broilers",
+		label:"Breed",
+		type:'type'
+	},
+	{
+		placeholder: '12,000',
+		label:'Number of Bird',
+		type:"number"
+	}
+]
 
 function NewCycle(props) {
 	const navigate = useNavigate()
@@ -18,47 +42,20 @@ function NewCycle(props) {
 			<div className='flex gap-16 mt-12'>
 				<div className='flex-1'>
 					<div className='grid'>
-						<label className='mb-3 text-primary'>Start a New Cycle</label>
-						<input
-							type='text'
-							placeholder='Cycle 1'
-							className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none '
-						/>
+						{inputData.map((data, i)=> {
+							return(
+								<Input type={data.type} placeholder={data.placeholder} label={data.label}/>
+							)
+						})}
 					</div>
-
-					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>Date (at day one old)</label>
-						<input
-							type='text'
-							placeholder='9/12/2022'
-							className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none '
-						/>
-					</div>
-
-					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>Breed</label>
-						<input
-							type='text'
-							placeholder='9/12/2022'
-							className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none '
-						/>
-					</div>
-
-					<div className='grid mt-4'>
-						<label className='mb-3 text-primary'>Number of Birds</label>
-						<input
-							type='text'
-							placeholder='12,000'
-							className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none '
-						/>
-					</div>
+				
 				</div>
 
 				<div className='flex-1'></div>
 			</div>
 
 			<div className='mt-8 '>
-				<button className='w-[30%] bg-primary py-3 rounded-full shadow-xl text-[#fff] mt-8 mb-6'>
+				<button className='w-[30%] bg-fade py-3 rounded-full shadow-xl text-[#fff] mt-8 mb-6'>
 					Start Cycle
 				</button>
 			</div>

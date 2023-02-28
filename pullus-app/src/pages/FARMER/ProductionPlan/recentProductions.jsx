@@ -66,7 +66,7 @@ function RecentProduction(props) {
 					<div className='mt-20'>
 						<button
 							onClick={() => navigate('/farmer/cycle-management/new-cycle')}
-							className='w-full bg-primary py-3 rounded-full shadow-xl text-[#fff] mt-8 mb-6'
+							className='w-full bg-fade py-3 rounded-full shadow-xl text-[#fff] mt-8 mb-6'
 						>
 							Start a New Cycle
 						</button>
