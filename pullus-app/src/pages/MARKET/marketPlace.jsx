@@ -1,14 +1,12 @@
-import { useNavigate, Link } from 'react-router-dom'
+import {  Link } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
-import { useState } from 'react'
 import '../../App.css'
 import bird from '../../images/bird.svg'
 import { BsStarHalf } from 'react-icons/bs'
 import { Pagination } from 'flowbite-react'
 
 function MarketPlace(props) {
-	const navigate = useNavigate()
-	const [activeTab, setActiveTab] = useState('Active')
+	
 	const sidebarCategories = [
 		'Feeds',
 		'Turkeys',

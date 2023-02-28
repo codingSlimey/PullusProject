@@ -83,7 +83,6 @@ function Cart(props) {
 										/>
 									</td>
 									<td
-										scope='row'
 										className='px-6 py-4 font-medium   '
 									>
 										Broilers

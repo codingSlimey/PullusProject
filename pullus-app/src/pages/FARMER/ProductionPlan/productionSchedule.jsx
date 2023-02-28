@@ -84,7 +84,6 @@ function ProductionSchedule(props) {
 											className=' border border-[white] text-[white]'
 										>
 											<td
-												scope='row'
 												className='px-6 py-4 font-medium  border '
 											>
 												1

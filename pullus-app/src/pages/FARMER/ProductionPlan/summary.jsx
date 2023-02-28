@@ -2,7 +2,6 @@ import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/FARMER/button'
 
-import { Table } from 'flowbite-react'
 
 function Summary(props) {
 	const navigate = useNavigate()
@@ -77,7 +76,6 @@ function Summary(props) {
 							<tbody className='bg-green'>
 								<tr className=' border border-[white] text-[white]'>
 									<td
-										scope='row'
 										className='px-6 py-4 font-medium  border '
 									>
 										DoC Brand
@@ -86,7 +84,6 @@ function Summary(props) {
 								</tr>
 								<tr className=' border border-[white] text-[white]'>
 									<td
-										scope='row'
 										className='px-6 py-4 font-medium  border '
 									>
 										Feed Brand
@@ -95,7 +92,6 @@ function Summary(props) {
 								</tr>
 								<tr className=' border border-[white] text-[white]'>
 									<td
-										scope='row'
 										className='px-6 py-4 font-medium  border '
 									>
 										Duration of Production
@@ -105,7 +101,6 @@ function Summary(props) {
 
 								<tr className=' border border-[white] text-[white]'>
 									<td
-										scope='row'
 										className='px-6 py-4 font-medium  border '
 									>
 										Quantity of DoC
@@ -115,7 +110,6 @@ function Summary(props) {
 
 								<tr className=' border border-[white] text-[white]'>
 									<td
-										scope='row'
 										className='px-6 py-4 font-medium  border '
 									>
 										Quantity of Feed

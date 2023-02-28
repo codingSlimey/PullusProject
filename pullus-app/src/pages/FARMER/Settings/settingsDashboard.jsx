@@ -1,7 +1,5 @@
-import { useNavigate, Link } from 'react-router-dom'
-import { useState } from 'react'
+import {  Link } from 'react-router-dom'
 import { CiCircleChevRight } from 'react-icons/ci'
-import { AiFillStar } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { ImLocation } from 'react-icons/im'
 import { HiBell } from 'react-icons/hi'
@@ -11,10 +9,8 @@ import { BsGlobe } from 'react-icons/bs'
 import { BiLockAlt, BiLogOut } from 'react-icons/bi'
 import { IoHelpCircleSharp } from 'react-icons/io5'
 
-import logo from '../../../images/logo.png'
 
 function SettingsDashboard(props) {
-	const navigate = useNavigate()
 
 	const links = [
 		{

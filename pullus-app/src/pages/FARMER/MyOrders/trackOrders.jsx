@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import { FaPlay } from 'react-icons/fa'
 import { BsBoxSeam } from 'react-icons/bs'
 import { TbTruckDelivery } from 'react-icons/tb'

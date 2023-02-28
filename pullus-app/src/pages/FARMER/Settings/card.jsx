@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import { GrCreditCard } from 'react-icons/gr'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 
 function Card(props) {
 	const navigate = useNavigate()
-	const [activeTab, setActiveTab] = useState('Active')
 
 	return (
 		<div className='font-bold pb-12'>

@@ -1,15 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import Button from '../../../components/FARMER/button'
-import { useState } from 'react'
-import EmptyList from '../../../images/emptyList.svg'
-import logo from '../../../images/logo.png'
 import { ImLocation } from 'react-icons/im'
 import { FiEdit } from 'react-icons/fi'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 
 function AddressDetails(props) {
 	const navigate = useNavigate()
-	const [activeTab, setActiveTab] = useState('Active')
 
 	return (
 		<div className='font-bold pb-12'>

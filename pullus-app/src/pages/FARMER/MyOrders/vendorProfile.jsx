@@ -1,14 +1,6 @@
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { FaPlay } from 'react-icons/fa'
 import { AiFillStar } from 'react-icons/ai'
 
-import { Avatar } from 'flowbite-react'
-
-import logo from '../../../images/logo.png'
-
 function VendorProfile(props) {
-	const navigate = useNavigate()
 
 	return (
 		<div className='font-bold pb-12 px-20'>

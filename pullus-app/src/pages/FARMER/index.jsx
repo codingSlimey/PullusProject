@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { useLocation, Link, Route, Routes, useNavigate, NavLink } from 'react-router-dom'
+import {  Route, Routes,  NavLink } from 'react-router-dom'
 import { Tabs } from '../../components/FARMER/tabs'
 
 import MyCycle from './CycleManagement/myCycle'

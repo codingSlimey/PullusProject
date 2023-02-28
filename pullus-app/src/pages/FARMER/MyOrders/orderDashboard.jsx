@@ -8,6 +8,10 @@ function OrderDasboard(props) {
 	const navigate = useNavigate()
 	const [activeTab, setActiveTab] = useState('Active')
 
+	const tabs = [
+		'Active', 'Completed'
+	]
+
 	return (
 		<div className='font-bold pb-12'>
 			<div className='grid place-items-center gap-10 mt-12'>
@@ -26,7 +30,7 @@ function OrderDasboard(props) {
 				</div>
 
 				<div className='flex'>
-					{[...Array('Active', 'Completed')].map((item) => {
+					{tabs.map((item) => {
 						return (
 							<span
 								onClick={() => setActiveTab(item)}
