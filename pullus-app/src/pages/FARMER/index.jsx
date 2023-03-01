@@ -22,6 +22,9 @@ import Card from './Settings/card'
 import AddCard from './Settings/addCard'
 import Security from './Settings/security'
 
+// E-wallet imports
+import FarmerWallet from './MyEwallet/FarmerWallet'
+
 function Farmer() {
 	// const location = useLocation()
 	// const navigate = useNavigate()
@@ -139,6 +142,11 @@ function Farmer() {
 				<Route
 					path='/settings/security'
 					element={<Security />}
+				/>
+				{/* E-wallet route */}
+				<Route
+					path='/my-e-wallet'
+					element={<FarmerWallet />}
 				/>
 			</Routes>
 		</div>

@@ -22,8 +22,14 @@ import Cart from './pages/CART/cart';
 import SelectVendor from './pages/CART/selectVendor';
 import Checkout from './pages/CART/checkout';
 
+// wallet
+import TopUpWallet from "./pages/FARMER/MyEwallet/TopUpWallet";
+import PaymentMethod from "./pages/FARMER/MyEwallet/PaymentMethod";
+
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import EnterPin from "./pages/FARMER/MyEwallet/EnterPin";
 
 function App() {
 
@@ -178,6 +184,10 @@ function App() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/select-vendor' element={<SelectVendor />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='top-up-wallet' element={<TopUpWallet />} />
+        <Route path="/payment-method" element={<PaymentMethod />} />
+        <Route path="/enter-pin" element={<EnterPin />} />
+
       </Routes>
     </main>
   );

@@ -24,7 +24,7 @@ function OrderDasboard(props) {
 					<Button
 						title={'Search'}
 						icon={false}
-						color={'primary'}
+						color={'fade'}
 						action={() => null}
 					/>
 				</div>
