@@ -4,8 +4,21 @@ import Input from '../../../components/FARMER/Input'
 import {FaPaypal} from "react-icons/fa"
 import {FaCcMastercard} from "react-icons/fa"
 import Button from "../../../components/FARMER/button";
+import EnterPin from './EnterPin'
+import TopUpWallet from './TopUpWallet'
+import OrderSucessModal from './OrderSucess'
 
 function PaymentMethod() {
+  const [display, setDisplay] = React.useState("first")
+  const second = () => {
+    setDisplay("second")
+  }
+  const third = () => {
+    setDisplay("third")
+  }
+  const fourth = () => {
+    setDisplay("fourth")
+  }
   const navigate = useNavigate()
   const data= [
     {title: 'Paystack', 
@@ -22,9 +35,12 @@ function PaymentMethod() {
   }
   ]
   return (
-    <div>
-      <div className="py-10 px-15">
-        <h1 className="text-primary font-bold text-start mx-20 text-2xl">
+    
+    <div className='my-20 mx-auto rounded-xl w-1/2 h-auto py-10 bg-white '  >
+      {display === "second" && (
+        <div>
+          <div>
+        <h1 className="text-primary font-bold text-2xl">
           Top up Wallet{" "}
         </h1>
         <hr />
@@ -33,7 +49,7 @@ function PaymentMethod() {
         <p className="text-primary py-5"> Select the top up method you want to use </p> 
        {data.map((item, index) => {
         return (
-        <div key={index} className=' shadow-xl bg-[#fff] border-none w-1/4 flex items-center my-4 justify-between rounded-full px-5' >
+        <div key={index} className=' shadow-xl bg-[#fff] border-none w-1/2 flex items-center my-4 justify-between rounded-full px-5' >
             <label htmlFor="paystack" className="mb-3 flex items-center gap-2 text-primary"> {item.icon}  {item.title} </label>
             <input type='radio' name='paystack' className='text-primary' />
         </div>
@@ -43,10 +59,28 @@ function PaymentMethod() {
       <Button
         title=" Continue "
         color={`fade`}
-        action={()=> navigate('/enter-pin')}
+        action={third}
         />
       </div>
       
+        </div>
+      )}
+      { display === "third" &&
+      <div>
+      <EnterPin action={fourth}/>
+      </div>
+      }
+      {display === 'first' &&
+      <div>
+        <TopUpWallet action={second} />
+        </div>
+      }
+      {
+        display === 'fourth' &&
+        <div>      
+        <OrderSucessModal action={second} />
+          </div>
+      }
     </div>
   )
 }

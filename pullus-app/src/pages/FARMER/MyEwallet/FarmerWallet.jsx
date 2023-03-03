@@ -6,10 +6,14 @@ import folder from '../../../images/folder.svg'
 import {BsArrowDownSquareFill} from 'react-icons/bs'
 import {BsArrowUpSquareFill }from 'react-icons/bs'
 import Button from '../../../components/FARMER/button'
-import { useNavigate } from 'react-router-dom'
+import Emodal from '../../../modal/EModal'
+import PaymentMethod from './PaymentMethod'
 
 function FarmerWallet() {
-    const navigate = useNavigate()
+    const [showModal, setShowModal] = React.useState(false) 
+    const handleModal = () => {
+        setShowModal(!showModal)
+    }
   return (
     <div>
     <div className=' mx-auto w-1/2 relative' >
@@ -59,12 +63,15 @@ function FarmerWallet() {
              </div>
              
         </div>
-        <div className='flex my-20 mx-auto justify-center ' > 
+        <div className='flex my-20 mx-auto justify-center '> 
+      <div className={` z-10 fixed bg-modal left-0 top-0 h-full w-full ${showModal ? " ": "hidden" } `} >
+            <Emodal  modalProps={<PaymentMethod/>} />
+        </div>
         <Button
 					title={'Top Up Wallet'}
 					icon={false}
 					color={'fade'}
-					action={() => navigate('/top-up-wallet')}
+					action={handleModal}
 				/>
         </div>
      </div>

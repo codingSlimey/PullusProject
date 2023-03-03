@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from "../../../components/FARMER/button";
 
-function EnterPin() {
+function EnterPin(props) {
     const [input, setInput]= useState(Array(4).fill(null));
     const [isTyped , setIstyped]= useState(false)
     const handleChange = (e, index)=>{
@@ -21,8 +21,8 @@ function EnterPin() {
       };
   return (
     <div>
-        <div className="py-10 px-15">
-        <h1 className="text-primary font-bold text-start mx-20 text-2xl">
+         <div>
+        <h1 className="text-primary font-bold text-2xl">
           Enter Pin{" "}
         </h1>
         <hr />
@@ -37,11 +37,11 @@ function EnterPin() {
             })} 
         </div>
          </div>
-         <div> 
+         <div className='flex justify-center  my-20' > 
          <Button
         title=" Continue "
         color={`fade`}
-        // action={()=> navigate('/enter-pin')}
+        action={props.action}
         />
            </div>
     </div>

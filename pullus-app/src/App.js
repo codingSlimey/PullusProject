@@ -186,8 +186,7 @@ function App() {
         <Route path='/checkout' element={<Checkout />} />
         <Route path='top-up-wallet' element={<TopUpWallet />} />
         <Route path="/payment-method" element={<PaymentMethod />} />
-        <Route path="/enter-pin" element={<EnterPin />} />
-
+        <Route path="/enter-pin" element={<EnterPin />} /> 
       </Routes>
     </main>
   );

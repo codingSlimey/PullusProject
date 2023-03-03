@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../../../components/FARMER/button";
 
-function TopUpWallet() {
-    const navigate = useNavigate()
+function TopUpWallet(props) {
   const amt = [
     { id: 1, amount: "N1,000" },
     { id: 2, amount: "N2,000" },
@@ -22,9 +20,9 @@ function TopUpWallet() {
   };
   return (
     <div>
-      <div className="py-10 px-15">
-        <h1 className="text-primary font-bold text-start mx-20 text-2xl">
-          Top up Wallet{" "}
+        <div>
+        <h1 className="text-primary font-bold text-2xl">
+          Top Up wallet{" "}
         </h1>
         <hr />
       </div>
@@ -37,10 +35,10 @@ function TopUpWallet() {
           className="text-primary font-bold text-xl text-center border border-primary rounded-xl py-5"
         />
       </div>
-      <div className="grid  mx-auto my-10 grid-cols-3 w-1/3" >
+      <div className="grid  mx-auto my-5 grid-cols-3 w-[60%]" >
         {amt.map((data) => {
           return (
-            <div key={data.id} className="items-center gap-5 py-5">
+            <div key={data.id} className="items-center gap-5 py-2">
               <input
                 type="button"
                 name="amount"
@@ -56,7 +54,7 @@ function TopUpWallet() {
       <Button
         title=" Continue "
         color={`fade`}
-        action={()=> navigate('/payment-method')}
+        action={ props.action}
         />
       </div>
       

@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../FOOTER/Footer'
 import Navbar from '../NAVBAR/Navbar'
 import styles from './styles.module.css'
+import { DataContext } from '../../DataContext/DataContext'
 
-export default function BioData({ func }) {
+export default function BioData() {
+    const {getBiodata } = React.useContext(DataContext)
 
     const navigate = useNavigate('')
     const [biodata, setBiodata] = useState({firstName: '', middleName: '', email: '', phoneNumber: '', nin: '' });
 
     useEffect(() => {
-        func(biodata)
+        getBiodata(biodata);
     }, [biodata])
 
     const handleChange = (event) => {
