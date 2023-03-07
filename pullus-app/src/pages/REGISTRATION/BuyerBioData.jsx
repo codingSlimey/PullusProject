@@ -1,6 +1,6 @@
 import React from 'react'
-import Input from '../components/FARMER/Input'
-import Button from '../components/FARMER/button'
+import Input from '../../components/FARMER/Input'
+import Button from '../../components/FARMER/button'
 import { useNavigate } from 'react-router-dom'
 
 function BuyerBioData() {

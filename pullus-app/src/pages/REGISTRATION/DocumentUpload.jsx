@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../components/FARMER/button'
+import Button from '../../components/FARMER/button'
 
 function DocumentUpload() {
 	return (

@@ -28,15 +28,15 @@ import TopUpWallet from "./pages/FARMER/MyEwallet/TopUpWallet";
 import PaymentMethod from "./pages/FARMER/MyEwallet/PaymentMethod";
 
 //Buyers
-import BuyerBioData from "./REGISTRATION/BuyerBioData";
-import BuyerAdress from "./REGISTRATION/BuyerAdress";
-import BusinessInfo from "./REGISTRATION/BusinessInfo";
+import BuyerBioData from "./pages/REGISTRATION/BuyerBioData";
+import BuyerAdress from "./pages/REGISTRATION/BuyerAdress";
+import BusinessInfo from "./pages/REGISTRATION/BusinessInfo";
 
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import EnterPin from "./pages/FARMER/MyEwallet/EnterPin";
-import DocumentUpload from "./REGISTRATION/DocumentUpload";
+import DocumentUpload from "./pages/REGISTRATION/DocumentUpload";
 
 function App() {
 
