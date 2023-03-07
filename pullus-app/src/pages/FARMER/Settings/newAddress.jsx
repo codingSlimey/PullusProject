@@ -16,7 +16,7 @@ function NewAddress(props) {
 				<div className='text-primary  my-6'>New Address</div>
 			</div>
 
-			<div className='flex gap-14'>
+			<div className='flex flex-col md:flex-row gap-14'>
 				<div className='grid  flex-1 gap-y-4'>
 					<div className='grid'>
 						<label className='mb-3 text-primary'>Street Name</label>

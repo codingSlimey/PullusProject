@@ -17,7 +17,7 @@ function AddData(props) {
 				<div className='text-primary  my-6'>Add Data</div>
 			</div>
 
-			<div className='flex gap-16 mt-12'>
+			<div className='flex flex-col md:flex-row gap-16 mt-12'>
 				<div className='flex-1'>
 					<div className='grid'>
 						<Input type='text' placeholder='12.08.2022' label='Date of record' />

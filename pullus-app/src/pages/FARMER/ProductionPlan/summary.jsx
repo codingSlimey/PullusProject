@@ -18,7 +18,7 @@ function Summary(props) {
 				<div className='text-primary  my-6'>Summary</div>
 			</div>
 
-			<div className='flex gap-16 mt-12'>
+			<div className='flex flex-col md:flex-row items-center gap-16 mt-12'>
 				<div className='flex-1'>
 					<div className='flex gap-2 text-primary mb-3'>
 						<span className='font-bold'>Start Date: </span>

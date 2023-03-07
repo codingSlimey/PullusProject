@@ -19,7 +19,7 @@ function OrderDasboard(props) {
 					<input
 						type='text'
 						placeholder='Search'
-						className='h-12 w-[350px] border-none bg-grey rounded-xl shadow-lg placeholder:text-primary placeholder:font-light'
+						className='h-12 w-10/12  md:w-[350px] border-none bg-grey rounded-xl shadow-lg placeholder:text-primary placeholder:font-light'
 					/>
 					<Button
 						title={'Search'}
@@ -64,7 +64,7 @@ function OrderDasboard(props) {
 						</div>
 					</div>
 				)}
-				<div className='w-[40%]'>
+				<div className='w-full md:w-[40%]'>
 					{activeTab === 'Completed' && (
 						<>
 							{[...Array(3)].map((item, index) => {
@@ -75,23 +75,23 @@ function OrderDasboard(props) {
 									>
 										<div className='flex gap-3 items-center font-normal text-primary '>
 											<img
-												className='h-20 w-20 rounded-2xl p-2 bg-grey'
+												className='md:h-20 md:w-20 h-14 w-14 rounded-2xl p-2 bg-grey'
 												src={logo}
 												alt=''
 											/>
 											<div className='text-primary grid gap-1 font-light flex-auto'>
 												<div className='font-bold'>Day Old Chicks</div>
-												<div className='flex items-center gap-3'>
+												<div className='flex text-xs md:text-base items-center gap-3'>
 													<span>Broilers</span>
 													<span>|</span>
 													<span>Qty = 500</span>
 												</div>
 												<div>
-													<span className='inline px-4 py-1 rounded-2xl text-xs bg-grey'>
+													<span className=' flex w-24  items-start justify-start px-4 py-1 rounded-2xl text-xs bg-grey'>
 														In delivery
 													</span>
 												</div>
-												<div className='flex items-center justify-between'>
+												<div className='flex text-xs items-center justify-between'>
 													<span className='font-bold'>N100,000</span>
 													<button
 														onClick={() => navigate('/farmer/track-order')}

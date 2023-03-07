@@ -21,7 +21,7 @@ function CreateProductionPlan(props) {
 				<div className='text-primary  my-6'>Create a Production Plan</div>
 			</div>
 
-			<div className='flex gap-16 mt-12'>
+			<div className='flex flex-col md:flex-row gap-16 mt-12'>
 				<div className='flex-1'>
 					<div className='grid'>
 						<Select name="poultry" label='Poultry Type' id='countries'>
@@ -99,7 +99,7 @@ function CreateProductionPlan(props) {
 							</label>
 						</div>
 
-						<div className='flex items-center gap-2 h-14 px-6 mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none'>
+						<div className='flex  items-center gap-2 h-14 px-6 mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none'>
 							<Checkbox id='remember' />
 							<label className='text-primary font-normal'>Loan</label>
 						</div>

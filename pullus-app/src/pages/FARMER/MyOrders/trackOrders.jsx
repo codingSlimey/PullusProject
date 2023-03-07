@@ -11,11 +11,11 @@ function TrackOrder(props) {
 	const navigate = useNavigate()
 
 	return (
-		<div className='font-bold pb-12 px-20'>
+		<div className='font-bold px-1 md:pb-12 md:px-20'>
 			<div className='text-primary  my-6'>Track Order</div>
-			<div className='flex  gap-36 mt-12 '>
-				<div className='flex-1 items-center gap-4'>
-					<div className='p-4  rounded-xl bg-white shadow-xl mb-4 '>
+			<div className='flex flex-col lg:flex-row gap-10 lg:gap-36 mt-12 '>
+				<div className='flex-1 items-center md:gap-4'>
+					<div className='p-4 rounded-xl bg-white shadow-xl md:mb-4 '>
 						<div className='flex gap-3 items-center font-normal text-primary '>
 							<img
 								className='h-20 w-20 rounded-2xl p-2 bg-grey'

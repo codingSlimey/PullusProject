@@ -6,7 +6,7 @@ function ProductionSchedule(props) {
 	const navigate = useNavigate()
 
 	return (
-		<div className='font-bold pb-12'>
+		<div className='font-bold pb-12 '>
 			<div className='flex items-center'>
 				<button
 					onClick={() => navigate('/farmer/cycle-management')}
@@ -34,13 +34,13 @@ function ProductionSchedule(props) {
 				</div>
 
 				<div className=''>
-					<div className='relative overflow-x-auto'>
+					<div className='md:relative md:overflow-x-auto '>
 						<table className='w-full text-sm text-left  border-collapse border border-slate-400'>
 							<thead className='text-xs  uppercase bg-primary text-[#fff] border border-[white]'>
 								<tr className=''>
 									<th
 										scope='col'
-										className='px-6 py-3'
+										className=' px-2 md:px-6 md:py-3'
 									>
 										Day
 									</th>

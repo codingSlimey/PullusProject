@@ -54,11 +54,10 @@ function SettingsDashboard(props) {
 			component: <IoHelpCircleSharp className='h-5 w-5' />,
 		},
 	]
-
 	return (
-		<div className='font-bold py-12 px-20'>
+		<div className='font-bold py-5 px-5 lg:py-12 lg:px-20'>
 			{/* <div className='grid  place-items-center mt-12 '> */}
-			<div className='flex justify-center items-center gap-36'>
+			<div className='flex flex-col lg:flex-row justify-center items-center gap-10  md:gap-36'>
 				<div>
 					<img
 						src='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
@@ -71,7 +70,7 @@ function SettingsDashboard(props) {
 					</div>
 				</div>
 
-				<div className='w-[40%]'>
+				<div className=' w-full lg:w-[40%]'>
 					{links.map((item, index) => {
 						return (
 							<Link

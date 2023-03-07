@@ -17,7 +17,7 @@ function Card(props) {
 				<div className='text-primary  my-6'>Cards</div>
 			</div>
 			<div className='grid place-items-center gap-10 mt-12'>
-				<div className='w-[40%]'>
+				<div className='md:w-[40%]'>
 					<>
 						{[...Array(3)].map((item, index) => {
 							return (
@@ -30,11 +30,11 @@ function Card(props) {
 											<GrCreditCard className='h-6 w-6 ' />
 											<div className='text-primary grid gap-1 font-light flex-auto'>
 												<div className='font-bold gap-6 flex items-center'>
-													<p>Paystack</p>
+													<p>Paystack   </p>
 												</div>
 											</div>
 										</div>
-										<div>Connected</div>
+										<div className='px-3' >Connected</div>
 									</div>
 								</div>
 							)
@@ -44,7 +44,7 @@ function Card(props) {
 				<div className='mt-12 flex justify-center gap-16 '>
 					<button
 						onClick={() => navigate('add-card')}
-						className={`w-[fit] bg-primary text-[#fff] py-4 px-36 flex  items-center rounded-full shadow-xl  my-auto`}
+						className={`w-[fit] bg-primary text-[#fff] py-4 px-10 md:px-36 flex  items-center rounded-full shadow-xl  my-auto`}
 					>
 						Add a New Card
 					</button>

@@ -18,7 +18,7 @@ function AddressDetails(props) {
 				<div className='text-primary  my-6'>Address Details</div>
 			</div>
 			<div className='grid place-items-center gap-10 mt-12'>
-				<div className='w-[50%]'>
+				<div className='md:w-[50%]'>
 					<>
 						{[...Array(3)].map((item, index) => {
 							return (
@@ -26,7 +26,7 @@ function AddressDetails(props) {
 									key={index}
 									className='p-3  rounded-xl bg-white shadow-xl mb-6 '
 								>
-									<div className='flex justify-between pr-8 items-center font-normal text-primary '>
+									<div className='flex mx-auto md:justify-between md:pr-8 items-center font-normal text-primary '>
 										<div className='flex gap-3 items-center'>
 											<div className='p-1 bg-primary rounded-full border-4 border-grey text-[#fff]'>
 												<ImLocation className='h-5 w-5' />
@@ -40,7 +40,7 @@ function AddressDetails(props) {
 														</span>
 													</div>
 												</div>
-												<div className=''>
+												<div className='text-xs md:text-base'>
 													67 Balogun Street, Off Ogbagi road
 												</div>
 											</div>
@@ -56,7 +56,7 @@ function AddressDetails(props) {
 				<div className='mt-12 flex justify-center gap-16 '>
 					<button
 						onClick={() => navigate('new-address')}
-						className={`w-[fit] bg-primary text-[#fff] py-4 px-36 flex  items-center rounded-full shadow-xl  my-auto`}
+						className={`w-[fit] bg-primary text-[#fff] py-4 px-10 md:px-36 flex  items-center rounded-full shadow-xl  my-auto`}
 					>
 						Add Address
 					</button>

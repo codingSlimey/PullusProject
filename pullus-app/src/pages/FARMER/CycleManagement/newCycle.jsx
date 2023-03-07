@@ -40,8 +40,8 @@ function NewCycle(props) {
 			</div>
 
 			<div className='flex gap-16 mt-12'>
-				<div className='flex-1'>
-					<div className='grid'>
+				<div className='   md:flex-1'>
+					<div className='flex flex-col md:grid'>
 						{inputData.map((data, i)=> {
 							return(
 								<Input type={data.type} placeholder={data.placeholder} label={data.label}/>

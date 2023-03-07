@@ -21,8 +21,8 @@ function Security(props) {
 			</div>
 
 			<div className='flex gap-14 mt-8'>
-				<div className='flex-1 grid gap-6 text-primary'>
-					<div className='flex justify-between font-normal'>
+				<div className='md:flex-1 grid gap-6 text-primary'>
+					<div className='flex md:w-60 justify-between font-normal'>
 						<p>Rememeber Me</p>
 						<ToggleSwitch
 							checked={true}
@@ -30,7 +30,7 @@ function Security(props) {
 							className='text-primary'
 						/>
 					</div>
-					<div className='flex justify-between font-light'>
+					<div className='flex md:w-60 justify-between font-light'>
 						<p>Biometric ID</p>
 						<ToggleSwitch
 							checked={true}
@@ -38,7 +38,7 @@ function Security(props) {
 							className='text-primary'
 						/>
 					</div>
-					<div className='flex justify-between font-light'>
+					<div className='flex md:w-60 justify-between font-light'>
 						<p>Google Authentication</p>
 						<BsChevronRight className='h-6 w-6' />
 					</div>
@@ -50,13 +50,13 @@ function Security(props) {
 			<div className='mt-16 grid justify-center gap-8 '>
 				<button
 					onClick={() => navigate('/farmer/settings')}
-					className={`w-[fit] bg-{#fff} text-primary py-4 px-36 flex  items-center rounded-full shadow-xl  my-auto`}
+					className={`w-[fit] bg-{#fff} text-primary py-4 px-10 md:px-36 flex  items-center rounded-full shadow-xl  my-auto`}
 				>
 					Change PIN
 				</button>
 				<button
 					onClick={() => navigate('/farmer/settings')}
-					className={`w-[fit] bg-primary text-[#fff] py-4 px-36 flex  items-center rounded-full shadow-xl  my-auto`}
+					className={`w-[fit] bg-primary text-[#fff] py-4 px-10 md:px-36 flex  items-center rounded-full shadow-xl  my-auto`}
 				>
 					Change Password
 				</button>

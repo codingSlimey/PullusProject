@@ -16,7 +16,7 @@ function EditProfile(props) {
 				<div className='text-primary  my-6'>Edit profile</div>
 			</div>
 
-			<div className='grid grid-cols-2 gap-x-16 gap-y-4 mt-12'>
+			<div className='md:grid md:grid-cols-2 flex flex-col  gap-x-16 gap-y-4 mt-12'>
 				<div className='grid'>
 					{/* <label className='mb-3 text-primary'>Poultry Type</label> */}
 					<input

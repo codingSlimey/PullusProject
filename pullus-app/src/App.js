@@ -13,6 +13,7 @@ import ServiceToProvide from "./components/VENDOR/ServiceToProvide";
 import BioDataBusinessInfo from "./components/VENDOR/BioDataBusinessInfo";
 import BioDataDocUpload from "./components/VENDOR/BioDataDocUpload";
 
+
 //Farmer//
 import Farmer from './pages/FARMER';
 
@@ -26,10 +27,16 @@ import Checkout from './pages/CART/checkout';
 import TopUpWallet from "./pages/FARMER/MyEwallet/TopUpWallet";
 import PaymentMethod from "./pages/FARMER/MyEwallet/PaymentMethod";
 
+//Buyers
+import BuyerBioData from "./REGISTRATION/BuyerBioData";
+import BuyerAdress from "./REGISTRATION/BuyerAdress";
+import BusinessInfo from "./REGISTRATION/BusinessInfo";
+
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import EnterPin from "./pages/FARMER/MyEwallet/EnterPin";
+import DocumentUpload from "./REGISTRATION/DocumentUpload";
 
 function App() {
 
@@ -187,7 +194,12 @@ function App() {
         <Route path='top-up-wallet' element={<TopUpWallet />} />
         <Route path="/payment-method" element={<PaymentMethod />} />
         <Route path="/enter-pin" element={<EnterPin />} /> 
-      </Routes>
+        <Route path="/buyer/biodata" element={<BuyerBioData/>} />
+        <Route path="/buyer/address" element={<BuyerAdress/>}/>
+        <Route path="/buyer/business-info" element={<BusinessInfo/>}/>
+        <Route path="/buyer/document-upload" element={<DocumentUpload/>}/>
+
+             </Routes>
     </main>
   );
 }

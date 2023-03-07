@@ -33,8 +33,8 @@ function Farmer() {
 	const tabs = Tabs
 
 	return (
-		<div className='px-40 py-8 relative'>
-			<nav className='sticky bg-white w-full top-0 pt-4 z-10 left-0'>
+		<div className='px-5 md:px-40 md:py-8 md:relative'>
+			<nav className='md:sticky md:bg-white md:w-full top-0 pt-4 z-10 left-0 hidden md:flex'>
 				<ul className='mx-none'>
 					<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
 						{tabs.map((item, index) => {

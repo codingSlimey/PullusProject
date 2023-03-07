@@ -16,7 +16,7 @@ function AddCard(props) {
 				<div className='text-primary  my-6'>Add New Card</div>
 			</div>
 
-			<div className='flex gap-14 mt-8'>
+			<div className='flex flex-col md:flex-row gap-14 mt-8'>
 				<div className='flex-1'>
 					<div className='h-[80%] rounded-xl w-full bg-grey'></div>
 				</div>
