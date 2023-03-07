@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom'
 function BusinessInfo() {
     const navigate = useNavigate()
   return (
-    <div className='w-1/2 my-10 mx-auto' >
-      <h1 className='text-primary font-bold text-xl' >Business Information </h1>
+    <div className='py-10 font-bold h-full flex justify-center' >
+      <div className="m-auto max-w-[800px] px-10">
+
+      <h1 className='text-primary my-5 font-bold text-xl' >Business Information </h1>
       <div>
         <Input type='text' placeholder='Business Name:'/>
         <Input type='date' placeholder='Registered Date:'/>
@@ -16,6 +18,7 @@ function BusinessInfo() {
       </div>
       <div className='flex items-center justify-center ' >
         <Button title='Continue' icon={true} color={`fade`} action={()=> navigate('/buyer/document-upload')}/>
+      </div>
       </div>
     </div>
   )

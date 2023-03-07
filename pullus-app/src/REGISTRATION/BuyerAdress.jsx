@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom'
 function BuyerAdress() {
     const navigate= useNavigate()
   return (
-    <div className='my-10 w-1/2 mx-auto'>
-        <h1 className='font-bold text-primary text-xl' >Address</h1>
+    <div className='py-10 font-bold h-full flex justify-center'>
+      <div className="m-auto max-w-[800px] px-10">
+        <h1 className='font-bold my-5 text-primary text-xl' >Address</h1>
         <div>
         <Input type="text" placeholder='Country: select country'/>
         <Input type="text" placeholder='State: select state'/>
@@ -26,6 +27,8 @@ function BuyerAdress() {
         <div className='flex justify-center my-10 items-center'>
         <Button title='Continue' icon={true} color={`fade`} action={()=> navigate('/buyer/business-info')} />
         </div>
+
+      </div>
     </div>
   )
 }
