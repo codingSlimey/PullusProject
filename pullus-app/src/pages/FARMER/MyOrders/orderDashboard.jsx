@@ -64,7 +64,7 @@ function OrderDasboard(props) {
 						</div>
 					</div>
 				)}
-				<div className='w-full md:w-[40%]'>
+				<div className='w-full lg:w-[40%]'>
 					{activeTab === 'Completed' && (
 						<>
 							{[...Array(3)].map((item, index) => {

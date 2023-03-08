@@ -11,7 +11,7 @@ function TrackOrder(props) {
 	const navigate = useNavigate()
 
 	return (
-		<div className='font-bold px-1 md:pb-12 md:px-20'>
+		<div className='px-3 font-bold  md:pb-12 md:px-20'>
 			<div className='text-primary  my-6'>Track Order</div>
 			<div className='flex flex-col lg:flex-row gap-10 lg:gap-36 mt-12 '>
 				<div className='flex-1 items-center md:gap-4'>

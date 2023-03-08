@@ -1,5 +1,8 @@
 import {  Route, Routes,  NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
 import { Tabs } from '../../components/FARMER/tabs'
+import {GiHamburgerMenu } from "react-icons/gi"
+import MobileSideBar from './MobileSideBar'
 
 import MyCycle from './CycleManagement/myCycle'
 import AddData from './CycleManagement/addData'
@@ -26,6 +29,10 @@ import Security from './Settings/security'
 import FarmerWallet from './MyEwallet/FarmerWallet'
 
 function Farmer() {
+	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
+	const toggleMobileSideBar = () => {
+		setShowMobileSideBar(!showMobileSideBar)
+	}
 	// const location = useLocation()
 	// const navigate = useNavigate()
 	// const [currentTab, setCurrentTab] = useState('cycle-management')
@@ -33,9 +40,9 @@ function Farmer() {
 	const tabs = Tabs
 
 	return (
-		<div className='px-5 md:px-40 md:py-8 md:relative'>
-			<nav className='md:sticky md:bg-white md:w-full top-0 pt-4 z-10 left-0 hidden md:flex'>
-				<ul className='mx-none'>
+		<div className=' py-3 md:px-40 md:py-8 w-full  max-w-full md:relative'>
+			<nav className=' hidden sticky bg-white md:w-full top-0 pt-4 z-10 left-0 md:flex'>
+				<ul className='mx-none hidden md:block'>
 					<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
 						{tabs.map((item, index) => {
 							return (
@@ -63,9 +70,15 @@ function Farmer() {
 							)
 						})}
 					</li>
+					
 				</ul>
+				
 				<hr className='my-12 border-[1.5px] rounded-full' />
 			</nav>
+			<div className='md:hidden translate-x-0 relative max-w-full' >
+					<GiHamburgerMenu onClick={toggleMobileSideBar} className='md:hidden  flex items-end ml-[90%] text-primary text-3xl' />
+					<MobileSideBar showMobileSideBar={showMobileSideBar} setShowMobileSideBar={setShowMobileSideBar} toggleMobileSideBar={toggleMobileSideBar} />
+					</div>
 
 			<Routes>
 				{/* Cylce management  */}

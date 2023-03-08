@@ -6,7 +6,7 @@ function AddData(props) {
 	const navigate = useNavigate()
 
 	return (
-		<div className='font-bold pb-12'>
+		<div className=' px-3 font-bold pb-12'>
 			<div className='flex items-center'>
 				<button
 					onClick={() => navigate('/farmer/cycle-management')}
