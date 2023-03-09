@@ -15,14 +15,16 @@ function RecentProduction(props) {
 
 	return (
 		<div className='font-bold md:pb-12'>
-			<div className='text-primary  my-6'>Recent Productions</div>
+			<div className='text-primary text-left my-6'>Recent Productions</div>
 
 			<div className='flex gap-16'>
 				<div className='flex  flex-col md:flex-1'>
 					<Accordion>
 						<Accordion.Panel>
 							<Accordion.Title>
-								<div className='text-primary w-[250px] md:w-auto  '>All time Productions (2)</div>
+								<div className='text-primary w-[250px] md:w-auto  '>
+									All time Productions (2)
+								</div>
 							</Accordion.Title>
 							<Accordion.Content>
 								{[...Array(2)].map((item, index) => {

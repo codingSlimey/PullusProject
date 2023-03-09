@@ -33,72 +33,66 @@ function ProductionSchedule(props) {
 					</div>
 				</div>
 
-				<div className=''>
-					<div className='md:relative md:overflow-x-auto '>
-						<table className='w-full text-sm text-left  border-collapse border border-slate-400'>
-							<thead className='text-xs  uppercase bg-primary text-[#fff] border border-[white]'>
-								<tr className=''>
-									<th
-										scope='col'
-										className=' px-2 md:px-6 md:py-3'
+				<div className='overflow-x-auto'>
+					<table className=' max-tablet:overflow-x-auto text-sm text-left  border-collapse border border-slate-400'>
+						<thead className='text-xs  uppercase bg-primary text-[#fff] border border-[white]'>
+							<tr className=''>
+								<th
+									scope='col'
+									className=' px-2 md:px-6 md:py-3'
+								>
+									Day
+								</th>
+								<th
+									scope='col'
+									className='px-6 py-3'
+								>
+									Week
+								</th>
+								<th
+									scope='col'
+									className='px-6 py-3'
+								>
+									Quantity
+								</th>
+								<th
+									scope='col'
+									className='px-6 py-3'
+								>
+									Activity
+								</th>
+								<th
+									scope='col'
+									className='px-6 py-3'
+								>
+									Routine
+								</th>
+								<th
+									scope='col'
+									className='px-6 py-3'
+								>
+									Description
+								</th>
+							</tr>
+						</thead>
+						<tbody className='bg-green'>
+							{[...Array(7)].map((item, index) => {
+								return (
+									<tr
+										key={index}
+										className=' border border-[white] text-[white]'
 									>
-										Day
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3'
-									>
-										Week
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3'
-									>
-										Quantity
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3'
-									>
-										Activity
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3'
-									>
-										Routine
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3'
-									>
-										Description
-									</th>
-								</tr>
-							</thead>
-							<tbody className='bg-green'>
-								{[...Array(7)].map((item, index) => {
-									return (
-										<tr
-											key={index}
-											className=' border border-[white] text-[white]'
-										>
-											<td
-												className='px-6 py-4 font-medium  border '
-											>
-												1
-											</td>
-											<td className='border px-6 py-4'>1</td>
-											<td className='border px-6 py-4'>990</td>
-											<td className='border px-6 py-4'>Vaccine</td>
-											<td className='border px-6 py-4'>NDV (Hitchner)</td>
-											<td className='border px-6 py-4'>Done at the hatchery</td>
-										</tr>
-									)
-								})}
-							</tbody>
-						</table>
-					</div>
+										<td className='px-6 py-4 font-medium  border '>1</td>
+										<td className='border px-6 py-4'>1</td>
+										<td className='border px-6 py-4'>990</td>
+										<td className='border px-6 py-4'>Vaccine</td>
+										<td className='border px-6 py-4'>NDV (Hitchner)</td>
+										<td className='border px-6 py-4'>Done at the hatchery</td>
+									</tr>
+								)
+							})}
+						</tbody>
+					</table>
 				</div>
 			</div>
 
