@@ -32,10 +32,10 @@ function TopUpWallet(props) {
           type="text"
           onChange={handleChange}
           value={`${amount}`}
-          className="text-primary font-bold text-xl text-center border border-primary rounded-xl py-5"
+          className="text-primary font-bold md:text-xl text-center border border-primary rounded-xl py-5"
         />
       </div>
-      <div className="grid  mx-auto my-5 grid-cols-3 w-[60%]" >
+      <div className="grid  mx-auto my-2 md:my-5 grid-cols-3 w-[80%] md:w-[60%]" >
         {amt.map((data) => {
           return (
             <div key={data.id} className="items-center gap-5 py-2">
@@ -44,7 +44,7 @@ function TopUpWallet(props) {
                 name="amount"
                 value={data.amount}
                 onClick={() => setAmount(data.amount)}
-                className="text-primary rounded-full px-6 font-bold text-lg text-center border border-primary  py-5"
+                className="text-primary rounded-full px-3 md:px-6 font-bold text-xs md:text-lg text-center border border-primary  py-5"
               />
             </div>
           );

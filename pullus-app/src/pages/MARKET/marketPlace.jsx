@@ -4,8 +4,12 @@ import '../../App.css'
 import bird from '../../images/bird.svg'
 import { BsStarHalf } from 'react-icons/bs'
 import { Pagination } from 'flowbite-react'
+import useScreenWidth from '../../hooks/screenWidth'
+
+import MobileMarketPlace from './MobileMarketPlace'
 
 function MarketPlace(props) {
+	const screenWidth = useScreenWidth()
 	
 	const sidebarCategories = [
 		'Feeds',
@@ -17,7 +21,7 @@ function MarketPlace(props) {
 	]
 
 	return (
-		<div className='font-bold pb-12'>
+		<div className='font-bold px-4  md:pb-12'>
 			<div className='flex items-center my-4 justify-center gap-4'>
 				<input
 					type='text'
@@ -30,6 +34,8 @@ function MarketPlace(props) {
 					color={'fade'}
 				/>
 			</div>
+			{screenWidth > 800 ?  (
+
 			<div className='flex px-16  gap-14 mt-12'>
 				<div className=' w-[18vw]'>
 					<div className='text-primary font-bold text-left text-2xl mb-6'>
@@ -155,6 +161,9 @@ function MarketPlace(props) {
 					</div>
 				</div>
 			</div>
+			) : ( 
+				<MobileMarketPlace />
+			)}
 		</div>
 	)
 }

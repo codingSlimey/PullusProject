@@ -10,6 +10,14 @@ html, body, #root, .App{
   height: 40vmin;
   pointer-events: none;
 }
+.hide-scrollbars {
+  -ms-overflow-style: none; /* For Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+.hide-scrollbars::-webkit-scrollbar {
+  /* For webkit browsers */
+  display: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

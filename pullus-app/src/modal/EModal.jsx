@@ -1,10 +1,10 @@
 import React from 'react'
 
-function EModal(props) {
+function EModal({modalProps}) {
   return (
     <div>
         <div>
-            {props.modalProps}
+            {modalProps}
         </div>
     </div>
   )
