@@ -16,7 +16,7 @@ export default function MobileSideBar({
 
 	return (
 		<div
-			className={`fixed z-50 w-full h-screen  bg-black/30 top-0 left-0 transition duration-100  transform ${
+			className={`fixed z-50 w-full h-screen tablet:hidden bg-black/30 top-0 left-0 transition duration-100  transform ${
 				showMobileSideBar ? 'translate-x-0' : '-translate-x-full'
 			}`}
 			onClick={handleToggle}

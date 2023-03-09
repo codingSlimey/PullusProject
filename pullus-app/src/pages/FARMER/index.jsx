@@ -7,6 +7,7 @@ import MobileSideBar from './MobileSideBar'
 import MyCycle from './CycleManagement/myCycle'
 import AddData from './CycleManagement/addData'
 import NewCycle from './CycleManagement/newCycle'
+import MobileDetailsPage from './CycleManagement/mobileDetailsPage'
 
 import RecentProduction from './ProductionPlan/recentProductions'
 import CreateProductionPlan from './ProductionPlan/createProductionPlan'
@@ -29,7 +30,7 @@ import Security from './Settings/security'
 import FarmerWallet from './MyEwallet/FarmerWallet'
 
 function Farmer() {
-	const [showMobileSideBar, setShowMobileSideBar] = useState(true)
+	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
 	const toggleMobileSideBar = () => {
 		setShowMobileSideBar(!showMobileSideBar)
 	}
@@ -38,9 +39,9 @@ function Farmer() {
 
 	return (
 		<>
-			<div className=' py-3 px-10 lg:px-20 xl:px-40 tablet:py-8 w-full  max-w-full '>
-				<nav className='  sticky bg-white tablet:w-full top-0 pt-4 pb-3 z-10 left-0 flex'>
-					<div className='hidden'>
+			<div className=' py-3 px-6 mobile:px-10 lg:px-20 xl:px-40 tablet:py-8 w-full  max-w-full '>
+				<nav className='  sticky bg-white tablet:w-full top-0 pt-4 tablet:pb-3 z-10 left-0 hidden tablet:flex'>
+					<div className='hidden tablet:block'>
 						<ul className='mx-none hidden tablet:block'>
 							<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
 								{tabs.map((item, index) => {
@@ -64,12 +65,12 @@ function Farmer() {
 
 						<hr className='my-12 border-[1.5px] rounded-full' />
 					</div>
-					<MobileSideBar
-						showMobileSideBar={showMobileSideBar}
-						setShowMobileSideBar={setShowMobileSideBar}
-						toggleMobileSideBar={toggleMobileSideBar}
-					/>
 				</nav>
+				<MobileSideBar
+					showMobileSideBar={showMobileSideBar}
+					setShowMobileSideBar={setShowMobileSideBar}
+					toggleMobileSideBar={toggleMobileSideBar}
+				/>
 
 				<div className='tablet:hidden  w-full flex justify-end '>
 					<GiHamburgerMenu
@@ -83,6 +84,10 @@ function Farmer() {
 					<Route
 						path='/cycle-management/*'
 						element={<MyCycle />}
+					/>
+					<Route
+						path='/cycle-management/batch/detail'
+						element={<MobileDetailsPage />}
 					/>
 					<Route
 						path='/cycle-management/add-data'
