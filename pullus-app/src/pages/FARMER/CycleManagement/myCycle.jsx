@@ -1,37 +1,51 @@
 //flowbite
-import { Accordion,  Card } from 'flowbite-react'
+import { Card } from 'flowbite-react'
 
 //react-icons
 import { FaPlay, FaHeartbeat } from 'react-icons/fa'
 import { GiChicken } from 'react-icons/gi'
 import { IoAdd } from 'react-icons/io5'
+import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 
 //Image
-import logo from '../../../images/logo.png'
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import Analysis from './analysis'
-
-
+import SingleBatch from '../../../components/FARMER/cycleManagement/singleBatch'
 
 function MyCycle(props) {
 	const navigate = useNavigate()
 	const [activeTab, setActiveTab] = useState('cycle info')
 	const tabs = ['cycle info', 'analysis']
 
+	const cycles = [
+		{
+			title: 'Active Batches',
+		},
+		{
+			title: 'Closed Batches',
+		},
+	]
+
+	const [openIndex, setOpenIndex] = useState(0)
+
+	const toggleAccordion = (index) => {
+		setOpenIndex(openIndex === index ? null : index)
+	}
+
 	return (
 		<div className='font-bold pb-12'>
-			<div className='text-primary  my-6'>My Cycles</div>
+			<div className='text-primary text-left my-6'>My Cycles</div>
 
-			<div className='flex mb-8 font-bold'>
+			<div className='flex mb-8 font-bold max-tablet:hidden'>
 				{tabs.map((item, index) => {
 					return (
 						<div
 							key={index}
 							onClick={() => setActiveTab(item)}
-							className={`capitalize h-[70px] w-[180px] flex items-center justify-center ${
+							className={`capitalize h-[65px] w-[180px] flex items-center justify-center ${
 								activeTab === item
 									? 'bg-fade text-[#fff]'
 									: 'border-primary text-primary border'
@@ -46,53 +60,46 @@ function MyCycle(props) {
 			{activeTab === 'analysis' && <Analysis />}
 
 			{activeTab === 'cycle info' && (
-				<div className='flex gap-16'>
+				<div className='flex max-tablet:flex-col gap-12 text-left lg:gap-10 xl:gap-16'>
 					<div className='flex-1'>
-						<Accordion
-							collapseAll={true}
-							alwaysOpen={true}
-						>
-							<Accordion.Panel>
-								<Accordion.Title>
-									<div className='text-primary'>Active Cycles (2)</div>
-								</Accordion.Title>
-								<Accordion.Content>
-									{[...Array(2)].map((item, index) => {
-										return (
-											<Card
-												key={index}
-												className='py-0 my-4'
-											>
-												<div className='flex items-center font-normal text-primary gap-6'>
-													<img
-														className='h-8 w-8'
-														src={logo}
-														alt=''
-													/>
-													<span>Batch 1</span>
-													<span>|</span>
-													<span>1 weeks</span>
-													<span>|</span>
-													<span>Feed Type</span>
-												</div>
-											</Card>
-										)
-									})}
-								</Accordion.Content>
-							</Accordion.Panel>
-							<Accordion.Panel>
-								<Accordion.Title>
-									<div className='text-primary'>Closed Cycles (0)</div>
-								</Accordion.Title>
-								<Accordion.Content>
-									<p className='mb-2 text-gray-500 dark:text-gray-400'>
-										Flowbite is first conceptualized and designed using the
-										Figma software so everything you see in the library has a
-										design equivalent in our Figma file.
-									</p>
-								</Accordion.Content>
-							</Accordion.Panel>
-						</Accordion>
+						{cycles.map((item, index) => {
+							return (
+								<div
+									className={`mt-4  bg-white border border-primary/20 shadow-lg rounded-xl `}
+								>
+									<div
+										className={`flex rounded-lg items-center justify-between w-full px-5 py-3 focus:bg-white text-xl max-md:text-lg max-mobile:text-base font-medium text-left  ${
+											openIndex === index ? 'bg-primary/10' : 'bg-white'
+										}  `}
+										onClick={() => toggleAccordion(index)}
+									>
+										<span className='text-primary font-bold'>{item.title}</span>
+										<span
+											className={` ${
+												openIndex === index
+													? 'bg-primary text-white'
+													: 'bg-white text-primary '
+											} h-10 w-10 max-md:h-8 max-md:w-8 ml-4 max-xmd:ml-8 rounded-full  max-xmd:px-2 flex items-center justify-center `}
+										>
+											{openIndex === index ? (
+												<BsChevronDown />
+											) : (
+												<BsChevronRight />
+											)}
+										</span>
+									</div>
+									<div
+										className={` ${
+											openIndex === index ? 'block' : 'hidden'
+										} p-5 my-1 rounded-xl `}
+									>
+										{[...Array(2)].map((item, index) => {
+											return <SingleBatch />
+										})}
+									</div>
+								</div>
+							)
+						})}
 
 						<div className='mt-20'>
 							<button

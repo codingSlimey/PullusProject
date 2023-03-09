@@ -1,7 +1,7 @@
-import {  Route, Routes,  NavLink } from 'react-router-dom'
+import { Route, Routes, NavLink } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Tabs } from '../../components/FARMER/tabs'
-import {GiHamburgerMenu } from "react-icons/gi"
+import { GiHamburgerMenu } from 'react-icons/gi'
 import MobileSideBar from './MobileSideBar'
 
 import MyCycle from './CycleManagement/myCycle'
@@ -29,140 +29,139 @@ import Security from './Settings/security'
 import FarmerWallet from './MyEwallet/FarmerWallet'
 
 function Farmer() {
-	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
+	const [showMobileSideBar, setShowMobileSideBar] = useState(true)
 	const toggleMobileSideBar = () => {
 		setShowMobileSideBar(!showMobileSideBar)
 	}
-	// const location = useLocation()
-	// const navigate = useNavigate()
-	// const [currentTab, setCurrentTab] = useState('cycle-management')
 
 	const tabs = Tabs
 
 	return (
-		<div className=' py-3 md:px-40 md:py-8 w-full  max-w-full md:relative'>
-			<nav className=' hidden sticky bg-white md:w-full top-0 pt-4 z-10 left-0 md:flex'>
-				<ul className='mx-none hidden md:block'>
-					<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
-						{tabs.map((item, index) => {
-							return (
+		<>
+			<div className=' py-3 px-10 lg:px-20 xl:px-40 tablet:py-8 w-full  max-w-full '>
+				<nav className='  sticky bg-white tablet:w-full top-0 pt-4 pb-3 z-10 left-0 flex'>
+					<div className='hidden'>
+						<ul className='mx-none hidden tablet:block'>
+							<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
+								{tabs.map((item, index) => {
+									return (
+										<NavLink
+											key={index}
+											to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
+											className={`py-3 px-10 flex justify-center items-center text-center tablet:text-sm lg:text-base   w-[20%] rounded-full font-semibold shadow-xl `}
+											style={({ isActive }) =>
+												isActive
+													? { background: '#307C31', color: '#fff' }
+													: { color: '#307c31' }
+											}
+										>
+											{item}
+										</NavLink>
+									)
+								})}
+							</li>
+						</ul>
 
-								<NavLink key={index} to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
-								 className={`py-3 px-10  w-[20%] rounded-full font-semibold shadow-xl `} style={({isActive})=> isActive? {background: "#307C31" , color:"#fff"} : {color : "#307c31"} } >  {item} </NavLink>
-								// <Link
-								// 	key={index}
-								// 	to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
-								// 	// onClick={() =>
-								// 	// 	setCurrentTab(item.name.replaceAll(' ', '-').toLowerCase())
-								// 	// }
-								// 	className={`py-3 px-10  w-[20%] rounded-full font-semibold shadow-xl ${
-								// 		location.pathname.includes(
-								// 			item.replaceAll(' ', '-').toLowerCase()
-								// 		) ||
-								// 		item.toLowerCase().includes(location.pathname.split('-')[1])
-								// 			? // item.name.replaceAll(' ', '-').toLowerCase() === currentTab
-								// 			  'bg-primary text-[#fff]'
-								// 			: 'text-primary'
-								// 	}`}
-								// >
-								// 	{item}
-								// </Link>
-							)
-						})}
-					</li>
-					
-				</ul>
-				
-				<hr className='my-12 border-[1.5px] rounded-full' />
-			</nav>
-			<div className='md:hidden translate-x-0 relative max-w-full' >
-					<GiHamburgerMenu onClick={toggleMobileSideBar} className='md:hidden  flex items-end ml-[90%] text-primary text-3xl' />
-					<MobileSideBar showMobileSideBar={showMobileSideBar} setShowMobileSideBar={setShowMobileSideBar} toggleMobileSideBar={toggleMobileSideBar} />
+						<hr className='my-12 border-[1.5px] rounded-full' />
 					</div>
+					<MobileSideBar
+						showMobileSideBar={showMobileSideBar}
+						setShowMobileSideBar={setShowMobileSideBar}
+						toggleMobileSideBar={toggleMobileSideBar}
+					/>
+				</nav>
 
-			<Routes>
-				{/* Cylce management  */}
-				<Route
-					path='/cycle-management/*'
-					element={<MyCycle />}
-				/>
-				<Route
-					path='/cycle-management/add-data'
-					element={<AddData />}
-				/>
-				<Route
-					path='/cycle-management/new-cycle'
-					element={<NewCycle />}
-				/>
+				<div className='tablet:hidden  w-full flex justify-end '>
+					<GiHamburgerMenu
+						onClick={toggleMobileSideBar}
+						className='tablet:hidden   text-primary text-3xl'
+					/>
+				</div>
 
-				{/* Production plan */}
-				<Route
-					path='/production-plan'
-					element={<RecentProduction />}
-				/>
-				<Route
-					path='/production-plan/create-production-plan'
-					element={<CreateProductionPlan />}
-				/>
-				<Route
-					path='/production-plan/create-production-plan/summary'
-					element={<Summary />}
-				/>
-				<Route
-					path='/production-plan/create-production-plan/summary/production-schedule'
-					element={<ProductionSchedule />}
-				/>
+				<Routes>
+					{/* Cylce management  */}
+					<Route
+						path='/cycle-management/*'
+						element={<MyCycle />}
+					/>
+					<Route
+						path='/cycle-management/add-data'
+						element={<AddData />}
+					/>
+					<Route
+						path='/cycle-management/new-cycle'
+						element={<NewCycle />}
+					/>
 
-				{/* My orders */}
-				<Route
-					path='/my-orders'
-					element={<OrderDasboard />}
-				/>
-				<Route
-					path='/track-order'
-					element={<TrackOrder />}
-				/>
-				<Route
-					path='/track-order/vendor-profile'
-					element={<VendorProfile />}
-				/>
+					{/* Production plan */}
+					<Route
+						path='/production-plan'
+						element={<RecentProduction />}
+					/>
+					<Route
+						path='/production-plan/create-production-plan'
+						element={<CreateProductionPlan />}
+					/>
+					<Route
+						path='/production-plan/create-production-plan/summary'
+						element={<Summary />}
+					/>
+					<Route
+						path='/production-plan/create-production-plan/summary/production-schedule'
+						element={<ProductionSchedule />}
+					/>
 
-				{/* Settings  */}
-				<Route
-					path='/settings'
-					element={<SettingsDashboard />}
-				/>
-				<Route
-					path='/settings/edit-profile'
-					element={<EditProfile />}
-				/>
-				<Route
-					path='/settings/address'
-					element={<AddressDetails />}
-				/>
-				<Route
-					path='/settings/address/new-address'
-					element={<NewAddress />}
-				/>
-				<Route
-					path='/settings/card'
-					element={<Card />}
-				/>
-				<Route
-					path='/settings/card/add-card'
-					element={<AddCard />}
-				/>
-				<Route
-					path='/settings/security'
-					element={<Security />}
-				/>
-				{/* E-wallet route */}
-				<Route
-					path='/my-e-wallet'
-					element={<FarmerWallet />}
-				/>
-			</Routes>
-		</div>
+					{/* My orders */}
+					<Route
+						path='/my-orders'
+						element={<OrderDasboard />}
+					/>
+					<Route
+						path='/track-order'
+						element={<TrackOrder />}
+					/>
+					<Route
+						path='/track-order/vendor-profile'
+						element={<VendorProfile />}
+					/>
+
+					{/* Settings  */}
+					<Route
+						path='/settings'
+						element={<SettingsDashboard />}
+					/>
+					<Route
+						path='/settings/edit-profile'
+						element={<EditProfile />}
+					/>
+					<Route
+						path='/settings/address'
+						element={<AddressDetails />}
+					/>
+					<Route
+						path='/settings/address/new-address'
+						element={<NewAddress />}
+					/>
+					<Route
+						path='/settings/card'
+						element={<Card />}
+					/>
+					<Route
+						path='/settings/card/add-card'
+						element={<AddCard />}
+					/>
+					<Route
+						path='/settings/security'
+						element={<Security />}
+					/>
+					{/* E-wallet route */}
+					<Route
+						path='/my-e-wallet'
+						element={<FarmerWallet />}
+					/>
+				</Routes>
+			</div>
+		</>
 	)
 }
 

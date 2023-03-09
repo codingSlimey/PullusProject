@@ -16,6 +16,9 @@ module.exports = {
       backgroundImage: {
         'fade': "linear-gradient(90deg, #81C341 0%, #2E602F 73.44%) "
         
+      },
+      screens:{
+        'tablet' : '840px'
       }
       
     },
