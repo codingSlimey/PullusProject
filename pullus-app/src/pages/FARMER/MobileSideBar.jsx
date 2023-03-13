@@ -55,7 +55,9 @@ export default function MobileSideBar({
 							<div className='text-white text-start px-5 font-semibold '>
 								<NavLink
 									key={index}
-									// to={`/farmer/${item.replaceAll(' ', '-').toLowerCase()}`}
+									onClick={handleToggle}
+									// to={`/farmer/${item.link}`}
+									to={`/farmer/${item.name.replaceAll(' ', '-').toLowerCase()}`}
 									className='flex gap-3 items-center font-bold text-lg'
 								>
 									{item.icon}

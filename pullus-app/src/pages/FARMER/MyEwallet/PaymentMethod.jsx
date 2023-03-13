@@ -36,7 +36,7 @@ function PaymentMethod() {
   ]
   return (
     
-    <div className='my-20   mx-3 md:mx-auto rounded-xl md:w-10/12 lg:w-1/2 h-[600px] py-10 bg-white '  >
+    <div className='my-20   mx-3 md:mx-auto rounded-xl md:w-10/12 lg:w-1/2 h-auto py-10 bg-white '  >
       {display === "second" && (
         <div>
           <div>

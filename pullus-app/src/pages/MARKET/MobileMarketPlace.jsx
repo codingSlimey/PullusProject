@@ -81,7 +81,7 @@ function MobileMarketPlace() {
         <h1> Most Popular </h1>
         <img src={forward} alt='forward' />
     </div>
-    <div className='flex gap-3 hide-scrollbars overflow-x-auto'>
+    <div className='flex mx-auto gap-3 hide-scrollbars overflow-x-auto'>
         <h1 className='border-2 border-primary px-3 py-2 text-primary font-medium hover:bg-primary hover:text-white rounded-3xl' >All</h1>
         {
           icon.map((item, index) => {

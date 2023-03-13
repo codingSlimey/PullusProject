@@ -22,7 +22,7 @@ function RecentProduction(props) {
 					<Accordion>
 						<Accordion.Panel>
 							<Accordion.Title>
-								<div className='text-primary w-[250px] md:w-auto  '>
+								<div className='text-primary w-[290px] md:w-auto  '>
 									All time Productions (2)
 								</div>
 							</Accordion.Title>

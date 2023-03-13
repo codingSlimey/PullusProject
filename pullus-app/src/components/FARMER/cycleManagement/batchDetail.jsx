@@ -88,7 +88,7 @@ export default function BatchDetail() {
 			</div>
 
 			<button
-				onClick={() => navigate('add-data')}
+				onClick={() => navigate('/farmer/cycle-management/add-data')}
 				className='tablet:w-fit w-full px-4 mt-6 flex justify-center items-center bg-fade py-3 rounded-full text-[#fff] shadow-xl my-4'
 			>
 				Add Data&nbsp;&nbsp;{' '}

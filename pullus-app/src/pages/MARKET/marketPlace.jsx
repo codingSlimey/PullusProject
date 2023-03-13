@@ -19,7 +19,6 @@ function MarketPlace(props) {
 		'Veterinary',
 		'Insurance',
 	]
-
 	return (
 		<div className='font-bold px-4  md:pb-12'>
 			<div className='flex items-center my-4 justify-center gap-4'>

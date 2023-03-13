@@ -39,12 +39,16 @@ function NewCycle(props) {
 				<div className='text-primary  my-6'>Start a New Cycle</div>
 			</div>
 
-			<div className='flex gap-16 mt-12'>
+			<div className='md:flex gap-16 mt-12'>
 				<div className='   md:flex-1'>
 					<div className='flex flex-col md:grid'>
 						{inputData.map((data, i)=> {
 							return(
 								<Input type={data.type} placeholder={data.placeholder} label={data.label}/>
+							// 	<div>
+							// 		<label className='my-3 text-start text-primary' htmlFor='name'> {data.label} </label>
+						    //     	<input className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none' type={data.type} placeholder={data.placeholder} />
+							// </div>
 							)
 						})}
 					</div>
