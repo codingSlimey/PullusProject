@@ -75,3 +75,12 @@ html, body, #root, .App{
 .success-modal div:first-of-type div:first-of-type{
   border-radius: 60px;
 }
+
+/* //General Max width  */
+.max-width{
+  @apply max-w-[110rem] mx-auto
+}
+
+.generalPadding{
+  @apply px-14
+}

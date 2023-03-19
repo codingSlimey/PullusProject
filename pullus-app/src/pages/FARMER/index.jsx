@@ -39,8 +39,8 @@ function Farmer() {
 
 	return (
 		<>
-			<div className=' py-3 px-6 mobile:px-10 lg:px-20 xl:px-40 tablet:py-8 w-full  max-w-full '>
-				<nav className='  sticky bg-white tablet:w-full top-0 pt-4 tablet:pb-3 z-10 left-0 hidden tablet:flex'>
+			<div className=' pb-3 px-6 mobile:px-10 lg:px-20 xl:px-40 tablet:pb-8 w-full  max-w-full '>
+				<nav className='  sticky mt-3 bg-white tablet:w-full top-0 pt-4 tablet:pb-3 z-10 left-0 hidden tablet:flex tablet:flex-col justify-center'>
 					<div className='hidden tablet:block'>
 						<ul className='mx-none hidden tablet:block'>
 							<li className='flex justify-center flex-wrap w-full gap-10 text-center place-content-center'>
@@ -63,8 +63,8 @@ function Farmer() {
 							</li>
 						</ul>
 
-						<hr className='my-12 border-[1.5px] rounded-full' />
 					</div>
+					<hr className='my-12 border-[1.5px] rounded-full' />
 				</nav>
 				<MobileSideBar
 					showMobileSideBar={showMobileSideBar}

@@ -1,36 +1,43 @@
-import React from 'react';
-import styles from './styles.module.css';
-import homeImg from '../../images/homeImg.png';
+import React from 'react'
+import styles from './styles.module.css'
 
-import Navbar from '../NAVBAR/Navbar';
-import Footer from '../FOOTER/Footer';
+import { useNavigate } from 'react-router-dom'
+import Button from '../FARMER/button'
 
 export default function Home() {
-  return (
-    <>
-        <Navbar />
+	const navigate = useNavigate()
+	return (
+		<div
+			className={
+				'bg-homepage bg-cover bg-center bg-no-repeat h-full flex flex-col justify-center text-center text-white'
+			}
+		>
+			<h1 className='text-5xl font-bold'>Welcome to PULLUS</h1>
 
-        <main className={styles.home}>
-            <section className={styles.boxOne}>
-                <h1>Welcome to PULLUS</h1>
+			<div className='text-3xl'>
+				<p className='my-12 w-[40%] mx-auto'>
+					We connect poultry farmers to quality Input, Services, Market &
+					Finance.
+				</p>
+				<p className='font-medium'>Begin your journey as a</p>
+			</div>
 
-                <p>We connect poultry farmers to quality Input, Services, Market & Finance.</p>
+			<div className={'mt-14 flex justify-center items-center gap-14'}>
+				<Button
+					action={() => navigate('/farmer/cycle-management')}
+					color={'fade'}
+					title={'FARMER'}
+					extraClass={'font-bold text-lg border border-white capitalize'}
+				/>
 
-                <p>Begin your journey as a</p>
-
-                <div className={styles.btnDiv}>
-                    <button>BUYER</button>
-                    <p>OR</p>
-                    <button>VENDOR</button>
-                </div>
-            </section>
-
-            {/* <section className={styles.boxTwo}>
-                <img src={homeImg} alt='An image of a poultry' />
-            </section> */}
-        </main>
-
-        <Footer />
-    </>
-  )
+				<p>OR</p>
+				<Button
+					action={() => navigate('/farmer/cycle-management')}
+					color={'fade'}
+					title={'VENDOR'}
+					extraClass={'font-bold text-lg border border-white capitalize'}
+				/>
+			</div>
+		</div>
+	)
 }
