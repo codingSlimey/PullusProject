@@ -43,12 +43,14 @@ export default function Login() {
 	return (
 		<section className={'flex h-full w-full'}>
 			<section className={'flex-1 flex flex-col  justify-center'}>
-				<div className='flex items-center gap-4 mb-6 justify-center text-primary'>
+				<div className='flex flex-col items-center gap-4 mb-6 justify-center text-primary'>
 					<FiLock className='w-8 h-8 font-bold' />
-					<div className='text-medium text-2xl font-semibold'>Login</div>
+					<div className='text-medium text-2xl font-semibold'>Login to Your Account</div>
+					<p>Login using social networks </p>
+
 				</div>
 
-				<div className='flex justify-center items-center gap-5 my-4'>
+				<div className='flex justify-center items-center gap-5 my-2 md:my-4'>
 					<Link to={'/'}>
 						<img
 							className='w-8 h-8 rounded-full'
@@ -82,6 +84,9 @@ export default function Login() {
 					onSubmit={handleLogin}
 					className='w-[70%] max-mobile:w-[90%] mx-auto'
 				>
+					<div className='text-primary my-2 text-lg font-semibold flex items-center' > 
+					<FiLock className='w-5 h-5 font-bold' />
+						 <p>Login</p> </div>
 					<div className={'grid gap-3'}>
 						<Input
 							type='email'

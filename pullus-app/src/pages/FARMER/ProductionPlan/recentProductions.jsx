@@ -16,7 +16,6 @@ function RecentProduction(props) {
 	return (
 		<div className='font-bold md:pb-12'>
 			<div className='text-primary text-left my-6'>Recent Productions</div>
-
 			<div className='flex gap-16'>
 				<div className='flex  flex-col md:flex-1'>
 					<Accordion>
