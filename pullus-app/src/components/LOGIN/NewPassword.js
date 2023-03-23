@@ -1,38 +1,59 @@
-import React, { useState } from 'react'
-import styles from './styles.module.css'
+import React, { useState } from "react";
+// import styles from './styles.module.css'
+import Input from "../FARMER/Input";
+import Button from "../FARMER/button";
+import { useNavigate } from "react-router-dom";
 
 export default function NewPassword() {
-	const [newPassword, setNewPassword] = useState({ password: '' })
-	const [confirmation, setConfirmation] = useState({ confirmPassword: '' })
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmation, setConfirmation] = useState('');
+  const navigate = useNavigate()
 
-	console.log(newPassword)
+   const handleChange = (event) => {
+	setNewPassword(event.target.value)
+   }
 
-	function handleChange(event) {
-		const { name, value } = event.target
+  function handleSubmit(event) {
+    event.preventDefault();
 
-		setNewPassword((prev) => {
-			return {
-				...prev,
-				[name]: value,
-			}
-		})
+    if (newPassword === confirmation && newPassword.length > 5 && newPassword !== '' && confirmation !== '') {
+		navigate('/farmer/production-plan')
+
+    }
+	else {
+		alert('Passwords do not match')
 	}
+  }
 
-	function handleSubmit(event) {
-		event.preventDefault()
+  return (
+    <div>
+      <form className="px-10 py-5 flex flex-col "  onSubmit={handleSubmit}>
+        <Input
+          type="password"
+          placeholder="**********"
+          label="Create Your new Password"
+          onChange={handleChange}
+          value={newPassword}
+        />
+        <Input
+          type="password"
+          placeholder="**********"
+          label="Confirm Your new Password"
+          name="confirmPassword"
+          onChange={(event) => {
+            setConfirmation(event.target.value);
+          }}
+        />
+		<div className="flex mx-auto justify-center">
+        <Button title="Continue" color={`fade`}  />
+		</div>
+      </form>
+    </div>
+  );
+}
 
-		if (newPassword.password === confirmation.confirmPassword) {
-			console.log('Submit form after confirming password.')
-		}
-	}
-
-	return (
-		<>
-			<section className={styles.forgotPassword}>
-				<form className={styles.newPasswordForm}>
-					<h2>Enter Your New Password</h2>
-
-					<input
+{
+  /* <input
 						type={'password'}
 						placeholder={'New Password'}
 						name={'password'}
@@ -50,11 +71,5 @@ export default function NewPassword() {
 								return { ...prev, [name]: value }
 							})
 						}}
-					/>
-
-					<button onClick={handleSubmit}>Continue</button>
-				</form>
-			</section>
-		</>
-	)
+					/> */
 }
