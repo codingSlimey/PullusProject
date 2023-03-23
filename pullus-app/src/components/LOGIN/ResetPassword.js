@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import styles from './styles.module.css'
-import Navbar from '../NAVBAR/Navbar'
-import Footer from '../FOOTER/Footer'
+// import styles from './styles.module.css'
+// import Navbar from '../NAVBAR/Navbar'
+// import Footer from '../FOOTER/Footer'
 import Button from '../FARMER/button'
 import NewPassword from './NewPassword'
 
@@ -10,12 +10,8 @@ export default function ResetPassword() {
   const second = () => {
     setDisplay("second")
   }
-  const third = () => {
-    setDisplay("third")
-  }
-  const fourth = () => {
-    setDisplay("fourth")
-  }
+  
+  
 
 	const [input, setInput]= useState(Array(4).fill(null));
     const [isTyped , setIstyped]= useState(false)
@@ -63,7 +59,7 @@ export default function ResetPassword() {
            </div>
     </div> }
 	{display === "second" && 
-	  <NewPassword  action={third}  />
+	  <NewPassword   />
 	}
 		</div>
 		</>
