@@ -29,6 +29,9 @@ import Security from './Settings/security'
 // E-wallet imports
 import FarmerWallet from './MyEwallet/FarmerWallet'
 
+// notifacation
+import Notification from './Notification/Notification'
+
 function Farmer() {
 	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
 	const toggleMobileSideBar = () => {
@@ -164,6 +167,9 @@ function Farmer() {
 						path='/my-e-wallet'
 						element={<FarmerWallet />}
 					/>
+					{/* notification */}
+					<Route path='/notifications' element={<Notification/>}/>
+
 				</Routes>
 			</div>
 		</>
