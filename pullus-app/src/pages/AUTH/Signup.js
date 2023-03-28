@@ -7,18 +7,34 @@ import Button from '../../components/FARMER/button'
 
 import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
-import { useUserAuth } from '../../context/auth' 
+import { useUserAuth } from '../../context/auth'
+import thankYou from '../../images/thankYou.svg'
 
 export default function Login() {
+	const [showModal, setShowModal] = React.useState(false)
+	const handleModal = () => {
+		setShowModal(!showModal)
+	}
+	const closeModal = (event) => {
+		navigate('/buyer/biodata')
+		if (!event.target.closest('.emodal')) {
+			setShowModal(false)
+		}
+	}
 	const navigate = useNavigate()
 
-	const {register} = useUserAuth()
-	
+	const { firstRegister } = useUserAuth()
 
 	const handleSubmit = async (values) => {
-		console.log(values)
-		await register({...values, usertype: 'farmer'})
-		console.log('Submit')
+		try {
+			const res = await firstRegister({ ...values, usertype: 'farmer' })
+			console.log(res)
+			if (res) handleModal()
+			// console.log('Submit')
+		} catch (error) {
+			console.log(error)
+		}
+		// console.log(values)
 	}
 
 	return (
@@ -110,6 +126,38 @@ export default function Login() {
 					/>
 				</div>
 			</section>
+
+			{showModal && (
+				<div
+					className={` z-10 fixed bg-modal left-0 top-0 h-screen flex flex-col items-center justify-center w-full`}
+					// onClick={closeModal}
+				>
+					<div className='bg-white px-8 py-5 rounded-2xl w-fit'>
+						<div className='px-4 py-6   grid place-items-center bg-white  mb-4 '>
+							<img
+								src={thankYou}
+								alt=''
+								className='bg-[white]'
+							/>
+						</div>
+						<h5 className='text-primary text-center font-bold text-xl my-2'>
+							Account Created !
+						</h5>
+						<p className='text-primary text-center w-[50%] mx-auto'>
+							You have successfully created an account with Pullus Afrcia. You
+							just have few more steps to onboard.
+						</p>
+						<div className='mt-4 grid w-full gap-6 justify-center '>
+							<button
+								onClick={closeModal}
+								className={`w-full bg-fade text-[#fff] text-base font-bold py-3 px-8 flex justify-center  items-center rounded-full shadow-xl  my-auto`}
+							>
+								Continue
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</section>
 	)
 }

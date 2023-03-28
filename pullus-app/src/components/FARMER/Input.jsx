@@ -14,7 +14,7 @@ export default function Input(props) {
       <input
         {...props}
         onChange={onChange}
-        className="h-14 px-6 placeholder:text-placeholder mb-6 shadow-lg border border-grey bg-[#fff]  w-full rounded-full  focus:outline-none  focus:border-none "
+        className="h-14 px-6 text-black/60 placeholder:text-placeholder mb-6 shadow-lg border border-grey bg-[#fff]  w-full rounded-full  focus:outline-none  focus:border-none "
       />
     </>
   );
