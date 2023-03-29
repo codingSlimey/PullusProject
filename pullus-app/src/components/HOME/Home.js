@@ -12,9 +12,9 @@ export default function Home() {
 				'bg-homepage bg-cover bg-center bg-no-repeat h-full flex flex-col justify-center text-center text-white'
 			}
 		>
-			<h1 className='text-4xl md:text-5xl font-bold'>Welcome to PULLUS</h1>
+			<h1 className='text-3xl md:text-4xl lg:text-5xl font-bold'>Welcome to PULLUS</h1>
 
-			<div className='text-2xl px-1 md:text-3xl'>
+			<div className='text-lg  md:text-xl  px-1 lg:text-3xl'>
 				<p className='my-12 w-full  md:w-[40%] mx-auto'>
 					We connect poultry farmers to quality Input, Services, Market &
 					Finance.
@@ -27,7 +27,7 @@ export default function Home() {
 					action={() => navigate('/farmer/cycle-management')}
 					color={'fade'}
 					title={'FARMER'}
-					extraClass={'font-bold text-xs md:text-lg border border-white capitalize'}
+					extraClass={'font-bold px-7 md:px-auto text-xs md:text-lg border border-white capitalize'}
 				/>
 
 				<p>OR</p>
@@ -35,7 +35,7 @@ export default function Home() {
 					action={() => navigate('/farmer/cycle-management')}
 					color={'fade'}
 					title={'VENDOR'}
-					extraClass={'font-bold text-xs md:text-lg border border-white capitalize'}
+					extraClass={'font-bold px-7 md:px-auto text-xs md:text-lg border border-white capitalize'}
 				/>
 			</div>
 		</div>

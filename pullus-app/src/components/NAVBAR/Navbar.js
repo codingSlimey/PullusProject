@@ -45,7 +45,7 @@ export default function Navbar() {
 				<img
 					src={logo}
 					alt='Logo '
-					className={styles.logo}
+					className=' w-[100px] md:w-[150px] h-auto cursor-pointer'
 					onClick={() => navigate('/')}
 				/>
 
