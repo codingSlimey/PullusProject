@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { FormController } from 'form-controller-lite'
 
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
@@ -11,7 +10,7 @@ import { useUserAuth } from '../../context/auth'
 import thankYou from '../../images/thankYou.svg'
 
 import { UpdateFormState } from '../../utilities/utilities'
-import { signUp } from '../../api'
+// import { signUp } from '../../api'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)
