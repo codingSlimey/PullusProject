@@ -1,19 +1,39 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Input from '../../components/FARMER/Input'
 import Button from '../../components/FARMER/button'
 import { useNavigate } from 'react-router-dom'
+import Select from  '../../components/FARMER/Select'
+import { getStates } from "../../api";
 
 function BuyerAdress() {
+	useEffect(()=>{
+		const response = getStates()
+		console.log(response);
+	}, [])
 	const navigate = useNavigate()
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
 			<div className='m-auto max-w-[800px] px-10'>
 				<h1 className='font-bold my-5 text-primary text-xl'>Address</h1>
 				<div>
+					
 					<Input
 						type='text'
-						placeholder='Country: select country'
+						placeholder='Country: select Country'
 					/>
+					<Select
+					name='country'
+					id='countries'
+					placeholder='country'
+					 >
+						<option> Kaduna</option>
+						<option> Kaduna</option>
+						<option> Kaduna</option>
+
+
+					</Select>
+
+
 					<Input
 						type='text'
 						placeholder='State: select state'

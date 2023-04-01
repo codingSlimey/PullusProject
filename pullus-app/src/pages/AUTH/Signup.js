@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { FormController } from 'form-controller-lite'
 
@@ -9,6 +9,9 @@ import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
 import { useUserAuth } from '../../context/auth'
 import thankYou from '../../images/thankYou.svg'
+
+import { UpdateFormState } from '../../utilities/utilities'
+import { signUp } from '../../api'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)
@@ -21,13 +24,31 @@ export default function Login() {
 			setShowModal(false)
 		}
 	}
+	const [signUpForm, setSignInForm]= useState(
+		{
+			email: "",
+			password: "",
+		}
+	)
 	const navigate = useNavigate()
 
 	const { firstRegister } = useUserAuth()
 
-	const handleSubmit = async (values) => {
+	const handleChange= (event)=>{
+		UpdateFormState(
+			event.target.name,
+			event.target.value,
+			signUpForm,
+			setSignInForm
+
+		)
+
+	}
+
+	const handleSubmit = async ( event ) => {
+		event.preventDefault()
 		try {
-			const res = await firstRegister({ ...values, usertype: 'farmer' })
+			const res = await firstRegister({ ...signUpForm, usertype: 'farmer' })
 			console.log(res)
 			if (res) handleModal()
 			// console.log('Submit')
@@ -73,7 +94,7 @@ export default function Login() {
 					<hr className='border-primary border flex-1' />
 				</div>
 
-				<FormController
+				<form
 					onSubmit={handleSubmit}
 					className='w-[70%] max-mobile:w-[90%] mx-auto'
 					clearAfterSubmit={false}
@@ -87,11 +108,13 @@ export default function Login() {
 							type='email'
 							placeholder='Email'
 							name='email'
+							onChange={handleChange}
 						/>
 						<Input
 							type='password'
 							placeholder='Password'
 							name='password'
+							onChange={handleChange}
 						/>
 
 						<div className='flex '>
@@ -105,7 +128,7 @@ export default function Login() {
 							/>
 						</div>
 					</div>
-				</FormController>
+				</form>
 			</section>
 
 			<section

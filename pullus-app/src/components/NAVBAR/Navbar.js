@@ -39,7 +39,7 @@ export default function Navbar() {
 		<div className='fixed top-0 left-0 w-full bg-white border-b border-grey'>
 			<section
 				className={
-					' flex justify-between max-width generalPadding items-center h-24'
+					' flex justify-between max-width px-5  md:generalPadding items-center h-24'
 				}
 			>
 				<img
@@ -67,7 +67,7 @@ export default function Navbar() {
 						action={() => navigate('/login')}
 						color={'fade'}
 						title={'Login'}
-						extraClass={'font-bold text-lg'}
+						extraClass={'font-bold md:text-lg'}
 					/>
 				</div>
 			</section>
