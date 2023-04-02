@@ -10,7 +10,6 @@ import { useUserAuth } from '../../context/auth'
 import thankYou from '../../images/thankYou.svg'
 
 import { UpdateFormState } from '../../utilities/utilities'
-// import { signUp } from '../../api'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)

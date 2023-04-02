@@ -4,7 +4,9 @@ import Button from '../../components/FARMER/button'
 import { useNavigate } from 'react-router-dom'
 
 import { useUserAuth } from '../../context/auth'
-import { checkBvn } from '../../api'
+import { getStates, checkBvn } from '../../api'
+
+import axios from 'axios'
 
 function BuyerBioData() {
 	const navigate = useNavigate()
@@ -57,23 +59,40 @@ function BuyerBioData() {
 		const bvnInput = e.target.value
 		setFormData({ ...FormData, bvn: bvnInput })
 
-		if (bvnInput.length === 10) {
+		if (FormData.bvn.length === 10) {
 			const data = {
 				firstName: FormData.name,
 				lastName: FormData.surname,
 				middleName: FormData.middleName,
 				gender: FormData.gender,
-				bvn: FormData.bvn,
+				bvn: bvnInput,
 			}
 			console.log('run query')
+
 			const response = await checkBvn(data)
 			console.log(response)
 			if (response) setIsdisabled(false)
 		}
 	}
+	const test = async () => {
+		// const res = await getStates()
+		// console.log(res)
+		axios({
+			method: 'get',
+			responseType: 'json',
+			url: 'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/statesAndLga',
+		})
+			.then((response) => {
+				console.log(response)
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+	}
 
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
+			<div onClick={test}>Click here</div>
 			<form
 				onSubmit={handleSubmit}
 				className='m-auto max-w-[800px] px-10'
