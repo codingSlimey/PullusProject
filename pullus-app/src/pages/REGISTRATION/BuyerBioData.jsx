@@ -26,13 +26,14 @@ function BuyerBioData() {
 			FormData.name &&
 			FormData.surname &&
 			FormData.middleName &&
-			FormData.email &&
 			FormData.phoneNumber &&
 			FormData.gender
 		) {
 			setIsFormFilled(false)
+			return;
 		} else {
 			setIsFormFilled(true)
+			return;
 		}
 	}, [FormData])
 
@@ -45,7 +46,6 @@ function BuyerBioData() {
 			!FormData.name ||
 			!FormData.surname ||
 			!FormData.middleName ||
-			!FormData.email ||
 			!FormData.phoneNumber ||
 			!FormData.gender
 		) {
@@ -125,7 +125,7 @@ function BuyerBioData() {
 							setFormData({ ...FormData, phoneNumber: e.target.value })
 						}
 					/>
-					<div className='flex items-center px-5 gap-5 text-slate-600 '>
+					<div className='flex py-5 items-center px-5 gap-5 text-slate-600 '>
 						<label
 							className='flex gap-5 items-center '
 							htmlFor='gender'
