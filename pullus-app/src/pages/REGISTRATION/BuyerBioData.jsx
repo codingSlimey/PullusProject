@@ -67,16 +67,15 @@ function BuyerBioData() {
 				gender: FormData.gender,
 				bvn: bvnInput,
 			}
+			setIsdisabled(false)
 			console.log('run query')
-
 			const response = await checkBvn(data)
 			console.log(response)
-			if (response) setIsdisabled(false)
+			// if (response) setIsdisabled(false)
 		}
 	}
 	const test = async () => {
-		// const res = await getStates()
-		// console.log(res)
+
 		axios({
 			method: 'get',
 			responseType: 'json',
