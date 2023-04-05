@@ -30,7 +30,7 @@ export function UserAuthContextProvider({ children }) {
 	// Real user
 	const [user, setUser] = useState({})
 	return (
-		<userAuthContext.Provider value={{ user, tempUser, firstRegister }}>
+		<userAuthContext.Provider value={{ user, tempUser,setTemporaryUserData, firstRegister }}>
 			{children}
 		</userAuthContext.Provider>
 	)

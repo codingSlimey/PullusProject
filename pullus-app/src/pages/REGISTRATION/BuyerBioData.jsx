@@ -64,10 +64,16 @@ function BuyerBioData() {
 				gender: FormData.gender,
 				bvn: bvnInput,
 			}
-			setIsdisabled(false)
 			console.log('run query')
-			const response = await checkBvn(data)
-			console.log(response)
+			try{
+				const response = await checkBvn(data)
+				console.log(response)
+
+				setIsdisabled(false)
+			}catch({response}){
+				const {data} = response
+				console.log(data.status);
+			}
 			// if (response) setIsdisabled(false)
 		}
 	}

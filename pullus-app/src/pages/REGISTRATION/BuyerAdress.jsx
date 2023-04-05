@@ -9,17 +9,44 @@ import FarmersLocation from './FarmersLocation'
 
 import axios from 'axios'
 
-function BuyerAdress() {
+function getLocation() {
+	return new Promise((resolve, reject) => {
+	  if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(resolve, reject);
+	  } else {
+		reject("Geolocation is not supported by this browser.");
+	  }
+	});
+  }
+
+  export default function BuyerAdress() {
 	const [states, setStates] = useState([])
 	const [lgas, setLgas] = useState([])
 	const [selectedState, setSelectedState] =useState('')
 	const [showModal, setShowModal] = useState(false)
 	const [response, setResponse]= useState("")
 
+	const [location, setLocation] = useState(null);
+
+  const getCoordinates = () => {
+    getLocation()
+      .then((position) => {
+		console.log(position)
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
 	const theAnswer = (res)=>{
 		setResponse(res)
 		if(res === 'yes'){
 			console.log('Yaaaaayy')
+			getCoordinates()
 			setShowModal(false)
 			// loader
 		}else {
@@ -38,14 +65,12 @@ function BuyerAdress() {
 	}
 
 
-
-
 	useEffect(()=>{
 		axios.get('https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/statesAndLga')
 		.then(res=>{
 			const apiArray = Object.entries(res.data);
 			const mappedArray = apiArray.map((item)=>{
-				console.log(item[0])
+				// console.log(item[0])
 				return {state: item[0], lga: item[1]}
 
 			})
@@ -63,7 +88,6 @@ function BuyerAdress() {
 		const selectedState = states.find(item=> item.state === state)
 		setLgas(selectedState.lga)
 		setSelectedState(state)
-
 	}
 	const navigate = useNavigate()
 	return (
@@ -153,4 +177,4 @@ function BuyerAdress() {
 	)
 }
 
-export default BuyerAdress
+
