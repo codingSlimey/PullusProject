@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-function useBeforeUnload(message) {
+function useBeforeUnload() {
   useEffect(() => {
+    const message = 'Are you sure you want to leave? Your changes may not be saved.'
     const handleBeforeUnload = (e) => {
       e.preventDefault(); // Cancel the event
       e.returnValue = message; // Set the message for some browsers (like IE)
@@ -15,7 +16,7 @@ function useBeforeUnload(message) {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [message]);
+  }, []);
 }
 
 export default useBeforeUnload;

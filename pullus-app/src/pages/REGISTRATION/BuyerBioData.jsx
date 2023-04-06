@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FaPlay } from 'react-icons/fa'
 
 //Components
 import Input from '../../components/FARMER/Input'
-import Button from '../../components/FARMER/button'
 
 //API
 import { checkBvn } from '../../api'
@@ -11,15 +11,14 @@ import { checkBvn } from '../../api'
 //State (Context API)
 import { useUserAuth } from '../../context/auth'
 
-//Hooks
+//Hooks & Utils
+import { UpdateFormState } from '../../utils/setFormState'
 import useBeforeUnload from '../../hooks/useBeforeUnload'
-import { FaPlay } from 'react-icons/fa'
 
 function BuyerBioData() {
 	// Function to warn users when they have not completed their onboarding steps
-	useBeforeUnload(
-		'Are you sure you want to leave? Your changes may not be saved.'
-	)
+	useBeforeUnload()
+
 	const { tempUser, setTemporaryUserData } = useUserAuth()
 
 	const navigate = useNavigate()
@@ -60,6 +59,15 @@ function BuyerBioData() {
 		}
 	}, [])
 
+	const handleChange = (event) => {
+		UpdateFormState(
+			event.target.name,
+			event.target.value,
+			FormData,
+			setFormData
+		)
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		if (
@@ -75,6 +83,10 @@ function BuyerBioData() {
 			setTemporaryUserData({ ...tempUser, ...FormData })
 			navigate('/buyer/address')
 		}
+	}
+
+	const test = () => {
+		console.log(FormData)
 	}
 
 	const handleOnChangeBVN = async (e) => {
@@ -133,35 +145,28 @@ function BuyerBioData() {
 						placeholder='Name'
 						value={FormData.name}
 						name='name'
-						onChange={(e) => setFormData({ ...FormData, name: e.target.value })}
+						onChange={handleChange}
 					/>
 					<Input
 						type='text'
 						placeholder='Surname'
 						value={FormData.surname}
 						name='surname'
-						onChange={(e) =>
-							setFormData({ ...FormData, surname: e.target.value })
-						}
+						onChange={handleChange}
 					/>
 					<Input
 						type='text'
 						placeholder='middle name'
 						value={FormData.middleName}
 						name='middleName'
-						onChange={(e) =>
-							setFormData({ ...FormData, middleName: e.target.value })
-						}
+						onChange={handleChange}
 					/>
 
 					<Input
 						type='email'
 						placeholder='Email'
-						// value={tempUser ? tempUser.email : ""}
 						value={tempUser ? tempUser.email : FormData.email}
-						onChange={(e) =>
-							setFormData({ ...FormData, email: e.target.value })
-						}
+						onChange={handleChange}
 						name='email'
 					/>
 					<Input
@@ -169,9 +174,7 @@ function BuyerBioData() {
 						placeholder='Phone Number'
 						name='phoneNumber'
 						value={FormData.phoneNumber}
-						onChange={(e) =>
-							setFormData({ ...FormData, phoneNumber: e.target.value })
-						}
+						onChange={handleChange}
 					/>
 					<div className='flex py-5 items-center px-5 gap-5 text-slate-600 '>
 						<label
@@ -218,6 +221,8 @@ function BuyerBioData() {
 						</div>
 					)}
 				</div>
+
+				<div onClick={test}>Click here</div>
 
 				<div className='flex justify-center'>
 					<button
