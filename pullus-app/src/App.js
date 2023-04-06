@@ -124,19 +124,19 @@ function App() {
 						element={<EnterPin />}
 					/>
 					<Route
-						path='/buyer/biodata'
+						path='/onboarding/biodata'
 						element={<BuyerBioData />}
 					/>
 					<Route
-						path='/buyer/address'
+						path='/onboarding/address'
 						element={<BuyerAdress />}
 					/>
 					<Route
-						path='/buyer/business-info'
+						path='/onboarding/business-info'
 						element={<BusinessInfo />}
 					/>
 					<Route
-						path='/buyer/document-upload'
+						path='/onboarding/document-upload'
 						element={<DocumentUpload />}
 					/>
 				</Routes>

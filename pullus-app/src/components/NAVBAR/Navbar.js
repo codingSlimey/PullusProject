@@ -16,22 +16,27 @@ export default function Navbar() {
 		{
 			name: 'Dashboard',
 			icon: <ImMeter className='w-8 h-8' />,
+			url: '/farmer/cycle-management',
 		},
 		{
 			name: 'Profile',
 			icon: <BsFillPersonFill className='w-8 h-8' />,
+			url: '',
 		},
 		{
 			name: 'Orders',
 			icon: <HiBookmarkSquare className='w-8 h-8' />,
+			url: '/farmer/my-orders',
 		},
 		{
 			name: 'Market',
 			icon: <AiFillHome className='w-8 h-8' />,
+			url: '/market-place',
 		},
 		{
 			name: 'Notice',
 			icon: <IoNotifications className='w-8 h-8' />,
+			url: '/farmer/notifications',
 		},
 	]
 
@@ -50,19 +55,20 @@ export default function Navbar() {
 				/>
 
 				<div className='flex gap-8'>
-					{/* <div className='flex gap-8 items-center '>
+					<div className='flex gap-8 items-center '>
 						{userLinks.map((item, index) => {
 							return (
 								<NavLink
+								to={item.url}
 									key={index}
-									className='flex flex-col justify-center items-center text-primary text-bold'
+									className='flex flex-col justify-center items-center text-primary hover:text-primary/70 text-bold'
 								>
 									{item.icon}
-									<p className='font-bold text-lg uppercase'>{item.name}</p>
+									<p className='font-semibold text-lg uppercase'>{item.name}</p>
 								</NavLink>
 							)
 						})}
-					</div> */}
+					</div>
 					<Button
 						action={() => navigate('/login')}
 						color={'fade'}
