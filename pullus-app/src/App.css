@@ -22,7 +22,7 @@ html, body, #root, .App{
   width: 30px;
   height: 30px;
   border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: green;
+  border-left-color: rgb(129 195 65);
   border-radius: 50%;
   animation: spin 1s ease-in-out infinite;
 }
@@ -92,4 +92,12 @@ html, body, #root, .App{
 
 .generalPadding{
   @apply px-14
+}
+
+/* //For Number inputs//  */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
 }
