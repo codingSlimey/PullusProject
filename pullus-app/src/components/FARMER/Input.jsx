@@ -4,7 +4,9 @@ export default function Input(props) {
 	const { name, label, extraClass } = props
 	return (
 		<>
+	
 			{label && (
+				
 				<label
 					htmlFor={name}
 					className=' my-3 text-start text-primary'

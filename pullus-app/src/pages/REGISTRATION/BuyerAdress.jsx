@@ -95,16 +95,20 @@ function getLocation() {
 			<div className='m-auto w-full max-w-[800px] px-10'>
 				<h1 className='font-bold my-5 text-primary text-xl'>Address</h1>
 				<div>
+					<div className='flex flex-col'>
 					<Input
 						type='text'
 						placeholder='Country: select Country'
 						value='Nigeria'
+						label='select Country'
 					/>
+					</div>
 					<Select
 					name='country'
 					id='countries'
 					placeholder='country'
 					onChange={handleStateChange}
+					label='select State'
 					 >
 						<option> Select State</option>
 						{states.map((state, index) =>{
@@ -115,6 +119,7 @@ function getLocation() {
 					name='lga'
 					id='lgas'
 					placeholder='lga'
+					label='select LGA'
 					 >
 						<option> Select LGA</option>
 						{lgas.map((lga, index) =>{
@@ -124,11 +129,13 @@ function getLocation() {
 					</Select>
 
 
-				
+                <div className='flex flex-col' >				
 					<Input
 						type='text'
 						placeholder='Adresss'
+						label='Address'
 					/>
+					</div>
 				</div>
 				<div className='flex flex-col items-start'>
 					<p className='text-primary text-sm'> Capture Address</p>
