@@ -51,7 +51,10 @@ export default function Navbar() {
 			'/forgot-password',
 			'/reset-password',
 			'/new-password',
-			'/onboarding'
+			'/onboarding/biodata',
+			'/onboarding/address',
+			'/onboarding/business-info',
+			'/onboarding/document-upload'
 		]
 		const checkRouteName = () => {
 			const isRouteFixed = routes.includes(pathname);

@@ -21,3 +21,6 @@ API.interceptors.request.use((req) => {
 export const signUp = (form) => API.post('/signup/new/FirstSignupRequest', form)
 export const checkBvn = (data) => API.post('/signup/bvnCheck', data)
 export const getStates = () => API.get('/signup/statesAndLga')
+
+//File upload
+export const uploadFile = (data,query,email) => API.post(`/signup/imagesUpload/${query}/upload?email=${email}`, data)
