@@ -48,6 +48,7 @@ function App() {
 			'/forgot-password',
 			'/reset-password',
 			'/new-password',
+			'/onboarding'
 		]
 		const checkRouteName = () => {
 			const isRouteFixed = routeForFixed.includes(pathname);

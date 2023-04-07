@@ -66,7 +66,7 @@ function Farmer() {
 							</li>
 						</ul>
 					</div>
-					<hr className='my-12 border-[1.5px] rounded-full' />
+					<hr className='mt-8 border-[1.5px] rounded-full' />
 				</nav>
 				<MobileSideBar
 					showMobileSideBar={showMobileSideBar}

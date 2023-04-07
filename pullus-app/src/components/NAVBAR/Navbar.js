@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import Button from '../FARMER/button'
@@ -40,6 +40,27 @@ export default function Navbar() {
 		},
 	]
 
+	const [userLayoutState, setUserLayoutState] = useState(false)
+
+
+	useEffect(()=>{
+		const routes = [
+			'/',
+			'/login',
+			'/sign-up',
+			'/forgot-password',
+			'/reset-password',
+			'/new-password',
+			'/onboarding'
+		]
+		const checkRouteName = () => {
+			const isRouteFixed = routes.includes(pathname);
+			setUserLayoutState(isRouteFixed);
+		  };
+		
+		  checkRouteName();
+	},[pathname])
+
 	return (
 		<div className='fixed top-0 left-0 w-full z-30 bg-white border-b border-grey'>
 			<section
@@ -54,7 +75,10 @@ export default function Navbar() {
 					onClick={() => navigate('/')}
 				/>
 
-				<div className='flex gap-8'>
+				{
+					!userLayoutState 
+					?
+					<div className='flex gap-8'>
 					<div className='flex gap-8 items-center '>
 						{userLinks.map((item, index) => {
 							return (
@@ -70,12 +94,20 @@ export default function Navbar() {
 						})}
 					</div>
 					<Button
-						action={() => navigate('/login')}
+						action={() => navigate('/')}
 						color={'fade'}
-						title={'Login'}
+						title={'Logout'}
 						extraClass={'font-bold md:text-lg'}
 					/>
 				</div>
+				:
+				<Button
+				action={() => navigate('/login')}
+				color={'fade'}
+				title={'Login'}
+				extraClass={'font-bold md:text-lg'}
+			/>
+			}
 			</section>
 		</div>
 	)
