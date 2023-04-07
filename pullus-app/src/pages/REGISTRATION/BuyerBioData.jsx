@@ -85,10 +85,6 @@ function BuyerBioData() {
 		}
 	}
 
-	const test = () => {
-		console.log(FormData)
-	}
-
 	const handleOnChangeBVN = async (e) => {
 		const bvnInput = e.target.value
 
@@ -221,8 +217,6 @@ function BuyerBioData() {
 						</div>
 					)}
 				</div>
-
-				<div onClick={test}>Click here</div>
 
 				<div className='flex justify-center'>
 					<button
