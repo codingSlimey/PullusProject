@@ -4,6 +4,10 @@ import Button from '../../components/FARMER/button'
 import { useNavigate } from 'react-router-dom'
 import Select from  '../../components/FARMER/Select'
 import Emodal from '../../modal/EModal'
+import L from 'leaflet';
+import { geocodeService } from 'esri-leaflet-geocoder';
+
+
 import FarmersLocation from './FarmersLocation'
 // import { getStates } from "../../api";
 
@@ -19,34 +23,65 @@ function getLocation() {
 	});
   }
 
+
+
   export default function BuyerAdress() {
 	const [states, setStates] = useState([])
 	const [lgas, setLgas] = useState([])
 	const [selectedState, setSelectedState] =useState('')
 	const [showModal, setShowModal] = useState(false)
 	const [response, setResponse]= useState("")
+	const [currentLat, setCurrentLat] = useState('');
+	const [currentlong, setCurrentLong] = useState('');
+	const [CurrentLocation, setCurrentLocation]= useState('')
 
-	const [location, setLocation] = useState(null);
+	// useEffect(()=>{
+	// 		if (navigator.geolocation) {
+	// 		  navigator.geolocation.getCurrentPosition(
+	// 			position => {
+	// 			  setCurrentLat(position.coords.latitude);
+	// 			  setCurrentLong(position.coords.longitude);
+	// 			},
+	// 			error => console.error(error)
+	// 		  );
+	// 		} else {
+	// 		  console.error('Geolocation is not supported by this browser');
+	// 		}
+	// }, [])
 
-  const getCoordinates = () => {
-    getLocation()
-      .then((position) => {
-		console.log(position)
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+//   const getCoordinates = () => {
+//     getLocation()
+//       .then((position) => {
+// 		console.log(position)
+//         setLocation({
+//           latitude: position.coords.latitude,
+//           longitude: position.coords.longitude,
+//         });
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
 
 	const theAnswer = (res)=>{
 		setResponse(res)
 		if(res === 'yes'){
 			console.log('Yaaaaayy')
-			getCoordinates()
+			if (currentLat && currentlong) {
+				const latlng = L.latLng(currentLat, currentlong);
+				geocodeService()
+				  .reverse()
+				  .latlng(latlng)
+				  .run((error, result) => {
+					if (error) {
+					  console.error(error);
+					} else {
+					  setCurrentLocation(result.address.LongLabel);
+					  console.log(CurrentLocation)
+					}
+				  });
+			  }	
+			// getCoordinates()
 			setShowModal(false)
 			// loader
 		}else {
@@ -55,13 +90,16 @@ function getLocation() {
 		return
 	}
 }
+const api_key= `e00eb06c82240bc2777c9171a2f42bdf`
+const Api = `https://api.openweathermap.org/data/2.5/weather?`
 
 	const handleSubmit = ()=>{
 
 	} 
 
 	const handleFarmersLocation = ()=>{
-		setShowModal(true)		
+		setShowModal(true)	
+		
 	}
 
 
@@ -88,7 +126,39 @@ function getLocation() {
 		const selectedState = states.find(item=> item.state === state)
 		setLgas(selectedState.lga)
 		setSelectedState(state)
+
+		
 	}
+	const handleSucess= position => {
+		setCurrentLat(position.coords.latitude)
+		setCurrentLong(position.coords.longitude)
+		console.log(currentLat)
+
+		let theEndPoint = `${Api}lat=${currentLat}&lon=${currentlong}&&appid=${api_key}`
+	axios.get(theEndPoint)
+	.then((res)=>{
+		console.log(res.data)
+	})
+	}
+
+		const handleError = error => {
+			console.error(error);
+		  };
+
+  const FarmersLocation = () => {
+    if (navigator.geolocation) {
+		const options = {
+			enableHighAccuracy: true,
+			// timeout: 5000,
+			maximumAge: 0
+		  };
+	
+      navigator.geolocation.getCurrentPosition(handleSucess, handleError, options)
+    } else {
+      console.error('Geolocation is not supported by this browser');
+    }
+	
+  };
 	const navigate = useNavigate()
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
@@ -96,6 +166,8 @@ function getLocation() {
 				<h1 className='font-bold my-5 text-primary text-xl'>Address</h1>
 				<div>
 					<div className='flex flex-col'>
+					<h1 onClick={FarmersLocation} > Click</h1>
+
 					<Input
 						type='text'
 						placeholder='Country: select Country'

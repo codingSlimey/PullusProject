@@ -7,8 +7,7 @@ export function UserAuthContextProvider({ children }) {
 	//For first signup and setting of temporary user
 	const tempUserData = localStorage.getItem('tempUser')
 	const [tempUser, setTempUser] = useState(
-		tempUserData ? JSON.parse(tempUserData) : {}
-	)
+		tempUserData ? JSON.parse(tempUserData) : {} )
 
 	const firstRegister = async (form) => {
 		const res = await signUp(form)

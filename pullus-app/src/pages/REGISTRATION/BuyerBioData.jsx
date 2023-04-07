@@ -40,7 +40,7 @@ function BuyerBioData() {
   }, [FormData]);
   
 
-  const { tempUser } = useUserAuth();
+  const { tempUser, setTemporaryUserData } = useUserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +74,7 @@ function BuyerBioData() {
       try {
         const response = await checkBvn(data);
         console.log(response);
+        setTemporaryUserData(data)
         setIsdisabled(false);
         setIsLoading(false);
         return;
