@@ -1,8 +1,7 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import Button from '../FARMER/button'
-import styles from './styles.module.css'
 import { IoNotifications } from 'react-icons/io5'
 import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
@@ -11,6 +10,7 @@ import { HiBookmarkSquare } from 'react-icons/hi2'
 
 export default function Navbar() {
 	const navigate = useNavigate()
+	const {pathname} = useLocation()
 
 	const userLinks = [
 		{
@@ -21,7 +21,7 @@ export default function Navbar() {
 		{
 			name: 'Profile',
 			icon: <BsFillPersonFill className='w-8 h-8' />,
-			url: '',
+			url: '/farmer/settings',
 		},
 		{
 			name: 'Orders',
@@ -41,7 +41,7 @@ export default function Navbar() {
 	]
 
 	return (
-		<div className='fixed top-0 left-0 w-full bg-white border-b border-grey'>
+		<div className='fixed top-0 left-0 w-full z-30 bg-white border-b border-grey'>
 			<section
 				className={
 					' flex justify-between max-width px-5  md:generalPadding items-center h-24'
@@ -59,9 +59,9 @@ export default function Navbar() {
 						{userLinks.map((item, index) => {
 							return (
 								<NavLink
-								to={item.url}
+									to={item.url}
 									key={index}
-									className='flex flex-col justify-center items-center text-primary hover:text-primary/70 text-bold'
+									className={` ${pathname === item.url ? 'text-gray-500/70':'text-primary hover:text-primary/70'} flex flex-col justify-center items-center  text-bold`}
 								>
 									{item.icon}
 									<p className='font-semibold text-lg uppercase'>{item.name}</p>
