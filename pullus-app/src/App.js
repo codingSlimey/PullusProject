@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 import Home from './components/HOME/Home'
 import Login from './pages/AUTH/Login'
@@ -30,14 +31,37 @@ import EnterPin from './pages/FARMER/MyEwallet/EnterPin'
 import DocumentUpload from './pages/REGISTRATION/DocumentUpload'
 import Navbar from './components/NAVBAR/Navbar'
 import Footer from './components/FOOTER/Footer'
+
+// State (Context API )
 import { UserAuthContextProvider } from './context/auth'
 
 function App() {
+	const [fixedFooterState, setFixedFooterState] = useState(false)
+
+	const {pathname} = useLocation()
+
+	useEffect(()=>{
+		const routeForFixed = [
+			'/',
+			'/login',
+			'/sign-up',
+			'/forgot-password',
+			'/reset-password',
+			'/new-password',
+			'/onboarding'
+		]
+		const checkRouteName = () => {
+			const isRouteFixed = routeForFixed.includes(pathname);
+			setFixedFooterState(isRouteFixed);
+		  };
+		
+		  checkRouteName();
+	},[pathname])
 	return (
     <UserAuthContextProvider>
-		<main className='App h-screen overflow-auto flex flex-col'>
+		<main className={`App ${fixedFooterState ? 'h-screen overflow-auto ' : 'h-fit justify-between'} flex flex-col `}>
 			<Navbar />
-			<div className='h-full flex-1 overflow-auto mt-24'>
+			<div className={`${fixedFooterState ? ' overflow-auto flex-1':'h-fit '}  mt-24`}>
 				<Routes>
 					<Route
 						path='/'
@@ -124,26 +148,25 @@ function App() {
 						element={<EnterPin />}
 					/>
 					<Route
-						path='/buyer/biodata'
+						path='/onboarding/biodata'
 						element={<BuyerBioData />}
 					/>
 					<Route
-						path='/buyer/address'
+						path='/onboarding/address'
 						element={<BuyerAdress />}
 					/>
 					<Route
-						path='/buyer/business-info'
+						path='/onboarding/business-info'
 						element={<BusinessInfo />}
 					/>
 					<Route
-						path='/buyer/document-upload'
+						path='/onboarding/document-upload'
 						element={<DocumentUpload />}
 					/>
 				</Routes>
 			</div>
 			<Footer />
 		</main>
-
     </UserAuthContextProvider>
 	)
 }

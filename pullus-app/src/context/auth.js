@@ -11,7 +11,7 @@ export function UserAuthContextProvider({ children }) {
 
 	const firstRegister = async (form) => {
 		const res = await signUp(form)
-		setTemporaryUserData(form)
+		setTemporaryUserData({email: form.email})
 		console.log(res)
 		return res.data
 	}

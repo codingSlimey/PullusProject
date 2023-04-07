@@ -4,7 +4,7 @@ import '../../App.css'
 import bird from '../../images/bird.svg'
 import { BsStarHalf } from 'react-icons/bs'
 import { Pagination } from 'flowbite-react'
-import useScreenWidth from '../../hooks/screenWidth'
+import useScreenWidth from '../../hooks/useScreenWidth'
 
 import MobileMarketPlace from './MobileMarketPlace'
 

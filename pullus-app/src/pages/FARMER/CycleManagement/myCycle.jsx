@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 
-import useScreenWidth from '../../../hooks/screenWidth'
+import useScreenWidth from '../../../hooks/useScreenWidth'
 
 import Analysis from '../../../components/FARMER/cycleManagement/analysis'
 import SingleBatch from '../../../components/FARMER/cycleManagement/singleBatch'

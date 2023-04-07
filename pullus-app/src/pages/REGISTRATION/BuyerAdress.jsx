@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import Select from '../../components/FARMER/Select'
 import Emodal from '../../modal/EModal'
 import FarmersLocation from './FarmersLocation'
+import { useUserAuth } from '../../context/auth'
+
+import {useGeolocation} from 'react-use';
+
 // import { getStates } from "../../api";
 
 //Hooks
@@ -23,34 +27,61 @@ function getLocation() {
 
 export default function BuyerAdress() {
 	// Function to warn users when they have not completed their onboarding steps
+	// useBeforeUnload()
 
 	const [states, setStates] = useState([])
 	const [lgas, setLgas] = useState([])
 	const [selectedState, setSelectedState] = useState('')
 	const [showModal, setShowModal] = useState(false)
 	const [response, setResponse] = useState('')
+	const [lat, setLat]= useState('')
+	const [long, setLong]=useState('')
+	const { tempUser, setTemporaryUserData } = useUserAuth()
+
 
 	const [location, setLocation] = useState(null)
 
-	const getCoordinates = () => {
-		getLocation()
-			.then((position) => {
-				console.log(position)
-				setLocation({
-					latitude: position.coords.latitude,
-					longitude: position.coords.longitude,
-				})
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	}
+	// const getCoordinates = () => {
+	// 	getLocation()
+	// 		.then((position) => {
+	// 			console.log(position)
+	// 			setLocation({
+	// 				latitude: position.coords.latitude,
+	// 				longitude: position.coords.longitude,
+	// 			})
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error)
+	// 		})
+
+	// }
+
+	useEffect(()=>{
+		navigator.geolocation.getCurrentPosition((position)=>{
+			setLat(position.coords.latitude)
+			setLong(position.coords.longitude)
+		})
+		axios.get(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&location=${lat},${long}`)
+		.then((res)=>{
+			const {address}= res.data
+			console.log(address.Region);
+			console.log(lat)
+			console.log(long)
+			setLocation(address.Region)
+			console.log(location);
+		})
+
+
+
+	}, [response])
+
+	
 
 	const theAnswer = (res) => {
 		setResponse(res)
 		if (res === 'yes') {
 			console.log('Yaaaaayy')
-			getCoordinates()
+			
 			setShowModal(false)
 			// loader
 		} else {
@@ -60,7 +91,6 @@ export default function BuyerAdress() {
 		}
 	}
 
-	const handleSubmit = () => {}
 
 	const handleFarmersLocation = () => {
 		setShowModal(true)
@@ -90,8 +120,16 @@ export default function BuyerAdress() {
 		const selectedState = states.find((item) => item.state === state)
 		setLgas(selectedState.lga)
 		setSelectedState(state)
+		setTemporaryUserData({ ...tempUser, area:state })
+
 	}
 	const navigate = useNavigate()
+
+	const handleSubmit = ()=>{
+		setTemporaryUserData({ ...tempUser, latitude:lat, longitude:long, address:location , state:states, lga:lgas })
+		console.log(tempUser);
+		navigate('/onboarding/business-info')
+	}
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
 			<div className='m-auto w-full max-w-[800px] px-10'>
@@ -164,27 +202,16 @@ export default function BuyerAdress() {
 						type='text'
 						placeholder='28, My street, PC414'
 						label='Address Details'
+						value={location}
 					/>
-					<div className='flex gap-2'>
-						<input
-							type='checkbox'
-							className='text-primary'
-							placeholder='Make this your default address'
-						/>
-						<label
-							htmlFor='check'
-							className='text-primary text-sm'
-						>
-							Make this your default address
-						</label>
-					</div>
+
 				</div>
 				<div className='flex justify-center my-10 items-center'>
 					<Button
 						title='Continue'
 						icon={true}
 						color={`fade`}
-						action={() => navigate('/buyer/business-info')}
+						action={handleSubmit}
 					/>
 				</div>
 				{showModal && (

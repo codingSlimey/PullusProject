@@ -9,7 +9,7 @@ import Input from '../../components/FARMER/Input'
 import { useUserAuth } from '../../context/auth'
 import thankYou from '../../images/thankYou.svg'
 
-import { UpdateFormState } from '../../utilities/utilities'
+import { UpdateFormState } from '../../utils/setFormState'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)

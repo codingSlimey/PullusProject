@@ -1,8 +1,7 @@
-import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import Button from '../FARMER/button'
-import styles from './styles.module.css'
 import { IoNotifications } from 'react-icons/io5'
 import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
@@ -11,32 +10,59 @@ import { HiBookmarkSquare } from 'react-icons/hi2'
 
 export default function Navbar() {
 	const navigate = useNavigate()
+	const {pathname} = useLocation()
 
 	const userLinks = [
 		{
 			name: 'Dashboard',
 			icon: <ImMeter className='w-8 h-8' />,
+			url: '/farmer/cycle-management',
 		},
 		{
 			name: 'Profile',
 			icon: <BsFillPersonFill className='w-8 h-8' />,
+			url: '/farmer/settings',
 		},
 		{
 			name: 'Orders',
 			icon: <HiBookmarkSquare className='w-8 h-8' />,
+			url: '/farmer/my-orders',
 		},
 		{
 			name: 'Market',
 			icon: <AiFillHome className='w-8 h-8' />,
+			url: '/market-place',
 		},
 		{
 			name: 'Notice',
 			icon: <IoNotifications className='w-8 h-8' />,
+			url: '/farmer/notifications',
 		},
 	]
 
+	const [userLayoutState, setUserLayoutState] = useState(false)
+
+
+	useEffect(()=>{
+		const routes = [
+			'/',
+			'/login',
+			'/sign-up',
+			'/forgot-password',
+			'/reset-password',
+			'/new-password',
+			'/onboarding'
+		]
+		const checkRouteName = () => {
+			const isRouteFixed = routes.includes(pathname);
+			setUserLayoutState(isRouteFixed);
+		  };
+		
+		  checkRouteName();
+	},[pathname])
+
 	return (
-		<div className='fixed top-0 left-0 w-full bg-white border-b border-grey'>
+		<div className='fixed top-0 left-0 w-full z-30 bg-white border-b border-grey'>
 			<section
 				className={
 					' flex justify-between max-width px-5  md:generalPadding items-center h-24'
@@ -49,27 +75,39 @@ export default function Navbar() {
 					onClick={() => navigate('/')}
 				/>
 
-				<div className='flex gap-8'>
-					{/* <div className='flex gap-8 items-center '>
+				{
+					!userLayoutState 
+					?
+					<div className='flex gap-8'>
+					<div className='flex gap-8 items-center '>
 						{userLinks.map((item, index) => {
 							return (
 								<NavLink
+									to={item.url}
 									key={index}
-									className='flex flex-col justify-center items-center text-primary text-bold'
+									className={` ${pathname === item.url ? 'text-gray-500/70':'text-primary hover:text-primary/70'} flex flex-col justify-center items-center  text-bold`}
 								>
 									{item.icon}
-									<p className='font-bold text-lg uppercase'>{item.name}</p>
+									<p className='font-semibold text-lg uppercase'>{item.name}</p>
 								</NavLink>
 							)
 						})}
-					</div> */}
+					</div>
 					<Button
-						action={() => navigate('/login')}
+						action={() => navigate('/')}
 						color={'fade'}
-						title={'Login'}
+						title={'Logout'}
 						extraClass={'font-bold md:text-lg'}
 					/>
 				</div>
+				:
+				<Button
+				action={() => navigate('/login')}
+				color={'fade'}
+				title={'Login'}
+				extraClass={'font-bold md:text-lg'}
+			/>
+			}
 			</section>
 		</div>
 	)
