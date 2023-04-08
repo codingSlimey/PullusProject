@@ -7,10 +7,14 @@ import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { ImMeter } from 'react-icons/im'
 import { HiBookmarkSquare } from 'react-icons/hi2'
+import { HiOutlineShoppingCart } from 'react-icons/hi'
+
+import { useCart } from '../../context/cart'
 
 export default function Navbar() {
+	const { items } = useCart()
 	const navigate = useNavigate()
-	const {pathname} = useLocation()
+	const { pathname } = useLocation()
 
 	const userLinks = [
 		{
@@ -42,8 +46,7 @@ export default function Navbar() {
 
 	const [userLayoutState, setUserLayoutState] = useState(false)
 
-
-	useEffect(()=>{
+	useEffect(() => {
 		const routes = [
 			'/',
 			'/login',
@@ -51,21 +54,24 @@ export default function Navbar() {
 			'/forgot-password',
 			'/reset-password',
 			'/new-password',
-			'/onboarding'
+			'/onboarding/biodata',
+			'/onboarding/address',
+			'/onboarding/business-info',
+			'/onboarding/document-upload',
 		]
 		const checkRouteName = () => {
-			const isRouteFixed = routes.includes(pathname);
-			setUserLayoutState(isRouteFixed);
-		  };
-		
-		  checkRouteName();
-	},[pathname])
+			const isRouteFixed = routes.includes(pathname)
+			setUserLayoutState(isRouteFixed)
+		}
+
+		checkRouteName()
+	}, [pathname])
 
 	return (
 		<div className='fixed top-0 left-0 w-full z-30 bg-white border-b border-grey'>
 			<section
 				className={
-					' flex justify-between max-width px-5  md:generalPadding items-center h-24'
+					' flex justify-between max-width px-5  md:generalPadding items-center h-20 md:h-24'
 				}
 			>
 				<img
@@ -75,39 +81,62 @@ export default function Navbar() {
 					onClick={() => navigate('/')}
 				/>
 
-				{
-					!userLayoutState 
-					?
+				{!userLayoutState ? (
 					<div className='flex gap-8'>
-					<div className='flex gap-8 items-center '>
-						{userLinks.map((item, index) => {
-							return (
-								<NavLink
-									to={item.url}
-									key={index}
-									className={` ${pathname === item.url ? 'text-gray-500/70':'text-primary hover:text-primary/70'} flex flex-col justify-center items-center  text-bold`}
-								>
-									{item.icon}
-									<p className='font-semibold text-lg uppercase'>{item.name}</p>
-								</NavLink>
-							)
-						})}
+						<div className='flex gap-8 items-center '>
+							{userLinks.map((item, index) => {
+								return (
+									<NavLink
+										to={item.url}
+										key={index}
+										className={` ${
+											pathname === item.url
+												? 'text-gray-500/70'
+												: 'text-primary hover:text-primary/70'
+										} flex flex-col justify-center items-center  text-bold`}
+									>
+										{item.icon}
+										<p className='font-semibold text-lg uppercase'>
+											{item.name}
+										</p>
+									</NavLink>
+								)
+							})}
+
+							<NavLink
+								to={'/cart'}
+								className={` ${
+									pathname === '/cart'
+										? 'text-gray-500/70'
+										: 'text-primary hover:text-primary/70'
+								} flex flex-col justify-center items-center  text-bold relative`}
+							>
+								<HiOutlineShoppingCart className='w-8 h-8' />
+								<p className='font-semibold text-lg uppercase'>Cart</p>
+								{items.length ? (
+									<div className='h-6 w-6 flex justify-center items-center rounded-full bg-primary text-white font-bold text-lg absolute -top-2 -right-2'>
+										{items.length}
+									</div>
+								) : (
+									<div></div>
+								)}
+							</NavLink>
+						</div>
+						<Button
+							action={() => navigate('/')}
+							color={'fade'}
+							title={'Logout'}
+							extraClass={'font-bold md:text-lg'}
+						/>
 					</div>
+				) : (
 					<Button
-						action={() => navigate('/')}
+						action={() => navigate('/login')}
 						color={'fade'}
-						title={'Logout'}
+						title={'Login'}
 						extraClass={'font-bold md:text-lg'}
 					/>
-				</div>
-				:
-				<Button
-				action={() => navigate('/login')}
-				color={'fade'}
-				title={'Login'}
-				extraClass={'font-bold md:text-lg'}
-			/>
-			}
+				)}
 			</section>
 		</div>
 	)

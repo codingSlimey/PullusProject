@@ -7,11 +7,12 @@ export function UserAuthContextProvider({ children }) {
 	//For first signup and setting of temporary user
 	const tempUserData = localStorage.getItem('tempUser')
 	const [tempUser, setTempUser] = useState(
-		tempUserData ? JSON.parse(tempUserData) : {} )
+		tempUserData ? JSON.parse(tempUserData) : {}
+	)
 
 	const firstRegister = async (form) => {
 		const res = await signUp(form)
-		setTemporaryUserData({email: form.email})
+		setTemporaryUserData({ email: form.email })
 		console.log(res)
 		return res.data
 	}
@@ -19,6 +20,7 @@ export function UserAuthContextProvider({ children }) {
 	const setTemporaryUserData = (data) => {
 		localStorage.setItem('tempUser', JSON.stringify(data))
 		setTempUser(data)
+		console.log(tempUser)
 	}
 
 	const clearTemporaryUserData = () => {
@@ -29,7 +31,9 @@ export function UserAuthContextProvider({ children }) {
 	// Real user
 	const [user, setUser] = useState({})
 	return (
-		<userAuthContext.Provider value={{ user, tempUser,setTemporaryUserData, firstRegister }}>
+		<userAuthContext.Provider
+			value={{ user, tempUser, setTemporaryUserData, firstRegister }}
+		>
 			{children}
 		</userAuthContext.Provider>
 	)

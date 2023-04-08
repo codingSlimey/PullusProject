@@ -7,23 +7,26 @@ import Emodal from '../../modal/EModal'
 import FarmersLocation from './FarmersLocation'
 import { useUserAuth } from '../../context/auth'
 
-import {useGeolocation} from 'react-use';
-
 // import { getStates } from "../../api";
 
 //Hooks
 
 import axios from 'axios'
 
-function getLocation() {
-	return new Promise((resolve, reject) => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(resolve, reject)
-		} else {
-			reject('Geolocation is not supported by this browser.')
-		}
-	})
-}
+import mapboxgl from 'mapbox-gl'
+
+const MAPBOX_ACCESS_TOKEN =
+	'pk.eyJ1Ijoic3dlZXQtcmlkZSIsImEiOiJjbGRpdjZ4cDAxaHhkM3BwaWYxN2xobHIzIn0.uVQdmc7mOq5m9x5ICDz8UA'
+
+// function getLocation() {
+// 	return new Promise((resolve, reject) => {
+// 		if (navigator.geolocation) {
+// 			navigator.geolocation.getCurrentPosition(resolve, reject)
+// 		} else {
+// 			reject('Geolocation is not supported by this browser.')
+// 		}
+// 	})
+// }
 
 export default function BuyerAdress() {
 	// Function to warn users when they have not completed their onboarding steps
@@ -32,56 +35,50 @@ export default function BuyerAdress() {
 	const [states, setStates] = useState([])
 	const [lgas, setLgas] = useState([])
 	const [selectedState, setSelectedState] = useState('')
+	const [selectedLga, setSelectedLga] = useState('')
 	const [showModal, setShowModal] = useState(false)
 	const [response, setResponse] = useState('')
-	const [lat, setLat]= useState('')
-	const [long, setLong]=useState('')
+	const [lat, setLat] = useState('')
+	const [long, setLong] = useState('')
 	const { tempUser, setTemporaryUserData } = useUserAuth()
 
+	const [location, setLocation] = useState('')
 
-	const [location, setLocation] = useState(null)
-
-	// const getCoordinates = () => {
-	// 	getLocation()
-	// 		.then((position) => {
-	// 			console.log(position)
-	// 			setLocation({
-	// 				latitude: position.coords.latitude,
-	// 				longitude: position.coords.longitude,
-	// 			})
-	// 		})
-	// 		.catch((error) => {
-	// 			console.log(error)
-	// 		})
-
-	// }
-
-	useEffect(()=>{
-		navigator.geolocation.getCurrentPosition((position)=>{
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition((position) => {
 			setLat(position.coords.latitude)
 			setLong(position.coords.longitude)
 		})
-		axios.get(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&location=${lat},${long}`)
-		.then((res)=>{
-			const {address}= res.data
-			console.log(address.Region);
-			console.log(lat)
-			console.log(long)
-			setLocation(address.Region)
-			console.log(location);
-		})
+	}, [])
 
+	const getUserLocation = async (latitude, longitude) => {
+		const geocoderUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_ACCESS_TOKEN}`
+		const response = await fetch(geocoderUrl)
+		const data = await response.json()
 
-
-	}, [response])
-
-	
+		return data.features[0].place_name // Return the user's location
+	}
 
 	const theAnswer = (res) => {
 		setResponse(res)
 		if (res === 'yes') {
-			console.log('Yaaaaayy')
-			
+			getUserLocation(lat, long).then((location) => {
+				console.log(location)
+				setLocation(location)
+			})
+			// axios
+			// 	.get(
+			// 		`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&location=${lat},${long}`
+			// 	)
+			// 	.then((res) => {
+			// 		const { address } = res.data
+			// 		console.log(address)
+			// 		console.log(address?.Region)
+			// 		console.log(lat)
+			// 		console.log(long)
+			// 		setLocation(address.Region)
+			// 		console.log(location)
+			// 	})
 			setShowModal(false)
 			// loader
 		} else {
@@ -90,7 +87,6 @@ export default function BuyerAdress() {
 			return
 		}
 	}
-
 
 	const handleFarmersLocation = () => {
 		setShowModal(true)
@@ -117,17 +113,29 @@ export default function BuyerAdress() {
 
 	const handleStateChange = (e) => {
 		const state = e.target.value
+		console.log(state)
 		const selectedState = states.find((item) => item.state === state)
 		setLgas(selectedState.lga)
 		setSelectedState(state)
-		setTemporaryUserData({ ...tempUser, area:state })
-
+		// setTemporaryUserData({ ...tempUser, area: state })
 	}
+
+	const handleLgaChange = (e) => {
+		setSelectedLga(e.target.value)
+	}
+
 	const navigate = useNavigate()
 
-	const handleSubmit = ()=>{
-		setTemporaryUserData({ ...tempUser, latitude:lat, longitude:long, address:location , state:states, lga:lgas })
-		console.log(tempUser);
+	const handleSubmit = () => {
+		setTemporaryUserData({
+			...tempUser,
+			latitude: lat,
+			longitude: long,
+			address: location,
+			state: selectedState,
+			lga: selectedLga,
+		})
+		console.log(tempUser)
 		navigate('/onboarding/business-info')
 	}
 	return (
@@ -144,6 +152,7 @@ export default function BuyerAdress() {
 							disabled
 						/>
 					</div>
+
 					<Select
 						name='country'
 						id='countries'
@@ -163,10 +172,12 @@ export default function BuyerAdress() {
 							)
 						})}
 					</Select>
+
 					<Select
 						name='lga'
 						id='lgas'
 						placeholder='lga'
+						onChange={handleLgaChange}
 						label='Select LGA'
 					>
 						<option> Select LGA</option>
@@ -191,10 +202,10 @@ export default function BuyerAdress() {
 					</div>
 				</div>
 				<div className='flex flex-col items-start'>
-					<p className='text-primary text-sm'> Capture Address</p>
+					<p className='text-primary my-1'> Capture Address</p>
 					<button
 						onClick={handleFarmersLocation}
-						className='font-bold px-2 py-3 rounded-sm text-white bg-fade w-full'
+						className='font-bold px-2 py-3 rounded-sm my-3 text-white bg-fade w-full'
 					>
 						Click here to capture GPS Location{' '}
 					</button>
@@ -204,7 +215,6 @@ export default function BuyerAdress() {
 						label='Address Details'
 						value={location}
 					/>
-
 				</div>
 				<div className='flex justify-center my-10 items-center'>
 					<Button

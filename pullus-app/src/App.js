@@ -31,16 +31,18 @@ import EnterPin from './pages/FARMER/MyEwallet/EnterPin'
 import DocumentUpload from './pages/REGISTRATION/DocumentUpload'
 import Navbar from './components/NAVBAR/Navbar'
 import Footer from './components/FOOTER/Footer'
+import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
 import { UserAuthContextProvider } from './context/auth'
+import { CartProvider } from './context/cart'
 
 function App() {
 	const [fixedFooterState, setFixedFooterState] = useState(false)
 
-	const {pathname} = useLocation()
+	const { pathname } = useLocation()
 
-	useEffect(()=>{
+	useEffect(() => {
 		const routeForFixed = [
 			'/',
 			'/login',
@@ -48,50 +50,64 @@ function App() {
 			'/forgot-password',
 			'/reset-password',
 			'/new-password',
-			'/onboarding'
+			'/onboarding/biodata',
+			'/onboarding/address',
+			'/onboarding/business-info',
+			'/onboarding/document-upload',
 		]
 		const checkRouteName = () => {
-			const isRouteFixed = routeForFixed.includes(pathname);
-			setFixedFooterState(isRouteFixed);
-		  };
-		
-		  checkRouteName();
-	},[pathname])
+			const isRouteFixed = routeForFixed.includes(pathname)
+			setFixedFooterState(isRouteFixed)
+		}
+
+		checkRouteName()
+	}, [pathname])
 	return (
-    <UserAuthContextProvider>
-		<main className={`App ${fixedFooterState ? 'h-screen overflow-auto ' : 'h-fit justify-between'} flex flex-col `}>
-			<Navbar />
-			<div className={`${fixedFooterState ? ' overflow-auto flex-1':'h-fit '}  mt-24`}>
-				<Routes>
-					<Route
-						path='/'
-						element={<Home />}
-					/>
-					<Route
-						path='/login'
-						element={<Login />}
-					/>
-					<Route
-						path='/sign-up'
-						element={<Signup />}
-					/>
-					<Route
-						path='/forgot-password'
-						element={<ForgotPassword />}
-					/>
-					<Route
-						path='/reset-password'
-						element={<ResetPassword />}
-					/>
-					<Route
-						path='/new-password'
-						element={<NewPassword />}
-					/>
-					<Route
-						path='/privacy'
-						element={<Privacy />}
-					/>
-					{/* <Route
+		<UserAuthContextProvider>
+			<CartProvider>
+				<main
+					className={`App ${
+						fixedFooterState
+							? 'h-screen overflow-auto '
+							: 'h-fit justify-between'
+					} flex flex-col `}
+				>
+					<Navbar />
+					<div
+						className={`${
+							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit '
+						}  mt-24`}
+					>
+						<Routes>
+							<Route
+								path='/'
+								element={<Home />}
+							/>
+							<Route
+								path='/login'
+								element={<Login />}
+							/>
+							<Route
+								path='/sign-up'
+								element={<Signup />}
+							/>
+							<Route
+								path='/forgot-password'
+								element={<ForgotPassword />}
+							/>
+							<Route
+								path='/reset-password'
+								element={<ResetPassword />}
+							/>
+							<Route
+								path='/new-password'
+								element={<NewPassword />}
+							/>
+							<Route
+								path='/privacy'
+								element={<Privacy />}
+							/>
+							{/* <Route
 						path='/vendor/biodata/information'
 						element={<BioData func={getBiodata} />}
 					/>
@@ -111,63 +127,65 @@ function App() {
 						path='/vendor/biodata/information/documents-upload'
 						element={<BioDataDocUpload func={print} />}
 					/> */}
-					<Route
-						path='/farmer/*'
-						element={<Farmer />}
-					/>
-					<Route
-						path='/market-place'
-						element={<MarketPlace />}
-					/>
-					<Route
-						path='/product-detail'
-						element={<ProductDetail />}
-					/>
-					<Route
-						path='/cart'
-						element={<Cart />}
-					/>
-					<Route
-						path='/select-vendor'
-						element={<SelectVendor />}
-					/>
-					<Route
-						path='/checkout'
-						element={<Checkout />}
-					/>
-					<Route
-						path='top-up-wallet'
-						element={<TopUpWallet />}
-					/>
-					<Route
-						path='/payment-method'
-						element={<PaymentMethod />}
-					/>
-					<Route
-						path='/enter-pin'
-						element={<EnterPin />}
-					/>
-					<Route
-						path='/onboarding/biodata'
-						element={<BuyerBioData />}
-					/>
-					<Route
-						path='/onboarding/address'
-						element={<BuyerAdress />}
-					/>
-					<Route
-						path='/onboarding/business-info'
-						element={<BusinessInfo />}
-					/>
-					<Route
-						path='/onboarding/document-upload'
-						element={<DocumentUpload />}
-					/>
-				</Routes>
-			</div>
-			<Footer />
-		</main>
-    </UserAuthContextProvider>
+							<Route
+								path='/farmer/*'
+								element={<Farmer />}
+							/>
+							<Route
+								path='/market-place'
+								element={<MarketPlace />}
+							/>
+							<Route
+								path='/product/:product'
+								element={<ProductDetail />}
+							/>
+							<Route
+								path='/cart'
+								element={<Cart />}
+							/>
+							{/* <Route
+								path='/select-vendor'
+								element={<SelectVendor />}
+							/> */}
+							<Route
+								path='/checkout'
+								element={<Checkout />}
+							/>
+							<Route
+								path='top-up-wallet'
+								element={<TopUpWallet />}
+							/>
+							<Route
+								path='/payment-method'
+								element={<PaymentMethod />}
+							/>
+							<Route
+								path='/enter-pin'
+								element={<EnterPin />}
+							/>
+							<Route
+								path='/onboarding/biodata'
+								element={<BuyerBioData />}
+							/>
+							<Route
+								path='/onboarding/address'
+								element={<BuyerAdress />}
+							/>
+							<Route
+								path='/onboarding/business-info'
+								element={<BusinessInfo />}
+							/>
+							<Route
+								path='/onboarding/document-upload'
+								element={<DocumentUpload />}
+							/>
+						</Routes>
+					</div>
+					{/* <CartFloatingButton /> */}
+					<Footer />
+				</main>
+			</CartProvider>
+		</UserAuthContextProvider>
 	)
 }
 

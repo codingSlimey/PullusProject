@@ -55,7 +55,7 @@ function BuyerBioData() {
 
 	useEffect(() => {
 		if (tempUser.bvn) {
-			navigate('/buyer/address')
+			navigate('/onboarding/address')
 		}
 	}, [])
 
@@ -81,7 +81,7 @@ function BuyerBioData() {
 			return
 		} else {
 			setTemporaryUserData({ ...tempUser, ...FormData })
-			navigate('/buyer/address')
+			navigate('/onboarding/address')
 		}
 	}
 
