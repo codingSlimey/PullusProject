@@ -7,7 +7,8 @@ import { Pagination } from 'flowbite-react'
 import useScreenWidth from '../../hooks/useScreenWidth'
 
 import MobileMarketPlace from './MobileMarketPlace'
-import CartFloatingButton from '../../components/buttons/cartFloatingButton'
+
+import products from '../../constants/dummyProducts'
 
 function MarketPlace(props) {
 	const screenWidth = useScreenWidth()
@@ -22,8 +23,6 @@ function MarketPlace(props) {
 	]
 	return (
 		<div className='font-bold px-4  md:pb-12'>
-			<CartFloatingButton />
-
 			<div className='flex items-center my-4 justify-center gap-4'>
 				<input
 					type='text'
@@ -116,7 +115,7 @@ function MarketPlace(props) {
 							All Products
 						</div>
 						<div className='market-place'>
-							{[...Array(10)].map((item, index) => {
+							{products.map((item, index) => {
 								return (
 									<div
 										key={index}
@@ -129,10 +128,10 @@ function MarketPlace(props) {
 										></img>
 										<div className='text-primary text-left grid gap-1 mt-3'>
 											<Link
-												to={'/product-detail'}
+												to={`/product/${item.name}`}
 												className='font-bold'
 											>
-												Day Old Chicks
+												{item.name}
 											</Link>
 											<div className='flex gap-3 font-light text-sm items-center'>
 												<div className='flex gap-2 items-center'>
@@ -145,7 +144,7 @@ function MarketPlace(props) {
 												</span>
 											</div>
 											<div className='flex items-center gap-3'>
-												<span>N 500.00</span>
+												<span>N {item.price}.00</span>
 											</div>
 										</div>
 									</div>

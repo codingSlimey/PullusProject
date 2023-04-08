@@ -1,10 +1,9 @@
 import { AiFillStar } from 'react-icons/ai'
 
-function VendorProfile(props) {
-
+function VendorProfile() {
 	return (
 		<div className='px-3 font-bold lg:pb-12 lg:px-20'>
-			<div className='text-primary  my-6'>Vendor Profile</div>
+			<div className='text-primary text-center my-6'>Vendor Profile</div>
 			<div className='grid  place-items-center mt-12 '>
 				<div className='flex flex-col lg:flex-row items-center gap-20'>
 					<div>

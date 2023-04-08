@@ -1,23 +1,34 @@
-import { IoCloseCircleOutline } from 'react-icons/io5'
-import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import bird from '../../images/bird.svg'
-
 import { Modal } from 'flowbite-react'
+import SingleCartItem from '../../components/cart/SingleCartItem'
 
-function Cart(props) {
+import { useCart } from '../../context/cart'
+
+function Cart() {
 	const navigate = useNavigate()
-	let [quantity, setQuantity] = useState(1)
-	const handleSubtraction = () => {
-		if (quantity === 1) return
-		else setQuantity((prevQuantity) => prevQuantity - 1)
-	}
-	const handleAddition = () => {
-		setQuantity((prevQuantity) => prevQuantity + 1)
-	}
+	const { items, total, removeFromCart } = useCart()
 
 	const [dialog, setDialog] = useState(false)
+	const [itemForDelete, setItemForDelete] = useState(null)
+
+	const openDeleteDialog = (item) => {
+		setDialog(true)
+		setItemForDelete(item)
+	}
+
+	const closeDeleteDialog = () => {
+		setDialog(false)
+		setItemForDelete(null)
+	}
+
+	const deleteSingleCartItem = (item) => {
+		removeFromCart(item)
+		closeDeleteDialog()
+	}
+
 	return (
 		<div className='font-bold pb-12 px-36'>
 			<div className='flex items-center'>
@@ -64,50 +75,15 @@ function Cart(props) {
 							</th>
 						</tr>
 					</thead>
+
 					<tbody className=''>
-						{[...Array(5)].map((item, index) => {
+						{items.map((item, index) => {
 							return (
-								<tr
+								<SingleCartItem
 									key={index}
-									className='   text-primary text-center'
-								>
-									<td className=' px-6 py-4 flex gap-4 items-center'>
-										<IoCloseCircleOutline
-											onClick={() => setDialog(true)}
-											className='h-5 w-5 cursor-pointer'
-										/>
-										<img
-											src={bird}
-											alt=''
-											className='shadow-xl w-16 h-16 p-2 bg-grey rounded-xl'
-										/>
-									</td>
-									<td
-										className='px-6 py-4 font-medium   '
-									>
-										Broilers
-									</td>
-									<td className=' px-6 py-4'>Abuja, Nigeria</td>
-									<td className=' px-6 py-4'>N200</td>
-									<td className=' px-6 py-4 flex justify-center'>
-										<div className='flex gap-4 items-center justify-center w-fit bg-grey px-5 py-1 rounded-lg'>
-											<AiFillMinusCircle
-												onClick={handleSubtraction}
-												className={`w-5 h-5 cursor-pointer ${
-													quantity === 1 ? 'text-[grey]' : ''
-												}`}
-											/>
-											<span className='border-primary border px-3 rounded-md'>
-												{quantity}
-											</span>
-											<AiFillPlusCircle
-												onClick={handleAddition}
-												className='w-5 h-5 cursor-pointer'
-											/>
-										</div>
-									</td>
-									<td className=' px-6 py-4'>N100,000</td>
-								</tr>
+									openDeleteDialog={openDeleteDialog}
+									product={item}
+								/>
 							)
 						})}
 					</tbody>
@@ -116,11 +92,11 @@ function Cart(props) {
 				<div className='my-4 grid place-items-end items-center gap-3'>
 					<div className='text-primary'>
 						<div className=' font-light  text-base'>Total Price:</div>
-						<div className='text-xl font-bold'>N4,000</div>
+						<div className='text-xl font-bold'>N{total}</div>
 					</div>
 					<div className='mt-6 flex  gap-16 '>
 						<button
-							onClick={() => navigate('/select-vendor')}
+							onClick={() => navigate('/checkout')}
 							className={`w-[fit] bg-fade text-[#fff] text-lg font-bold py-4 px-24 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Checkout
@@ -131,10 +107,9 @@ function Cart(props) {
 
 			<Modal
 				show={dialog}
-				onClose={() => setDialog(false)}
+				onClose={closeDeleteDialog}
 				size='md'
 			>
-				{/* <Modal.Header>Terms of Service</Modal.Header> */}
 				<Modal.Body>
 					<div className='p-4  rounded-xl bg-grey shadow-xl mb-4 '>
 						<div className='flex gap-3 items-center font-normal text-primary '>
@@ -144,15 +119,15 @@ function Cart(props) {
 								alt=''
 							/>
 							<div className='text-primary grid gap-1 font-light flex-auto'>
-								<div className='font-bold'>Day Old Chicks</div>
+								<div className='font-bold'>{itemForDelete?.name}</div>
 								<div className='flex items-center gap-3'>
 									<span>Broilers</span>
 									<span>|</span>
-									<span>Qty = 500</span>
+									<span>Qty = {itemForDelete?.quantity}</span>
 								</div>
 
 								<div className='flex items-center justify-between'>
-									<span className='font-bold'>N100,000</span>
+									<span className='font-bold'>N{itemForDelete?.price}</span>
 								</div>
 							</div>
 						</div>
@@ -161,13 +136,13 @@ function Cart(props) {
 				<Modal.Footer>
 					<div className='mt-4 flex w-full gap-6 justify-center '>
 						<button
-							onClick={() => setDialog(false)}
+							onClick={closeDeleteDialog}
 							className={`w-[fit] bg-grey text-primary text-base font-bold py-3 px-8 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Cancel
 						</button>
 						<button
-							onClick={() => setDialog(false)}
+							onClick={() => deleteSingleCartItem(itemForDelete)}
 							className={`w-[fit] bg-fade text-[#fff] text-base font-bold py-3 px-8 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Yes, Remove

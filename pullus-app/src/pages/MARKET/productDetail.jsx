@@ -2,16 +2,38 @@ import bird from '../../images/bird.svg'
 import { BsStarHalf } from 'react-icons/bs'
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
 import { useState } from 'react'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import products from '../../constants/dummyProducts'
+import { FaPlay } from 'react-icons/fa'
+
+import { useCart } from '../../context/cart'
+import VendorProfile from '../FARMER/MyOrders/vendorProfile'
 
 function ProductDetail() {
+	const { addToCart, increaseQuantity, decreaseQuantity, items } = useCart()
 	let [quantity, setQuantity] = useState(1)
-	const handleSubtraction = () => {
-		if (quantity === 1) return
-		else setQuantity((prevQuantity) => prevQuantity - 1)
-	}
-	const handleAddition = () => {
-		setQuantity((prevQuantity) => prevQuantity + 1)
-	}
+	const [showModal, setShowModal] = useState(false)
+
+	const [singleProduct, setSingleProduct] = useState(null)
+	const { pathname } = useLocation()
+	useEffect(() => {
+		const productName = pathname.split('product/')[1]
+		products.forEach((item) => {
+			if (item.name === productName) {
+				setSingleProduct(item)
+			} else {
+				return
+			}
+		})
+		if (items) {
+			for (let i = 0; i < items.length; i++) {
+				if (items[i].name === productName) {
+					setQuantity(items[i].quantity)
+				}
+			}
+		}
+	}, [pathname, items, quantity])
 	return (
 		<div className='py-16 px-48 text-left'>
 			<div className='flex gap-14'>
@@ -24,8 +46,8 @@ function ProductDetail() {
 				</div>
 				<div className='flex-1 text-primary'>
 					<div className='font-bold'>
-						<div className='text-xl'>Day Old Chicks</div>
-						<div className='text-2xl my-5'>N200.00</div>
+						<div className='text-xl'>{singleProduct?.name}</div>
+						<div className='text-2xl my-5'>N{singleProduct?.price}.00</div>
 					</div>
 					<div className='text-xl font-bold'>Description</div>
 					<div className='my-2 w-[90%]'>
@@ -40,33 +62,47 @@ function ProductDetail() {
 						<BsStarHalf className='h-5 w-5' />
 						<span className='text-sm'>4.5 (7 reviews)</span>
 					</div>
+
+					<button
+						onClick={() => setShowModal(true)}
+						className={`w-fit bg-[#fff] text-primary font-semibold text-lg flex gap-3  items-center`}
+					>
+						View vendor profile here
+						<FaPlay className=' h-4 w-4' />
+					</button>
+
 					<div className='my-4 flex items-center gap-3'>
 						<span className='inline font-bold  text-base'>Quantity</span>
 						<div className='flex gap-4 items-center bg-grey px-5 py-1 rounded-lg'>
-							<AiFillMinusCircle
-								onClick={handleSubtraction}
-								className={`w-5 h-5 cursor-pointer ${
-									quantity === 1 ? 'text-[grey]' : ''
-								}`}
-							/>
+							<button
+								disabled={quantity === 1}
+								onClick={() => decreaseQuantity(singleProduct)}
+							>
+								<AiFillMinusCircle
+									className={`w-5 h-5 cursor-pointer ${
+										quantity === 1 ? 'text-[grey]' : ''
+									}`}
+								/>
+							</button>
 							<span className='border-primary border px-3 rounded-md'>
 								{quantity}
 							</span>
-							<AiFillPlusCircle
-								onClick={handleAddition}
-								className='w-5 h-5 cursor-pointer'
-							/>
+							<button onClick={() => increaseQuantity(singleProduct)}>
+								<AiFillPlusCircle className='w-5 h-5 cursor-pointer' />
+							</button>
 						</div>
 					</div>
 
 					<div className='my-4 flex items-center gap-3'>
 						<span className='inline font-light  text-base'>Total Price:</span>
-						<span className='text-xl font-bold'>N4,000</span>
+						<span className='text-xl font-bold'>
+							N{quantity * singleProduct?.price}
+						</span>
 					</div>
 
 					<div className='mt-12 flex  gap-16 '>
 						<button
-							// onClick={() => navigate('/farmer/settings')}
+							onClick={() => addToCart(singleProduct)}
 							className={`w-[fit] bg-fade text-[#fff] text-lg font-bold py-4 px-24 flex  items-center rounded-full shadow-xl  my-auto`}
 						>
 							Add to Cart
@@ -102,6 +138,20 @@ function ProductDetail() {
 					})}
 				</div>
 			</div>
+
+			{showModal && (
+				<div
+					className={` z-10 fixed bg-modal left-0 top-0 h-screen flex flex-col items-center justify-center w-full`}
+					onClick={() => setShowModal(false)}
+				>
+					<div
+						onClick={(e) => e.stopPropagation()}
+						className='bg-white px-8 py-5 rounded-2xl w-fit'
+					>
+						<VendorProfile />
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

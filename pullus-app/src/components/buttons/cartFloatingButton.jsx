@@ -1,6 +1,21 @@
 import { HiOutlineShoppingCart } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 export default function CartFloatingButton() {
+	const [showButton, setShowButton] = useState(false)
+
+	const { pathname } = useLocation()
+
+	useEffect(() => {
+		const routeForFixed = ['/market-place', '/product/']
+		const checkRouteName = () => {
+			const isRouteFixed = routeForFixed.includes(pathname)
+			setShowButton(isRouteFixed)
+		}
+
+		checkRouteName()
+	}, [pathname])
+	if (!showButton) return
 	return (
 		<Link
 			to={'/cart'}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
 
@@ -13,45 +12,48 @@ import { UpdateFormState } from '../../utils/setFormState'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)
+	const [error, setError] = useState('')
 	const handleModal = () => {
 		setShowModal(!showModal)
 	}
 	const closeModal = (event) => {
-		navigate('/buyer/biodata')
-		if (!event.target.closest('.emodal')) {
-			setShowModal(false)
-		}
+		navigate('/onboarding/biodata')
+		// if (!event.target.closest('.emodal')) {
+		setShowModal(false)
+		// }
 	}
-	const [signUpForm, setSignInForm]= useState(
-		{
-			email: "",
-			password: "",
-		}
-	)
+	const [signUpForm, setSignInForm] = useState({
+		email: '',
+		password: '',
+		confirmPassword: '',
+	})
 	const navigate = useNavigate()
 
 	const { firstRegister } = useUserAuth()
 
-	const handleChange= (event)=>{
+	const handleChange = (event) => {
 		UpdateFormState(
 			event.target.name,
 			event.target.value,
 			signUpForm,
 			setSignInForm
-
 		)
-
 	}
 
-	const handleSubmit = async ( event ) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault()
-		try {
-			const res = await firstRegister({ ...signUpForm, usertype: 'farmer' })
-			console.log(res)
-			if (res) handleModal()
-			// console.log('Submit')
-		} catch (error) {
-			console.log(error)
+		setError('')
+		if (signUpForm.password === signUpForm.confirmPassword) {
+			try {
+				const res = await firstRegister({ ...signUpForm, usertype: 'farmer' })
+				console.log(res)
+				if (res) handleModal()
+				// console.log('Submit')
+			} catch (error) {
+				console.log(error)
+			}
+		} else {
+			setError('Your passwords do not match!')
 		}
 		// console.log(values)
 	}
@@ -95,7 +97,6 @@ export default function Login() {
 				<form
 					onSubmit={handleSubmit}
 					className='w-[70%] max-mobile:w-[90%] mx-auto'
-					clearAfterSubmit={false}
 				>
 					<div className='flex items-center gap-4 mb-6  text-primary'>
 						<FiLock className='w-8 h-8 font-bold' />
@@ -114,6 +115,15 @@ export default function Login() {
 							name='password'
 							onChange={handleChange}
 						/>
+
+						<Input
+							type='password'
+							placeholder='Confirm Password'
+							name='confirmPassword'
+							onChange={handleChange}
+						/>
+
+						<p className='text-[red] font-medium'>{error}</p>
 
 						<div className='flex '>
 							<Button

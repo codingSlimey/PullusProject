@@ -1,9 +1,15 @@
 import Button from '../../components/FARMER/button'
+import { Modal } from 'flowbite-react'
+import successImg from '../../images/success.svg'
 
 import React, { useState } from 'react'
 import SingleFileUpload from '../../components/uploadsForm/singleFileUpload'
-
+import { useNavigate } from 'react-router-dom'
+//State (Context API)
+import { useUserAuth } from '../../context/auth'
 const FileUpload = () => {
+	const navigate = useNavigate()
+	const [success, setSuccess] = useState(false)
 	const [files, setFiles] = useState([
 		{
 			name: 'file1',
@@ -31,6 +37,7 @@ const FileUpload = () => {
 		},
 	])
 
+	const { tempUser, setTemporaryUserData } = useUserAuth()
 	const [showModal, setShowModal] = useState(false)
 	const [modalImage, setModalImage] = useState(null)
 	const [imagesUrl, setImagesUrl] = useState({
@@ -83,7 +90,14 @@ const FileUpload = () => {
 	const handleFinalSubmit = () => {
 		// Implement your upload logic here
 		// You can access the files using the files object
-		console.log(imagesUrl)
+		setTemporaryUserData({ ...tempUser, ...imagesUrl })
+		console.log(tempUser)
+		setSuccess(true)
+	}
+
+	const handleNavigateToDashboard = () => {
+		navigate('/farmer/cycle-management')
+		setSuccess(false)
 	}
 
 	const handleThumbnailClick = (thumbnail) => {
@@ -118,7 +132,7 @@ const FileUpload = () => {
 					<div className='flex justify-center items-center'>
 						<Button
 							color={`fade`}
-							title='Select Your Application'
+							title='Continue'
 							icon={true}
 							action={handleFinalSubmit}
 						/>
@@ -154,6 +168,46 @@ const FileUpload = () => {
 					</div>
 				</div>
 			)}
+
+			<Modal
+				show={success}
+				onClose={() => setSuccess(false)}
+				size='sm'
+				className='success-modal'
+			>
+				{/* <Modal.Header className='text-primary'>Type of Shipping</Modal.Header> */}
+				<Modal.Body>
+					<div className='px-4 py-6   grid place-items-center bg-white  mb-4 '>
+						<img
+							src={successImg}
+							alt=''
+							className='bg-[white]'
+						/>
+					</div>
+					<h5 className='text-primary text-center font-bold text-xl my-2'>
+						Order Successful!
+					</h5>
+					<p className='text-primary text-center'>
+						You have successfully made an order
+					</p>
+					<div className='mt-4 grid w-full gap-6 justify-center '>
+						<button
+							onClick={() => setSuccess(false)}
+							className={`w-full bg-fade text-[#fff] text-base font-bold py-3 px-8 flex justify-center  items-center rounded-full shadow-xl  my-auto`}
+						>
+							Watch a demo video
+						</button>
+						<button
+							onClick={handleNavigateToDashboard}
+							className={`w-full bg-grey text-primary text-base font-bold py-3 px-8 flex  items-center justify-center rounded-full shadow-xl  my-auto`}
+						>
+							View your dashboard
+						</button>
+					</div>
+				</Modal.Body>
+				{/* <Modal.Footer>
+				</Modal.Footer> */}
+			</Modal>
 		</>
 	)
 }

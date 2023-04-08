@@ -129,7 +129,12 @@ function MyCycle(props) {
 								Start a New Cycle
 							</button>
 
-							<button className='w-full flex justify-center items-center bg-[#fff] py-3 rounded-full text-primary shadow-xl my-4'>
+							<button
+								onClick={() =>
+									navigate('/farmer/production-plan/create-production-plan')
+								}
+								className='w-full flex justify-center items-center bg-[#fff] py-3 rounded-full text-primary shadow-xl my-4'
+							>
 								Create a New Production Plan&nbsp;&nbsp;{' '}
 								<FaPlay className='mr-3 h-4 w-4' />
 							</button>
