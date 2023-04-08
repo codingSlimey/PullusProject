@@ -77,6 +77,7 @@ function MyCycle(props) {
 						{cycles.map((item, index) => {
 							return (
 								<div
+									key={index}
 									className={`mt-4  bg-white border border-primary/20 shadow-lg rounded-xl `}
 								>
 									<div

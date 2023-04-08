@@ -7,7 +7,7 @@ import Emodal from '../../modal/EModal'
 import FarmersLocation from './FarmersLocation'
 import { useUserAuth } from '../../context/auth'
 
-import {useGeolocation} from 'react-use';
+// import {useGeolocation} from 'react-use';
 
 // import { getStates } from "../../api";
 
@@ -34,10 +34,9 @@ export default function BuyerAdress() {
 	const [selectedState, setSelectedState] = useState('')
 	const [showModal, setShowModal] = useState(false)
 	const [response, setResponse] = useState('')
-	const [lat, setLat]= useState('')
-	const [long, setLong]=useState('')
+	const [lat, setLat] = useState('')
+	const [long, setLong] = useState('')
 	const { tempUser, setTemporaryUserData } = useUserAuth()
-
 
 	const [location, setLocation] = useState(null)
 
@@ -56,32 +55,30 @@ export default function BuyerAdress() {
 
 	// }
 
-	useEffect(()=>{
-		navigator.geolocation.getCurrentPosition((position)=>{
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition((position) => {
 			setLat(position.coords.latitude)
 			setLong(position.coords.longitude)
 		})
-		axios.get(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&location=${lat},${long}`)
-		.then((res)=>{
-			const {address}= res.data
-			console.log(address.Region);
-			console.log(lat)
-			console.log(long)
-			setLocation(address.Region)
-			console.log(location);
-		})
-
-
-
+		axios
+			.get(
+				`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&location=${lat},${long}`
+			)
+			.then((res) => {
+				const { address } = res.data
+				console.log(address.Region)
+				console.log(lat)
+				console.log(long)
+				setLocation(address.Region)
+				console.log(location)
+			})
 	}, [response])
-
-	
 
 	const theAnswer = (res) => {
 		setResponse(res)
 		if (res === 'yes') {
 			console.log('Yaaaaayy')
-			
+
 			setShowModal(false)
 			// loader
 		} else {
@@ -90,7 +87,6 @@ export default function BuyerAdress() {
 			return
 		}
 	}
-
 
 	const handleFarmersLocation = () => {
 		setShowModal(true)
@@ -120,14 +116,20 @@ export default function BuyerAdress() {
 		const selectedState = states.find((item) => item.state === state)
 		setLgas(selectedState.lga)
 		setSelectedState(state)
-		setTemporaryUserData({ ...tempUser, area:state })
-
+		setTemporaryUserData({ ...tempUser, area: state })
 	}
 	const navigate = useNavigate()
 
-	const handleSubmit = ()=>{
-		setTemporaryUserData({ ...tempUser, latitude:lat, longitude:long, address:location , state:states, lga:lgas })
-		console.log(tempUser);
+	const handleSubmit = () => {
+		setTemporaryUserData({
+			...tempUser,
+			latitude: lat,
+			longitude: long,
+			address: location,
+			state: states,
+			lga: lgas,
+		})
+		console.log(tempUser)
 		navigate('/onboarding/business-info')
 	}
 	return (
@@ -204,7 +206,6 @@ export default function BuyerAdress() {
 						label='Address Details'
 						value={location}
 					/>
-
 				</div>
 				<div className='flex justify-center my-10 items-center'>
 					<Button

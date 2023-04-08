@@ -34,6 +34,7 @@ import Footer from './components/FOOTER/Footer'
 
 // State (Context API )
 import { UserAuthContextProvider } from './context/auth'
+import { CartProvider } from './context/cart';
 
 function App() {
 	const [fixedFooterState, setFixedFooterState] = useState(false)
@@ -62,6 +63,7 @@ function App() {
 	},[pathname])
 	return (
     <UserAuthContextProvider>
+		<CartProvider>
 		<main className={`App ${fixedFooterState ? 'h-screen overflow-auto ' : 'h-fit justify-between'} flex flex-col `}>
 			<Navbar />
 			<div className={`${fixedFooterState ? ' overflow-auto flex-1':'h-fit '}  mt-24`}>
@@ -170,6 +172,7 @@ function App() {
 			</div>
 			<Footer />
 		</main>
+		</CartProvider>
     </UserAuthContextProvider>
 	)
 }

@@ -7,6 +7,8 @@ import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { ImMeter } from 'react-icons/im'
 import { HiBookmarkSquare } from 'react-icons/hi2'
+import { HiOutlineShoppingCart } from 'react-icons/hi'
+
 
 export default function Navbar() {
 	const navigate = useNavigate()
@@ -37,6 +39,11 @@ export default function Navbar() {
 			name: 'Notice',
 			icon: <IoNotifications className='w-8 h-8' />,
 			url: '/farmer/notifications',
+		},
+		{
+			name: 'Cart',
+			icon: <HiOutlineShoppingCart className='w-8 h-8' />,
+			url: '/cart',
 		},
 	]
 
