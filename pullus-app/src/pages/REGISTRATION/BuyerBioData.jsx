@@ -33,6 +33,7 @@ function BuyerBioData() {
 		middleName: '',
 		email: '',
 		phoneNumber: '',
+		dob: '',
 		gender: '',
 		bvn: '',
 	})
@@ -142,6 +143,7 @@ function BuyerBioData() {
 						value={FormData.name}
 						name='name'
 						onChange={handleChange}
+						label='enter your name'
 					/>
 					<Input
 						type='text'
@@ -149,6 +151,7 @@ function BuyerBioData() {
 						value={FormData.surname}
 						name='surname'
 						onChange={handleChange}
+						label='surname'
 					/>
 					<Input
 						type='text'
@@ -156,14 +159,15 @@ function BuyerBioData() {
 						value={FormData.middleName}
 						name='middleName'
 						onChange={handleChange}
+						label='middle name'
 					/>
-
 					<Input
 						type='email'
 						placeholder='Email'
 						value={tempUser ? tempUser.email : FormData.email}
 						onChange={handleChange}
 						name='email'
+						label='enter your email'
 					/>
 					<Input
 						type='tel'
@@ -171,7 +175,17 @@ function BuyerBioData() {
 						name='phoneNumber'
 						value={FormData.phoneNumber}
 						onChange={handleChange}
+						label='enter your phone number'
 					/>
+					<Input
+						type='date'
+						placeholder='date of birth'
+						value={FormData.dob}
+						name='dob'
+						onChange={handleChange}
+						label='enter your date of birth'
+					/>
+					<p className='text-start text-primary '> Gender</p>
 					<div className='flex py-5 items-center px-5 gap-5 text-slate-600 '>
 						<label
 							className='flex gap-5 items-center '

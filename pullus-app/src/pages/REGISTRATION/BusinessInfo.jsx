@@ -33,8 +33,8 @@ function BusinessInfo() {
 		}
 	}
 	return (
-		<div className='py-10 font-bold h-full flex justify-center'>
-			<div className='m-auto max-w-[800px] px-10'>
+		<div className='py-10 mx-auto  font-bold h-full flex justify-center'>
+			<div className='mx-auto w-1/2  px-10'>
 				<h1 className='text-primary my-5 font-bold text-xl'>
 					Business Information{' '}
 				</h1>
@@ -44,6 +44,7 @@ function BusinessInfo() {
 						placeholder='Business Name:'
 						name='businessName'
 						onChange={handleChange}
+						label="what's your business Name"
 					/>
 					<Input
 						// type='date'
@@ -53,18 +54,21 @@ function BusinessInfo() {
 						value={today}
 						disabled={true}
 						onChange={handleChange}
+						label='what date was your business registered'
 					/>
 					<Input
 						type='number'
 						placeholder='RC Number:'
 						name='rcNumber'
 						onChange={handleChange}
+						label=" What is your RC number"
 					/>
 					<Input
 						type='text'
 						placeholder='TIN Number'
 						name='tinNumber'
 						onChange={handleChange}
+						label="what is your TIn number"
 					/>
 				</div>
 				<div className='flex items-center justify-center '>
