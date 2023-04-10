@@ -26,7 +26,6 @@ function BuyerBioData() {
 	const [isFormfilled, setIsFormFilled] = useState(true)
 	const [errors, setError] = useState('')
 	const [isloading, setIsLoading] = useState(false)
-
 	const [FormData, setFormData] = useState({
 		name: '',
 		surname: '',
@@ -133,7 +132,7 @@ function BuyerBioData() {
 		<div className='py-10 font-bold h-full flex justify-center'>
 			<form
 				onSubmit={handleSubmit}
-				className='m-auto max-w-[800px] px-10'
+				className='m-auto max-w-[800px] w-full px-10'
 			>
 				<h1 className='text-primary font-bold my-5 text-xl'>BioData</h1>
 				<div className=' mx-auto my-10'>
@@ -143,7 +142,7 @@ function BuyerBioData() {
 						value={FormData.name}
 						name='name'
 						onChange={handleChange}
-						label='enter your name'
+						label='Enter your name'
 					/>
 					<Input
 						type='text'
@@ -151,7 +150,7 @@ function BuyerBioData() {
 						value={FormData.surname}
 						name='surname'
 						onChange={handleChange}
-						label='surname'
+						label='Surname'
 					/>
 					<Input
 						type='text'
@@ -159,7 +158,7 @@ function BuyerBioData() {
 						value={FormData.middleName}
 						name='middleName'
 						onChange={handleChange}
-						label='middle name'
+						label='Middle name'
 					/>
 					<Input
 						type='email'
@@ -167,7 +166,7 @@ function BuyerBioData() {
 						value={tempUser ? tempUser.email : FormData.email}
 						onChange={handleChange}
 						name='email'
-						label='enter your email'
+						label='Enter your email'
 					/>
 					<Input
 						type='tel'
@@ -175,7 +174,7 @@ function BuyerBioData() {
 						name='phoneNumber'
 						value={FormData.phoneNumber}
 						onChange={handleChange}
-						label='enter your phone number'
+						label='Enter your phone number'
 					/>
 					<Input
 						type='date'
@@ -183,7 +182,7 @@ function BuyerBioData() {
 						value={FormData.dob}
 						name='dob'
 						onChange={handleChange}
-						label='enter your date of birth'
+						label='Enter your date of birth'
 					/>
 					<p className='text-start text-primary '> Gender</p>
 					<div className='flex py-5 items-center px-5 gap-5 text-slate-600 '>
@@ -220,6 +219,7 @@ function BuyerBioData() {
 						name='bvn'
 						onChange={handleOnChangeBVN}
 						disabled={isFormfilled}
+						maxLength={10}
 					/>
 					<p className='text-red-600 capitalize'> {errors} </p>
 					{isloading && (

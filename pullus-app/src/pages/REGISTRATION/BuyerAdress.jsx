@@ -6,6 +6,7 @@ import Select from '../../components/FARMER/Select'
 import Emodal from '../../modal/EModal'
 import FarmersLocation from './FarmersLocation'
 import { useUserAuth } from '../../context/auth'
+import { FaPlay } from 'react-icons/fa'
 
 // import { getStates } from "../../api";
 
@@ -41,6 +42,8 @@ export default function BuyerAdress() {
 	const [lat, setLat] = useState('')
 	const [long, setLong] = useState('')
 	const { tempUser, setTemporaryUserData } = useUserAuth()
+	const [isdisabled, setIsdisabled] = useState(true)
+
 
 	const [location, setLocation] = useState('')
 
@@ -125,6 +128,22 @@ export default function BuyerAdress() {
 	}
 
 	const navigate = useNavigate()
+	
+	useEffect(() => {
+		if (
+			lat &&
+			long &&
+			selectedState &&
+			selectedLga &&
+			location
+		) {
+			setIsdisabled(false)
+			return
+		} else {
+			setIsdisabled(true)
+			return
+		}
+	}, [location])
 
 	const handleSubmit = () => {
 		setTemporaryUserData({
@@ -216,14 +235,21 @@ export default function BuyerAdress() {
 						value={location}
 					/>
 				</div>
-				<div className='flex justify-center my-10 items-center'>
-					<Button
-						title='Continue'
-						icon={true}
-						color={`fade`}
-						action={handleSubmit}
-					/>
-				</div>
+				
+				<div className='flex justify-center'>
+					<button
+					disabled={isdisabled}
+						onClick={handleSubmit}
+						className={`text-xs w-fit  py-4 px-10 flex items-center ${
+							isdisabled
+								? 'disabled:cursor-not-allowed bg-grey filter text-black/40'
+								: 'bg-fade text-white'
+						}   md:text-base rounded-full shadow-xl  my-auto`}
+					>
+						Continue
+						<FaPlay className='ml-3 h-4 w-4' />
+					</button>
+					</div>
 				{showModal && (
 					<div className={` z-10 fixed bg-modal left-0 top-0 h-screen w-full`}>
 						<div className='emodal'>
