@@ -2,16 +2,17 @@ import Button from "../../components/FARMER/button";
 import { Modal } from "flowbite-react";
 import successImg from "../../images/success.svg";
 
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SingleFileUpload from "../../components/uploadsForm/singleFileUpload";
 
 import { useNavigate } from "react-router-dom";
-import { FaPlay } from 'react-icons/fa'
+import { FaPlay } from "react-icons/fa";
 //State (Context API)
 import { useUserAuth } from "../../context/auth";
 const FileUpload = () => {
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
+  const [isloading, setIsloading] = useState(false)
   const [files, setFiles] = useState([
     {
       name: "file1",
@@ -91,18 +92,18 @@ const FileUpload = () => {
     });
   };
   useEffect(() => {
-	if (
-		imagesUrl.nationalIDUrl &&
-		imagesUrl.profilePicUrl &&
-		imagesUrl.cacUrl 
-	){
-		setIsdisabled(false)
-		return
-	} else {
-		setIsdisabled(true)
-		return
-	}
-}, [imagesUrl])
+    if (
+      imagesUrl.nationalIDUrl &&
+      imagesUrl.profilePicUrl &&
+      imagesUrl.cacUrl
+    ) {
+      setIsdisabled(false);
+      return;
+    } else {
+      setIsdisabled(true);
+      return;
+    }
+  }, [imagesUrl]);
 
   const handleFinalSubmit = () => {
     // Implement your upload logic here
@@ -110,6 +111,10 @@ const FileUpload = () => {
     setTemporaryUserData({ ...tempUser, ...imagesUrl });
     const data = {};
     console.log(tempUser);
+    setTimeout(()=>{
+      setIsloading(true)
+    }, 5000)
+    setIsloading(false)
     setSuccess(true);
   };
 
@@ -162,6 +167,11 @@ const FileUpload = () => {
               <FaPlay className="ml-3 h-4 w-4" />
             </button>
           </div>
+          {isloading &&
+          <div  class="isloading">
+            <div class="spinner-bg"></div>
+          </div>
+}
         </div>
       </div>
 
