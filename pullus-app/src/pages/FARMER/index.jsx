@@ -1,8 +1,8 @@
 import { Route, Routes, NavLink } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Tabs } from '../../components/FARMER/tabs'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import MobileSideBar from './MobileSideBar'
+// import { GiHamburgerMenu } from 'react-icons/gi'
+// import MobileSideBar from './MobileSideBar'
 
 import MyCycle from './CycleManagement/myCycle'
 import AddData from './CycleManagement/addData'
@@ -33,10 +33,10 @@ import FarmerWallet from './MyEwallet/FarmerWallet'
 import Notification from './Notification/Notification'
 
 function Farmer() {
-	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
-	const toggleMobileSideBar = () => {
-		setShowMobileSideBar(!showMobileSideBar)
-	}
+	// const [showMobileSideBar, setShowMobileSideBar] = useState(false)
+	// const toggleMobileSideBar = () => {
+	// 	setShowMobileSideBar(!showMobileSideBar)
+	// }
 
 	const tabs = Tabs
 
@@ -68,7 +68,7 @@ function Farmer() {
 					</div>
 					<hr className='mt-8 border-[1.5px] rounded-full' />
 				</nav>
-				<MobileSideBar
+				{/* <MobileSideBar
 					showMobileSideBar={showMobileSideBar}
 					setShowMobileSideBar={setShowMobileSideBar}
 					toggleMobileSideBar={toggleMobileSideBar}
@@ -79,7 +79,7 @@ function Farmer() {
 						onClick={toggleMobileSideBar}
 						className='tablet:hidden   text-primary text-3xl'
 					/>
-				</div>
+				</div> */}
 
 				<Routes>
 					{/* Cylce management  */}

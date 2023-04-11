@@ -12,7 +12,7 @@ import Analysis from '../../../components/FARMER/cycleManagement/analysis'
 import SingleBatch from '../../../components/FARMER/cycleManagement/singleBatch'
 import BatchDetail from '../../../components/FARMER/cycleManagement/batchDetail'
 
-function MyCycle(props) {
+function MyCycle() {
 	const navigate = useNavigate()
 	const screenWidth = useScreenWidth()
 
@@ -36,7 +36,7 @@ function MyCycle(props) {
 
 	const [showDetails, setShowDetails] = useState(false)
 	function openBatchDetail() {
-		if (screenWidth > 830) setShowDetails(true)
+		if (screenWidth > 960) setShowDetails(true)
 		else navigate('/farmer/cycle-management/batch/detail')
 	}
 

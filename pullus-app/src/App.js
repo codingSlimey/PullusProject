@@ -31,7 +31,7 @@ import EnterPin from './pages/FARMER/MyEwallet/EnterPin'
 import DocumentUpload from './pages/REGISTRATION/DocumentUpload'
 import Navbar from './components/NAVBAR/Navbar'
 import Footer from './components/FOOTER/Footer'
-import CartFloatingButton from './components/buttons/cartFloatingButton'
+// import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
 import { UserAuthContextProvider } from './context/auth'

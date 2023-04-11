@@ -10,6 +10,8 @@ import { HiBookmarkSquare } from 'react-icons/hi2'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 
 import { useCart } from '../../context/cart'
+import MobileSideBar from '../../pages/FARMER/MobileSideBar'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
 export default function Navbar() {
 	const { items } = useCart()
@@ -19,27 +21,27 @@ export default function Navbar() {
 	const userLinks = [
 		{
 			name: 'Dashboard',
-			icon: <ImMeter className='w-8 h-8' />,
+			icon: <ImMeter className='laptop:w-8 laptop:h-8 w-6 h-6' />,
 			url: '/farmer/cycle-management',
 		},
 		{
 			name: 'Profile',
-			icon: <BsFillPersonFill className='w-8 h-8' />,
+			icon: <BsFillPersonFill className='laptop:w-8 laptop:h-8 w-6 h-6' />,
 			url: '/farmer/settings',
 		},
 		{
 			name: 'Orders',
-			icon: <HiBookmarkSquare className='w-8 h-8' />,
+			icon: <HiBookmarkSquare className='laptop:w-8 laptop:h-8 w-6 h-6' />,
 			url: '/farmer/my-orders',
 		},
 		{
 			name: 'Market',
-			icon: <AiFillHome className='w-8 h-8' />,
+			icon: <AiFillHome className='laptop:w-8 laptop:h-8 w-6 h-6' />,
 			url: '/market-place',
 		},
 		{
 			name: 'Notice',
-			icon: <IoNotifications className='w-8 h-8' />,
+			icon: <IoNotifications className='laptop:w-8 laptop:h-8 w-6 h-6' />,
 			url: '/farmer/notifications',
 		},
 	]
@@ -67,6 +69,11 @@ export default function Navbar() {
 		checkRouteName()
 	}, [pathname])
 
+	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
+	const toggleMobileSideBar = () => {
+		setShowMobileSideBar(!showMobileSideBar)
+	}
+
 	return (
 		<div className='fixed top-0 left-0 w-full z-30 bg-white border-b border-grey'>
 			<section
@@ -81,6 +88,7 @@ export default function Navbar() {
 					onClick={() => navigate('/')}
 				/>
 
+				<div className='hidden tablet:block'>
 				{!userLayoutState ? (
 					<div className='flex gap-8'>
 						<div className='flex gap-8 items-center '>
@@ -96,7 +104,7 @@ export default function Navbar() {
 										} flex flex-col justify-center items-center  text-bold`}
 									>
 										{item.icon}
-										<p className='font-semibold text-lg uppercase'>
+										<p className='font-semibold text-base laptop:text-lg uppercase'>
 											{item.name}
 										</p>
 									</NavLink>
@@ -111,10 +119,10 @@ export default function Navbar() {
 										: 'text-primary hover:text-primary/70'
 								} flex flex-col justify-center items-center  text-bold relative`}
 							>
-								<HiOutlineShoppingCart className='w-8 h-8' />
-								<p className='font-semibold text-lg uppercase'>Cart</p>
+								<HiOutlineShoppingCart className='laptop:w-8 laptop:h-8 w-6 h-6' />
+								<p className='font-semibold text-base laptop:text-lg uppercase'>Cart</p>
 								{items.length ? (
-									<div className='h-6 w-6 flex justify-center items-center rounded-full bg-primary text-white font-bold text-lg absolute -top-2 -right-2'>
+									<div className='h-4 laptop:h-6 w-4 laptop:w-6 flex justify-center items-center rounded-full bg-primary text-white font-bold text-lg absolute -top-2 -right-2'>
 										{items.length}
 									</div>
 								) : (
@@ -137,6 +145,21 @@ export default function Navbar() {
 						extraClass={'font-bold md:text-lg'}
 					/>
 				)}
+
+				</div>
+
+				<MobileSideBar
+					showMobileSideBar={showMobileSideBar}
+					setShowMobileSideBar={setShowMobileSideBar}
+					toggleMobileSideBar={toggleMobileSideBar}
+				/>
+
+				<div className='tablet:hidden  w-full flex justify-end '>
+					<GiHamburgerMenu
+						onClick={toggleMobileSideBar}
+						className='tablet:hidden   text-primary text-3xl'
+					/>
+				</div>
 			</section>
 		</div>
 	)

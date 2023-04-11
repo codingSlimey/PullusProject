@@ -52,7 +52,10 @@ export default function MobileSideBar({
 				<ul className='flex flex-col gap-4 mt-6'>
 					{tabs.map((item, index) => {
 						return (
-							<div className='text-white text-start px-5 font-semibold '>
+							<div
+								key={index}
+								className='text-white text-start px-5 font-semibold '
+							>
 								<NavLink
 									key={index}
 									onClick={handleToggle}
