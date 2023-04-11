@@ -1,6 +1,7 @@
 import Button from "../../components/FARMER/button";
 import { Modal } from "flowbite-react";
 import successImg from "../../images/success.svg";
+import { keys } from "../../constants/redundantKeys";
 
 import React, { useState, useEffect } from "react";
 import SingleFileUpload from "../../components/uploadsForm/singleFileUpload";
@@ -109,7 +110,8 @@ const FileUpload = () => {
     // Implement your upload logic here
     // You can access the files using the files object
     setTemporaryUserData({ ...tempUser, ...imagesUrl });
-    const data = {};
+    const data = {...keys, ...tempUser};
+    console.log(data);
     console.log(tempUser);
     setTimeout(()=>{
       setIsloading(true)
