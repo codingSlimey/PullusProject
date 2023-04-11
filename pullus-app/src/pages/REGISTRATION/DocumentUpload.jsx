@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 //State (Context API)
 import { useUserAuth } from "../../context/auth";
+
+//api
+import { completeSignUp } from '../../api';
 const FileUpload = () => {
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
@@ -92,32 +95,40 @@ const FileUpload = () => {
       return updatedFiles;
     });
   };
+
   useEffect(() => {
     if (
-      imagesUrl.nationalIDUrl &&
-      imagesUrl.profilePicUrl &&
-      imagesUrl.cacUrl
+      !imagesUrl.nationalIDUrl ||
+      !imagesUrl.profilePicUrl ||
+      !imagesUrl.cacUrl
     ) {
-      setIsdisabled(false);
-      return;
-    } else {
       setIsdisabled(true);
-      return;
+      // return;
+    } else {
+      setIsdisabled(false);
+      // return;
     }
   }, [imagesUrl]);
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     // Implement your upload logic here
     // You can access the files using the files object
-    setTemporaryUserData({ ...tempUser, ...imagesUrl });
-    const data = {...keys, ...tempUser};
+    setIsloading(true)
+    const data = {...keys, ...tempUser, ...imagesUrl};
+    setTemporaryUserData(data);
     console.log(data);
     console.log(tempUser);
-    setTimeout(()=>{
-      setIsloading(true)
-    }, 5000)
-    setIsloading(false)
-    setSuccess(true);
+    try {
+      const res = await completeSignUp(data)
+      console.log(res);
+      setIsloading(false)
+      setSuccess(true);
+    } catch (error) {
+      console.log(error);
+      setTimeout(()=>{
+        setIsloading(false)
+      }, 5000)
+    }
   };
 
   const handleNavigateToDashboard = () => {
@@ -170,8 +181,8 @@ const FileUpload = () => {
             </button>
           </div>
           {isloading &&
-          <div  class="isloading">
-            <div class="spinner-bg"></div>
+          <div  className="isloading">
+            <div className="spinner-bg"></div>
           </div>
 }
         </div>

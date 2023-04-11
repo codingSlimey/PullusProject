@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { signUp } from '../api'
+import { signUp,login } from '../api'
 
 const userAuthContext = createContext()
 
@@ -12,8 +12,7 @@ export function UserAuthContextProvider({ children }) {
 
 	const firstRegister = async (form) => {
 		const res = await signUp(form)
-		setTemporaryUserData({ email: form.email })
-		console.log(res)
+		setTemporaryUserData({ email: form.email, pin: form.password })
 		return res.data
 	}
 
@@ -29,10 +28,19 @@ export function UserAuthContextProvider({ children }) {
 	}
 
 	// Real user
-	const [user, setUser] = useState({})
+	const userData = localStorage.getItem('user')
+	const [user, setUser] = useState(
+		userData ? JSON.parse(userData) : {}
+	)
+	const userLogin = async (form) =>{
+		const res = await login(form)
+		localStorage.setItem('user', JSON.stringify(res.data))
+		setUser(res.data)
+		return res.data
+	}
 	return (
 		<userAuthContext.Provider
-			value={{ user, tempUser, setTemporaryUserData, firstRegister }}
+			value={{ user, tempUser, setTemporaryUserData, firstRegister,userLogin }}
 		>
 			{children}
 		</userAuthContext.Provider>

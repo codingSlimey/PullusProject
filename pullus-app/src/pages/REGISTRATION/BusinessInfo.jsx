@@ -16,7 +16,7 @@ function BusinessInfo() {
 
 	const [bizForm, setBizForm] = useState({
 		businessName: '',
-		registeredDate: '',
+		// registeredDate: '',
 		rcNumber: '',
 		tinNumber: '',
 	})
@@ -44,7 +44,7 @@ function BusinessInfo() {
 			alert('Please fill all fields')
 			return
 		} else {
-			setTemporaryUserData({ ...tempUser, ...bizForm })
+			setTemporaryUserData({ ...tempUser, ...bizForm,registeredDate:`${today}` })
 			console.log(tempUser)
 			navigate('/onboarding/document-upload')
 		}

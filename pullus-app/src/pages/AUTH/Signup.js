@@ -13,6 +13,7 @@ import { UpdateFormState } from '../../utils/setFormState'
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)
 	const [error, setError] = useState('')
+	const [isLoading, setIsLoading] = useState(false)
 	const handleModal = () => {
 		setShowModal(!showModal)
 	}
@@ -25,8 +26,9 @@ export default function Login() {
 	const [signUpForm, setSignInForm] = useState({
 		email: '',
 		password: '',
-		confirmPassword: '',
 	})
+
+	const [confirmPassword, setConfirmPassword] = useState('')
 	const navigate = useNavigate()
 
 	const { firstRegister } = useUserAuth()
@@ -43,14 +45,19 @@ export default function Login() {
 	const handleSubmit = async (event) => {
 		event.preventDefault()
 		setError('')
-		if (signUpForm.password === signUpForm.confirmPassword) {
+		if (signUpForm.password === confirmPassword) {
+			setIsLoading(true)
 			try {
 				const res = await firstRegister({ ...signUpForm, usertype: 'farmer' })
 				console.log(res)
 				if (res) handleModal()
+				setIsLoading(false)
 				// console.log('Submit')
 			} catch (error) {
 				console.log(error)
+				setTimeout(() => {
+					setIsLoading(false)
+				}, 4000)
 			}
 		} else {
 			setError('Your passwords do not match!')
@@ -120,7 +127,7 @@ export default function Login() {
 							type='password'
 							placeholder='Confirm Password'
 							name='confirmPassword'
-							onChange={handleChange}
+							onChange={(e)=>setConfirmPassword(e.target.value)}
 						/>
 
 						<p className='text-[red] font-medium'>{error}</p>
@@ -135,6 +142,11 @@ export default function Login() {
 								}
 							/>
 						</div>
+						{isLoading && (
+							<div className=' flex gap-3 justify-center items-center'>
+								<div className='spinner'></div>
+							</div>
+						)}
 					</div>
 				</form>
 			</section>
@@ -148,7 +160,7 @@ export default function Login() {
 				<p className='text-2xl my-4 w-[45%] mx-auto'>
 					Sign up and experience the best poultry solution in Africa.
 				</p>
-				<div className='flex justify-center mt-14'>
+				<div className='flex  justify-center mt-14'>
 					<Button
 						action={() => navigate('/login')}
 						color={'white'}

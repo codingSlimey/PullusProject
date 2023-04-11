@@ -71,7 +71,7 @@ function App() {
 							? 'h-screen overflow-auto '
 							: 'h-fit justify-between'
 					} flex flex-col `}
-				>
+				>	
 					<Navbar />
 					<div
 						className={`${

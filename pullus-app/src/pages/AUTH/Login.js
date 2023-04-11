@@ -1,43 +1,45 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
 
 import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
+import { UpdateFormState } from '../../utils/setFormState'
+import { useUserAuth } from '../../context/auth'
 
 export default function Login() {
 	const navigate = useNavigate()
 	const [formData, setFormData] = useState({ username: '', password: '' })
+	const [isLoading,setIsLoading] = useState(false)
 
-	console.log('Form Data =>' + formData)
+	const { userLogin } = useUserAuth()
 
 	// FUNCTION TO CONTROL LOGIN FORM INPUTS
 	function handleFormChange(event) {
-		const { name, value } = event.target
-
-		setFormData((prev) => {
-			return {
-				...prev,
-				[name]: value,
-			}
-		})
+		UpdateFormState(
+			event.target.name,
+			event.target.value,
+			formData,
+			setFormData
+		)
 	}
 
 	// FUNCTION TO HANDLE LOGIN
-	function handleLogin(event) {
+	async function handleLogin(event) {
 		event.preventDefault()
-
-		const url = 'https://pullusafrica.com.ng:8080/authenticate'
-
-		axios
-			.post(url, formData)
-			.then((response) => {
-				console.log(response.data)
-			})
-			.catch((error) => {
-				console.error(error)
-			})
+		if(!formData.username || !formData.password) return
+		try {
+			setIsLoading(true)
+			const res = await userLogin(formData)
+			console.log(res);
+			setIsLoading(false)
+			if(res.userType === 'FARMER') navigate('/farmer/cycle-management')
+		} catch (error) {
+			console.log(error);
+			setTimeout(()=>{
+				setIsLoading(false)
+			}, 5000)
+		}
 	}
 
 	return (
@@ -91,7 +93,7 @@ export default function Login() {
 						<Input
 							type='email'
 							placeholder='Email'
-							name='email'
+							name='username'
 							value={formData.username}
 							onChange={handleFormChange}
 						/>
@@ -118,6 +120,7 @@ export default function Login() {
 								extraClass={
 									'font-bold text-xl text-center w-full flex justify-center items-center'
 								}
+								loading={isLoading}
 							/>
 						</div>
 						<div className='flex mt-4 text-primary font-bold'>

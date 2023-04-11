@@ -1,6 +1,6 @@
 import { FaPlay } from 'react-icons/fa'
 
-function Button({ action, color, title, icon, extraClass, isdisabled }) {
+function Button({ action, color, title, icon, extraClass, isdisabled,loading }) {
 	return (
 		<button
 			onClick={action}
@@ -9,8 +9,16 @@ function Button({ action, color, title, icon, extraClass, isdisabled }) {
 				color === 'fade' ? 'text-[#fff]' : 'text-primary'
 			} py-4 px-10 flex disabled:cursor-not-allowed disabled:opacity-60  items-center  disabled:text-black/50 filter  md:text-base rounded-full shadow-xl  my-auto`}
 		>
-			{title}
-			{icon ? <FaPlay className='ml-3 h-4 w-4' /> : ''}
+			{
+				!loading ?
+				<div>
+					{title}
+					{icon ? <FaPlay className='ml-3 h-4 w-4' /> : ''}
+
+				</div>
+				: 
+				<div className='spinner text-white'></div>
+			}
 		</button>
 	)
 }

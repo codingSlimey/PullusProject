@@ -148,9 +148,9 @@ export default function BuyerAdress() {
 	const handleSubmit = () => {
 		setTemporaryUserData({
 			...tempUser,
-			latitude: lat,
-			longitude: long,
-			address: location,
+			latitude: `${lat}`,
+			longitude: `${long}`,
+			businessAddress: location,
 			state: selectedState,
 			lga: selectedLga,
 		})

@@ -25,10 +25,11 @@ function BuyerBioData() {
 	const [isdisabled, setIsdisabled] = useState(true)
 	const [isFormfilled, setIsFormFilled] = useState(true)
 	const [errors, setError] = useState('')
+	const [successMsg, setSuccessMsg] = useState('')
 	const [isloading, setIsLoading] = useState(false)
 	const [FormData, setFormData] = useState({
-		name: '',
-		surname: '',
+		firstName: '',
+		lastName: '',
 		middleName: '',
 		email: '',
 		phoneNumber: '',
@@ -39,8 +40,8 @@ function BuyerBioData() {
 
 	useEffect(() => {
 		if (
-			FormData.name &&
-			FormData.surname &&
+			FormData.firstName &&
+			FormData.lastName &&
 			FormData.middleName &&
 			FormData.phoneNumber &&
 			FormData.gender
@@ -57,7 +58,7 @@ function BuyerBioData() {
 		if (tempUser.bvn) {
 			navigate('/onboarding/address')
 		}
-	}, [])
+	})
 
 	const handleChange = (event) => {
 		UpdateFormState(
@@ -71,8 +72,8 @@ function BuyerBioData() {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		if (
-			!FormData.name ||
-			!FormData.surname ||
+			!FormData.firstName ||
+			!FormData.lastName ||
 			!FormData.middleName ||
 			!FormData.phoneNumber ||
 			!FormData.gender
@@ -92,28 +93,30 @@ function BuyerBioData() {
 
 		if (FormData.bvn.length === 10) {
 			setIsLoading(true)
+			setSuccessMsg('')
 			const data = {
-				firstName: FormData.name,
-				lastName: FormData.surname,
+				firstName: FormData.firstName,
+				lastName: FormData.lastName,
 				middleName: FormData.middleName,
 				gender: FormData.gender,
 				bvn: bvnInput,
 			}
-			// console.log("run query");
 			try {
 				const response = await checkBvn(data)
 				console.log(response)
 				setIsdisabled(false)
 				setIsLoading(false)
+				setSuccessMsg('Details Match, Proceed!')
 				return
 			} catch ({ response }) {
 				const { data } = response
 
 				setIsLoading(false)
+				setSuccessMsg('')
 				setError(data.message)
 				if (!bvnInput) {
 					setIsLoading(false)
-					setError(' ')
+					setError('')
 				}
 				console.log(errors)
 				return
@@ -138,17 +141,17 @@ function BuyerBioData() {
 				<div className=' mx-auto my-10'>
 					<Input
 						type='text'
-						placeholder='Name'
-						value={FormData.name}
-						name='name'
+						placeholder='first name'
+						value={FormData.firstName}
+						name='firstName'
 						onChange={handleChange}
-						label='Enter your name'
+						label='First name'
 					/>
 					<Input
 						type='text'
 						placeholder='Surname'
-						value={FormData.surname}
-						name='surname'
+						value={FormData.lastName}
+						name='lastName'
 						onChange={handleChange}
 						label='Surname'
 					/>
@@ -230,6 +233,7 @@ function BuyerBioData() {
 							</p>
 						</div>
 					)}
+					{successMsg && <p className='text-green capitalize'>{successMsg}</p>}
 				</div>
 
 				<div className='flex justify-center'>
