@@ -6,6 +6,9 @@ import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
 import { UpdateFormState } from '../../utils/setFormState'
 import { useUserAuth } from '../../context/auth'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Login() {
 	const navigate = useNavigate()
@@ -33,17 +36,41 @@ export default function Login() {
 			const res = await userLogin(formData)
 			console.log(res);
 			setIsLoading(false)
-			if(res.userType === 'FARMER') navigate('/farmer/cycle-management')
-		} catch (error) {
-			console.log(error);
+			if(res.userType === 'FARMER')
+			toast.success("Login Successful")
 			setTimeout(()=>{
+				navigate ('/farmer/cycle-management')
+			}, 5000)
+			
+		} catch ({response,}) {
+			const {data} = response
+			console.log(data)
+			switch(data.message){
+				case "Incorrect password":
+				  toast.error("Incorrect password")
+				  break;
+				case "Incorrect username":
+				  toast.error("incorrect Email")
+				  break;
+				case "user-not-found":
+				  toast.error("User Not Found")
+				  break;
+				  default:
+					toast.error("Something went wrong")
+			  }
+
+			  setTimeout(()=>{
 				setIsLoading(false)
 			}, 5000)
+			  return
+			 }
+			 
+			
+			
 		}
-	}
-
 	return (
 		<section className={'flex h-full w-full'}>
+			<ToastContainer/>
 			<section className={'flex-1 flex flex-col  justify-center'}>
 				<div className='flex flex-col items-center gap-4 mb-6 justify-center text-primary'>
 					<FiLock className='w-8 h-8 font-bold' />
