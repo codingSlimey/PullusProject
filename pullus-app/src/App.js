@@ -37,6 +37,8 @@ import Footer from './components/FOOTER/Footer'
 import { UserAuthContextProvider } from './context/auth'
 import { CartProvider } from './context/cart'
 
+import {ToastContainer} from 'react-toastify'
+
 function App() {
 	const [fixedFooterState, setFixedFooterState] = useState(false)
 
@@ -72,6 +74,8 @@ function App() {
 							: 'h-fit justify-between'
 					} flex flex-col `}
 				>	
+			<ToastContainer/>
+
 					<Navbar />
 					<div
 						className={`${

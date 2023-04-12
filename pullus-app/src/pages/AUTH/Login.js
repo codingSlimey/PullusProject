@@ -38,9 +38,9 @@ export default function Login() {
 			setIsLoading(false)
 			if(res.userType === 'FARMER')
 			toast.success("Login Successful")
-			setTimeout(()=>{
-				navigate ('/farmer/cycle-management')
-			}, 5000)
+			navigate ('/farmer/cycle-management')
+			// setTimeout(()=>{
+			// }, 5000)
 			
 		} catch ({response,}) {
 			const {data} = response
