@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
+import {AiFillEyeInvisible} from 'react-icons/ai'
+import {AiFillEye} from 'react-icons/ai'
 
 import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
@@ -17,6 +19,7 @@ export default function Login() {
 	const handleModal = () => {
 		setShowModal(!showModal)
 	}
+	const [showPassword, setShowPassword] = useState(false)
 	const closeModal = (event) => {
 		navigate('/onboarding/biodata')
 		// if (!event.target.closest('.emodal')) {
@@ -27,6 +30,7 @@ export default function Login() {
 		email: '',
 		password: '',
 	})
+
 
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const navigate = useNavigate()
@@ -40,6 +44,9 @@ export default function Login() {
 			signUpForm,
 			setSignInForm
 		)
+	}
+	const displayPassword = () => {
+		setShowPassword(!showPassword)
 	}
 
 	const handleSubmit = async (event) => {
@@ -116,19 +123,36 @@ export default function Login() {
 							name='email'
 							onChange={handleChange}
 						/>
+						<div className='relative' >
 						<Input
-							type='password'
+							type={showPassword ? 'password': 'text'}
 							placeholder='Password'
 							name='password'
 							onChange={handleChange}
 						/>
-
+						<div className='absolute top-6 left-[90%]' >
+							{showPassword ? (
+								<AiFillEyeInvisible onClick={displayPassword} className='text-primary' />
+							) : (
+								<AiFillEye onClick={displayPassword} className='text-primary' />
+							)}
+						</div>
+						</div>
+						<div className='relative'> 
 						<Input
 							type='password'
 							placeholder='Confirm Password'
 							name='confirmPassword'
 							onChange={(e)=>setConfirmPassword(e.target.value)}
 						/>
+						<div className='absolute top-6 left-[90%]' >
+							{showPassword ? (
+								<AiFillEyeInvisible onClick={displayPassword} className='text-primary' />
+							) : (
+								<AiFillEye onClick={displayPassword} className='text-primary' />
+							)}
+						</div>
+						</div>
 
 						<p className='text-[red] font-medium'>{error}</p>
 

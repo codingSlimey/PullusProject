@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
+import {AiFillEyeInvisible} from 'react-icons/ai'
+import {AiFillEye} from 'react-icons/ai'
 
 import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
@@ -14,6 +16,7 @@ export default function Login() {
 	const navigate = useNavigate()
 	const [formData, setFormData] = useState({ username: '', password: '' })
 	const [isLoading,setIsLoading] = useState(false)
+	const [showPassword, setShowPassword] = useState(false)
 
 	const { userLogin } = useUserAuth()
 
@@ -25,6 +28,9 @@ export default function Login() {
 			formData,
 			setFormData
 		)
+	}
+	const displayPassword = () => {
+		setShowPassword(!showPassword)
 	}
 
 	// FUNCTION TO HANDLE LOGIN
@@ -117,20 +123,26 @@ export default function Login() {
 					<FiLock className='w-5 h-5 font-bold' />
 						 <p>Login</p> </div>
 					<div className={'grid gap-3'}>
+						
 						<Input
 							type='email'
 							placeholder='Email'
 							name='username'
 							value={formData.username}
 							onChange={handleFormChange}
-						/>
+							/>
+							<div className='relative'>	
 						<Input
-							type='password'
+							type={showPassword ? 'password' : 'text'}
 							placeholder='Password'
 							name='password'
 							value={formData.password}
 							onChange={handleFormChange}
 						/>
+						<div className='absolute top-6 left-[90%]'> 
+								{showPassword? <AiFillEyeInvisible onClick={displayPassword} className='w-5 h-5 text-primary font-bold' /> : <AiFillEye onClick={displayPassword} className='w-5 h-5 text-primary font-bold' />}
+							</div>
+							</div>
 
 						<div className='flex items-center gap-3 text-primary font-bold'>
 							<input
