@@ -41,7 +41,7 @@ export default function Login() {
 			setTimeout(()=>{
 				navigate ('/farmer/cycle-management')
 			}, 5000)
-			
+			  
 		} catch ({response,}) {
 			const {data} = response
 			console.log(data)
