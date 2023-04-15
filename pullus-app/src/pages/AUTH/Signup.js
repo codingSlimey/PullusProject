@@ -140,7 +140,7 @@ export default function Login() {
 						</div>
 						<div className='relative'> 
 						<Input
-							type='password'
+							type={showPassword ? 'password': 'text'}
 							placeholder='Confirm Password'
 							name='confirmPassword'
 							onChange={(e)=>setConfirmPassword(e.target.value)}
