@@ -27,3 +27,6 @@ export const login = (form)=> API.post('/authenticate', form)
 
 //File upload
 export const uploadFile = (data,query,email) => API.post(`/apis/v1/pullus/signup/imagesUpload/${query}/upload?email=${email}`, data)
+
+// cycleMangent 
+export const CycleData = (data)=> API.post('/apis/v1/pullus/cycleManagement/createCycleManagement', data )

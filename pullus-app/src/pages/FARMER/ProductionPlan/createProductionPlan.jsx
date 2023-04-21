@@ -124,12 +124,13 @@ function CreateProductionPlan(props) {
 				</div>
 			</div>
 
-			<div className='mt-12 flex justify-center gap-16 '>
+			<div className='mt-12 flex  justify-center  '>
 				<Button
 					title={'Generate production Plan'}
 					icon={true}
 					color={'fade'}
 					action={() => navigate('summary')}
+					extraClass={''}
 				/>
 			</div>
 		</div>

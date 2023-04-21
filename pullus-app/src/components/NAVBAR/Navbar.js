@@ -8,12 +8,14 @@ import { BsFillPersonFill } from 'react-icons/bs'
 import { ImMeter } from 'react-icons/im'
 import { HiBookmarkSquare } from 'react-icons/hi2'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
-
+import { useUserAuth } from '../../context/auth'
 import { useCart } from '../../context/cart'
 import MobileSideBar from '../../pages/FARMER/MobileSideBar'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 export default function Navbar() {
+	const { tempUser, user } = useUserAuth()
+	console.log(user.jwtToken)
 	const { items } = useCart()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
@@ -153,13 +155,23 @@ export default function Navbar() {
 					setShowMobileSideBar={setShowMobileSideBar}
 					toggleMobileSideBar={toggleMobileSideBar}
 				/>
-
-				<div className='tablet:hidden  w-full flex justify-end '>
-					<GiHamburgerMenu
+				{ !user.jwtToken  ? (
+										<Button
+										action={() => navigate('/login')}
+										color={'fade'}
+										title={'Login'}
+										extraClass={'font-bold md:text-lg'}
+									/>
+				): (
+                   <div className='tablet:hidden  w-full flex justify-end '>
+					   <GiHamburgerMenu
 						onClick={toggleMobileSideBar}
 						className='tablet:hidden   text-primary text-3xl'
 					/>
 				</div>
+				)}
+
+				
 			</section>
 		</div>
 	)

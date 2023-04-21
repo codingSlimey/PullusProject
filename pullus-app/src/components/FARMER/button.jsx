@@ -11,7 +11,7 @@ function Button({ action, color, title, icon, extraClass, isdisabled,loading }) 
 		>
 			{
 				!loading ?
-				<div>
+				<div className='flex'>
 					{title}
 					{icon ? <FaPlay className='ml-3 h-4 w-4' /> : ''}
 

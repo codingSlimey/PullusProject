@@ -8,7 +8,7 @@ import FarmersLocation from './FarmersLocation'
 import { useUserAuth } from '../../context/auth'
 import { FaPlay } from 'react-icons/fa'
 
-// import { getStates } from "../../api";
+import { getStates } from "../../api";
 
 //Hooks
 
