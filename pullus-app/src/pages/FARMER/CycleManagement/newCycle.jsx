@@ -66,7 +66,7 @@ function NewCycle(props) {
 		catch(error){
 			console.log(error);
 		}
-		console.log(cycleData)
+		navigate("farmer/cycle-management")
 	}
 
 	return (
