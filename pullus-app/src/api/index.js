@@ -5,7 +5,7 @@ const API = axios.create({
 })
 
 // Add the 'Access-Control-Allow-Origin' header to the Axios instance
-API.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+// API.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 // To attach authorization headers when making each request
 API.interceptors.request.use((req) => {
@@ -28,5 +28,5 @@ export const login = (form)=> API.post('/authenticate', form)
 //File upload
 export const uploadFile = (data,query,email) => API.post(`/apis/v1/pullus/signup/imagesUpload/${query}/upload?email=${email}`, data)
 
-// cycleMangent 
-export const CycleData = (data)=> API.post('/apis/v1/pullus/cycleManagement/createCycleManagement', data )
+// cycleManagement 
+export const createNewCycle = (data)=> API.post('/apis/v1/pullus/cycleManagement/createCycleManagement', data )

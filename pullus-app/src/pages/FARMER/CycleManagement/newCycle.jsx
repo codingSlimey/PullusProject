@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import Input from '../../../components/FARMER/Input'
-import { CycleData } from '../../../api'
+import { createNewCycle } from '../../../api'
 
 const inputData=[
 	{
@@ -38,35 +38,34 @@ const inputData=[
 	}
 ]
 
-function NewCycle(props) {
+function NewCycle() {
+
 	const navigate = useNavigate()
 	const [cycleData, setCycleData] = useState({
-		breed: "",
-		feedType:"",
-		name:"",
-		noOfBirds: 0,
-		startDate:""
+		breed: "Broilers",
+		feedType:"Lilo",
+		name:"Tobi's",
+		noOfBirds: 1000,
+		startDate:"2023-04-22"
 	})
+
+	// Function to handle onChange 
 	const handleOnchange = (e) => {
 		const { name, value } = e.target
 		setCycleData({ ...cycleData, [name]: value })
 	}
-	const submitCycleData = () => {
-		const data ={
-			breed: cycleData.breed,
-			feedType: cycleData.feedType,
-			name: cycleData.name,
-			noOfBirds:cycleData.noOfBirds,
-			startDate:cycleData.startDate
-		}
+
+	// Function to create a new cycle 
+	const submitNewCycle = async () => {
+		const data ={...cycleData}
+		console.log(data)
 		try{
-			const res =   CycleData(data)
+			const res =  await createNewCycle(data)
 			console.log(res);
 		}
 		catch(error){
 			console.log(error);
 		}
-		console.log(cycleData)
 	}
 
 	return (
@@ -86,7 +85,10 @@ function NewCycle(props) {
 					<div className='flex flex-col md:grid'>
 						{inputData.map((data, i)=> {
 							return(
-								<Input type={data.type} onChange={handleOnchange} name={data.name} value={cycleData[data.name]}  placeholder={data.placeholder} label={data.label}/>
+								<div key={i}>
+									<Input  type={data.type} onChange={handleOnchange} name={data.name} value={cycleData[data.name]}  placeholder={data.placeholder} label={data.label}/>
+
+								</div>
 							// 	<div>
 							// 		<label className='my-3 text-start text-primary' htmlFor='name'> {data.label} </label>
 						    //     	<input className='h-14 px-6 placeholder:text-placeholder mb-6 shadow-xl bg-[#fff] border-none w-full rounded-full  focus:outline-none focus:border-none' type={data.type} placeholder={data.placeholder} />
@@ -101,7 +103,7 @@ function NewCycle(props) {
 			</div>
 
 			<div className='mt-8 '>
-				<button onClick={submitCycleData} className='md:w-[30%] w-1/2 bg-fade py-3  rounded-full shadow-xl text-[#fff] mt-8 mb-6'>
+				<button onClick={submitNewCycle} className='md:w-[30%] w-1/2 bg-fade py-3  rounded-full shadow-xl text-[#fff] mt-8 mb-6'>
 					Start Cycle
 				</button>
 			</div>

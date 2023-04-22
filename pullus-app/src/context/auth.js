@@ -1,9 +1,12 @@
 import { createContext, useContext, useState } from 'react'
 import { signUp,login } from '../api'
+import { useNavigate } from 'react-router-dom'
+
 
 const userAuthContext = createContext()
 
 export function UserAuthContextProvider({ children }) {
+	const navigate = useNavigate()
 	//For first signup and setting of temporary user
 	const tempUserData = localStorage.getItem('tempUser')
 	const [tempUser, setTempUser] = useState(
@@ -19,11 +22,11 @@ export function UserAuthContextProvider({ children }) {
 	const setTemporaryUserData = (data) => {
 		localStorage.setItem('tempUser', JSON.stringify(data))
 		setTempUser(data)
-		console.log(tempUser)
+		// console.log(tempUser)
 	}
 
 	const clearTemporaryUserData = () => {
-		setTempUser(null)
+		setTempUser({})
 		localStorage.removeItem('tempUser')
 	}
 
@@ -38,9 +41,22 @@ export function UserAuthContextProvider({ children }) {
 		setUser(res.data)
 		return res.data
 	}
+
+	const userLogout = ()=>{
+		console.log('logout');
+		setUser(null)
+		localStorage.removeItem('user')
+		navigate('/login')
+	}
+
+	const data = {
+		userLogout,
+		user, tempUser, setTemporaryUserData, firstRegister,userLogin
+	}
+
 	return (
 		<userAuthContext.Provider
-			value={{ user, tempUser, setTemporaryUserData, firstRegister,userLogin }}
+			value={{...data}}
 		>
 			{children}
 		</userAuthContext.Provider>

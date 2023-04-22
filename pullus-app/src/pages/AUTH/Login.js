@@ -8,7 +8,7 @@ import { FiLock } from 'react-icons/fi'
 import Input from '../../components/FARMER/Input'
 import { UpdateFormState } from '../../utils/setFormState'
 import { useUserAuth } from '../../context/auth'
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -40,13 +40,11 @@ export default function Login() {
 		try {
 			setIsLoading(true)
 			const res = await userLogin(formData)
-			console.log(res);
+			// console.log(res);
 			setIsLoading(false)
 			if(res.userType === 'FARMER')
 			toast.success("Login Successful")
-			setTimeout(()=>{
 				navigate ('/farmer/cycle-management')
-			}, 5000)
 			  
 		} catch ({response,}) {
 			if(response){
@@ -74,14 +72,10 @@ export default function Login() {
 			}, 5000)
 			  return
 			 }
-			 
-			
-			
 		}
 	return (
 		<section className={'flex h-full w-full'}>
-			<ToastContainer/>
-			<section className={'flex-1 flex flex-col  justify-center'}>
+			<section className={'flex-1 flex flex-col py-6 justify-center'}>
 				<div className='flex flex-col items-center gap-4 mb-6 justify-center text-primary'>
 					<FiLock className='w-8 h-8 font-bold' />
 					<div className='text-medium text-2xl font-semibold'>Login to Your Account</div>

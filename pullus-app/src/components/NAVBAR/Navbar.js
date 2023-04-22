@@ -14,8 +14,8 @@ import MobileSideBar from '../../pages/FARMER/MobileSideBar'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 export default function Navbar() {
-	const { tempUser, user } = useUserAuth()
-	console.log(user.jwtToken)
+	const { user,userLogout } = useUserAuth()
+	// console.log(user.jwtToken)
 	const { items } = useCart()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
@@ -133,7 +133,7 @@ export default function Navbar() {
 							</NavLink>
 						</div>
 						<Button
-							action={() => navigate('/')}
+							action={userLogout}
 							color={'fade'}
 							title={'Logout'}
 							extraClass={'font-bold md:text-lg'}
@@ -155,12 +155,12 @@ export default function Navbar() {
 					setShowMobileSideBar={setShowMobileSideBar}
 					toggleMobileSideBar={toggleMobileSideBar}
 				/>
-				{ !user.jwtToken  ? (
+				{ !user?.jwtToken  ? (
 										<Button
 										action={() => navigate('/login')}
 										color={'fade'}
 										title={'Login'}
-										extraClass={'font-bold md:text-lg'}
+										extraClass={'font-bold md:text-lg tablet:hidden'}
 									/>
 				): (
                    <div className='tablet:hidden  w-full flex justify-end '>
