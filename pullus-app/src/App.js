@@ -36,50 +36,53 @@ import Footer from './components/FOOTER/Footer'
 // State (Context API )
 import { UserAuthContextProvider } from './context/auth'
 import { CartProvider } from './context/cart'
+import ProtectedRoute from './utils/ProtectedRoute'
 
 import {ToastContainer} from 'react-toastify'
 
+
 function App() {
-	const [fixedFooterState, setFixedFooterState] = useState(false)
+	// const [fixedFooterState, setFixedFooterState] = useState(false)
 
-	const { pathname } = useLocation()
+	// const { pathname } = useLocation()
 
-	useEffect(() => {
-		const routeForFixed = [
-			'/',
-			'/login',
-			'/sign-up',
-			'/forgot-password',
-			'/reset-password',
-			'/new-password',
-			'/onboarding/biodata',
-			'/onboarding/address',
-			'/onboarding/business-info',
-			'/onboarding/document-upload',
-		]
-		const checkRouteName = () => {
-			const isRouteFixed = routeForFixed.includes(pathname)
-			setFixedFooterState(isRouteFixed)
-		}
+	// useEffect(() => {
+	// 	const routeForFixed = [
+	// 		'/',
+	// 		'/login',
+	// 		'/sign-up',
+	// 		'/forgot-password',
+	// 		'/reset-password',
+	// 		'/new-password',
+	// 		'/onboarding/biodata',
+	// 		'/onboarding/address',
+	// 		'/onboarding/business-info',
+	// 		'/onboarding/document-upload',
+	// 	]
+	// 	const checkRouteName = () => {
+	// 		const isRouteFixed = routeForFixed.includes(pathname)
+	// 		setFixedFooterState(isRouteFixed)
+	// 	}
 
-		checkRouteName()
-	}, [pathname])
+	// 	checkRouteName()
+	// }, [pathname])
 	return (
 		<UserAuthContextProvider>
 			<CartProvider>
 				<main
 					className={`App ${
-						fixedFooterState
-							? 'h-screen overflow-auto '
-							: 'h-fit justify-between'
+						// fixedFooterState
+						// 	? 'h-screen overflow-auto '
+							 'h-fit justify-between'
 					} flex flex-col `}
 				>	
 			<ToastContainer/>
 
 					<Navbar />
 					<div
+					// fixedFooterState ? ' overflow-auto flex-1' :
 						className={`${
-							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit '
+							 'h-fit '
 						}  mt-24`}
 					>
 						<Routes>
@@ -137,7 +140,11 @@ function App() {
 							/>
 							<Route
 								path='/market-place'
-								element={<MarketPlace />}
+								element={
+									<ProtectedRoute>
+										<MarketPlace />
+									</ProtectedRoute>
+								}
 							/>
 							<Route
 								path='/product/:product'

@@ -52,9 +52,9 @@ function CreateProductionPlan(props) {
 					</div>
 					<div className='grid mt-4'>
 						<Select
-							label='Enter a specific number (minimum of 500)'
-							id='minimum'
-							name='mimimum'
+							label='Duration of Production'
+							id='duration'
+							name='duration'
 						>
 							{[...Array(23)].map((_, i) => {
 								const num = i + 3

@@ -7,6 +7,7 @@ export const DataProvider = ({ children }) => {
   const [addressDataState, setAddressDataState] = useState('');
   const [businessDataState, setBusinessDataState] = useState('');
   const [serviceState, setServiceState] = useState('');
+  const [isLoggedin , setIsloggedin] = useState(false);
   const [dataState, setDataState] = useState({
                                       businessAddress: "Allen Av",
                                       businessName: "Transglobal",
@@ -121,14 +122,60 @@ export const DataProvider = ({ children }) => {
                                         }).catch((error) => {
                                           console.error(error);
                                         })}
+                                        const logout = () => {
+                                          setBiodataState('');
+                                          setAddressDataState('');
+                                          setBusinessDataState('');
+                                          setServiceState('');
+                                          setDataState({
+                                            businessAddress: "",
+                                            businessName: "",
+                                            bvn: "",
+                                            cacUrl: "",
+                                            city: "",
+                                            country: "",
+                                            dob: "",
+                                            email: "",
+                                            firstName: "",
+                                            fullAddress: "",
+                                            fullName: "",
+                                            gender: "",
+                                            houseNumber: "",
+                                            landMark: "",
+                                            lastName: "",
+                                            latitude: "",
+                                            lga: "",
+                                            lgaCode: "",
+                                            longitude: "",
+                                            middleName: "",
+                                            nationalIDUrl: "",
+                                            nin: "",
+                                            password: "",
+                                            phoneNumber: "",
+                                            pin: "",
+                                            profilePicUrl: "",
+                                            rcNumber: "",
+                                            registeredDate: "",
+                                            signatureUrl: "",
+                                            state: "",
+                                            streetName: "",
+                                            timestamp: "",
+                                            tinNumber: "",
+                                            town: "",
+                                            usertype: "",
+                                            vendorServiceType: "",
+                                            zipCode: ""
+                                          });
+                                          setIsloggedin(false);
+                                        }
                     const allData = {
                         getBiodata,
                         getAddressData,
                         getBusinessInfo,
                         getSelectedService,
                         print,
-                        handleSignUp
-
+                        handleSignUp,
+                        logout
                     }
     return(
         <DataContext.Provider value={{ allData }}>{children}</DataContext.Provider>

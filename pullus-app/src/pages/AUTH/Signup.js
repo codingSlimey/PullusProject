@@ -125,31 +125,31 @@ export default function Login() {
 						/>
 						<div className='relative' >
 						<Input
-							type={showPassword ? 'password': 'text'}
+							type={!showPassword ? 'password': 'text'}
 							placeholder='Password'
 							name='password'
 							onChange={handleChange}
 						/>
 						<div className='absolute top-6 left-[90%]' >
-							{showPassword ? (
-								<AiFillEyeInvisible onClick={displayPassword} className='text-primary' />
+							{!showPassword ? (
+								<AiFillEyeInvisible onClick={displayPassword} className='text-primary w-5 h-5' />
 							) : (
-								<AiFillEye onClick={displayPassword} className='text-primary' />
+								<AiFillEye onClick={displayPassword} className='text-primary w-5 h-5' />
 							)}
 						</div>
 						</div>
 						<div className='relative'> 
 						<Input
-							type={showPassword ? 'password': 'text'}
+							type={!showPassword ? 'password': 'text'}
 							placeholder='Confirm Password'
 							name='confirmPassword'
 							onChange={(e)=>setConfirmPassword(e.target.value)}
 						/>
 						<div className='absolute top-6 left-[90%]' >
-							{showPassword ? (
-								<AiFillEyeInvisible onClick={displayPassword} className='text-primary' />
+							{!showPassword ? (
+								<AiFillEyeInvisible onClick={displayPassword} className='text-primary w-5 h-5' />
 							) : (
-								<AiFillEye onClick={displayPassword} className='text-primary' />
+								<AiFillEye onClick={displayPassword} className='text-primary w-5 h-5' />
 							)}
 						</div>
 						</div>

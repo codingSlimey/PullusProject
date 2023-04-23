@@ -1,15 +1,18 @@
 import { createContext, useContext, useState } from 'react'
 import { signUp,login } from '../api'
+import { useNavigate } from 'react-router-dom'
+
 
 const userAuthContext = createContext()
 
 export function UserAuthContextProvider({ children }) {
+	const navigate = useNavigate()
+	const [isLogin, setIsLogin] = useState(false)
 	//For first signup and setting of temporary user
 	const tempUserData = localStorage.getItem('tempUser')
 	const [tempUser, setTempUser] = useState(
 		tempUserData ? JSON.parse(tempUserData) : {}
 	)
-
 	const firstRegister = async (form) => {
 		const res = await signUp(form)
 		setTemporaryUserData({ email: form.email, pin: form.password })
@@ -19,11 +22,11 @@ export function UserAuthContextProvider({ children }) {
 	const setTemporaryUserData = (data) => {
 		localStorage.setItem('tempUser', JSON.stringify(data))
 		setTempUser(data)
-		console.log(tempUser)
+		// console.log(tempUser)
 	}
 
 	const clearTemporaryUserData = () => {
-		setTempUser(null)
+		setTempUser({})
 		localStorage.removeItem('tempUser')
 	}
 
@@ -36,11 +39,28 @@ export function UserAuthContextProvider({ children }) {
 		const res = await login(form)
 		localStorage.setItem('user', JSON.stringify(res.data))
 		setUser(res.data)
+		setIsLogin(true)
+		console.log(isLogin)
 		return res.data
 	}
+
+	const userLogout = ()=>{
+		console.log('logout');
+		setUser(null)
+		localStorage.removeItem('user')
+		setIsLogin(false)
+		navigate('/login')
+		console.log(isLogin)
+	}
+
+	const data = {
+		userLogout,
+		user, tempUser, setTemporaryUserData, firstRegister,userLogin, isLogin
+	}
+
 	return (
 		<userAuthContext.Provider
-			value={{ user, tempUser, setTemporaryUserData, firstRegister,userLogin }}
+			value={{...data}}
 		>
 			{children}
 		</userAuthContext.Provider>

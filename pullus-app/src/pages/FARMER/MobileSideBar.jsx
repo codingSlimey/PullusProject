@@ -12,6 +12,7 @@ export default function MobileSideBar({
 }) {
 	const handleToggle = () => {
 		setShowMobileSideBar(!showMobileSideBar)
+		
 	}
 
 	return (
