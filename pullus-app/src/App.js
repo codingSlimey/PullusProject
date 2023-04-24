@@ -42,37 +42,37 @@ import {ToastContainer} from 'react-toastify'
 
 
 function App() {
-	// const [fixedFooterState, setFixedFooterState] = useState(false)
+	const [fixedFooterState, setFixedFooterState] = useState(false)
 
-	// const { pathname } = useLocation()
+	const { pathname } = useLocation()
 
-	// useEffect(() => {
-	// 	const routeForFixed = [
-	// 		'/',
-	// 		'/login',
-	// 		'/sign-up',
-	// 		'/forgot-password',
-	// 		'/reset-password',
-	// 		'/new-password',
-	// 		'/onboarding/biodata',
-	// 		'/onboarding/address',
-	// 		'/onboarding/business-info',
-	// 		'/onboarding/document-upload',
-	// 	]
-	// 	const checkRouteName = () => {
-	// 		const isRouteFixed = routeForFixed.includes(pathname)
-	// 		setFixedFooterState(isRouteFixed)
-	// 	}
+	useEffect(() => {
+		const routeForFixed = [
+			'/',
+			// '/login',
+			// '/sign-up',
+			'/forgot-password',
+			'/reset-password',
+			'/new-password',
+			'/onboarding/biodata',
+			'/onboarding/address',
+			'/onboarding/business-info',
+			'/onboarding/document-upload',
+		]
+		const checkRouteName = () => {
+			const isRouteFixed = routeForFixed.includes(pathname)
+			setFixedFooterState(isRouteFixed)
+		}
 
-	// 	checkRouteName()
-	// }, [pathname])
+		checkRouteName()
+	}, [pathname])
 	return (
 		<UserAuthContextProvider>
 			<CartProvider>
 				<main
 					className={`App ${
-						// fixedFooterState
-						// 	? 'h-screen overflow-auto '
+						fixedFooterState
+							? 'h-screen overflow-auto ' :
 							 'h-fit justify-between'
 					} flex flex-col `}
 				>	
@@ -80,9 +80,9 @@ function App() {
 
 					<Navbar />
 					<div
-					// fixedFooterState ? ' overflow-auto flex-1' :
+					// 
 						className={`${
-							 'h-fit '
+							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit '
 						}  mt-24`}
 					>
 						<Routes>
