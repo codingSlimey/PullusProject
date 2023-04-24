@@ -6,7 +6,7 @@ const userAuthContext = createContext()
 
 export function UserAuthContextProvider({ children }) {
 	const navigate = useNavigate()
-	const [isLogin, setIsLogin] = useState(false)
+	// const [isLogin, setIsLogin] = useState(false)
 	//For first signup and setting of temporary user
 	const tempUserData = localStorage.getItem('tempUser')
 	const [tempUser, setTempUser] = useState(
@@ -36,8 +36,8 @@ export function UserAuthContextProvider({ children }) {
 		const res = await login(form)
 		localStorage.setItem('user', JSON.stringify(res.data))
 		setUser(res.data)
-		setIsLogin(true)
-		console.log(isLogin)
+		// setIsLogin(true)
+		// console.log(isLogin)
 		return res.data
 	}
 
@@ -45,9 +45,9 @@ export function UserAuthContextProvider({ children }) {
 		console.log('logout')
 		setUser(null)
 		localStorage.removeItem('user')
-		setIsLogin(false)
+		// setIsLogin(false)
 		navigate('/login')
-		console.log(isLogin)
+		// console.log(isLogin)
 	}
 
 	const data = {

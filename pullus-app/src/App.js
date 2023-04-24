@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate,Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import Home from './components/HOME/Home'
@@ -34,7 +34,7 @@ import Footer from './components/FOOTER/Footer'
 // import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
-import { UserAuthContextProvider } from './context/auth'
+import { UserAuthContextProvider,useUserAuth } from './context/auth'
 import { CartProvider } from './context/cart'
 import ProtectedRoute from './utils/ProtectedRoute'
 
@@ -42,10 +42,13 @@ import {ToastContainer} from 'react-toastify'
 
 
 function App() {
+	// console.log(user?.jwtToken);
+	const user = localStorage.getItem('user')
+	// const navigate = useNavigate()
 	const [fixedFooterState, setFixedFooterState] = useState(false)
-
+	
 	const { pathname } = useLocation()
-
+	
 	useEffect(() => {
 		const routeForFixed = [
 			'/',
@@ -86,6 +89,8 @@ function App() {
 						}  mt-24`}
 					>
 						<Routes>
+
+							{/* //Unauthenticated Routes // */}
 							<Route
 								path='/'
 								element={<Home />}
@@ -114,36 +119,20 @@ function App() {
 								path='/privacy'
 								element={<Privacy />}
 							/>
-							{/* <Route
-						path='/vendor/biodata/information'
-						element={<BioData func={getBiodata} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/address'
-						element={<BioDataAddress func={getAddressData} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/business'
-						element={<BioDataBusinessInfo func={getBusinessInfo} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/service-to-provide'
-						element={<ServiceToProvide func={getSelectedService} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/documents-upload'
-						element={<BioDataDocUpload func={print} />}
-					/> */}
+							{/* /////////////////////////// */}
+						
+							{/* //Authenticated Routes // */}
 							<Route
 								path='/farmer/*'
-								element={<Farmer />}
+								// element={ <Farmer /> }
+								element={user ? <Farmer /> :  <Navigate to='/login' replace />}
 							/>
 							<Route
 								path='/market-place'
 								element={
-									<ProtectedRoute>
+									// <ProtectedRoute>
 										<MarketPlace />
-									</ProtectedRoute>
+									// </ProtectedRoute>
 								}
 							/>
 							<Route
@@ -190,6 +179,7 @@ function App() {
 								path='/onboarding/document-upload'
 								element={<DocumentUpload />}
 							/>
+							{/* /////////////////////////// */}
 						</Routes>
 					</div>
 					{/* <CartFloatingButton /> */}
