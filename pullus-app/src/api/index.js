@@ -38,7 +38,7 @@ export const uploadFile = (data,query,email) => API.post(`/apis/v1/pullus/signup
 
 // cycleManagement 
 export const createNewCycle = (data)=> API.post('/apis/v1/pullus/cycleManagement/createCycleManagement', data )
-export const getMyCycles = ()=> API.get('/apis/v1/pullus/cycleManagement/getFarmerCycles?isActive=true&limit=1&offset=0')
+export const getMyCycles = (isActive)=> API.get(`/apis/v1/pullus/cycleManagement/getFarmerCycles?isActive=${isActive}&limit=1&offset=0`)
 
 //Production Plan
 export const createProductionPLan = (data)=> API.post('/apis/v1/pullus/productionPlan/createProductionPlan', data )

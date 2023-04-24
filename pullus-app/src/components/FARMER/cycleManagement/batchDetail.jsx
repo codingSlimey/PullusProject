@@ -79,7 +79,7 @@ export default function BatchDetail() {
 			<div className='mt-16'>
 				<div className='text-primary mb-4'>Notes</div>
 
-				<div className='px-4 bg-grey rounded-xl'>
+				<div className=' bg-grey rounded-xl h-fit'>
 					<textarea
 						type='text'
 						className='bg-grey w-full rounded-xl border-none px-2 h-40'

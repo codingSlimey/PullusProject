@@ -76,7 +76,7 @@ export default function Notification() {
       
         {showModal && (
           <div
-            className={` z-10 fixed bg-modal left-0 top-0 h-screen  w-full  `}
+            className={` z-50 fixed bg-modal left-0 top-0 h-screen  w-full  `}
           onClick={closeModal}
          >
             <div className=".emodal">

@@ -3,12 +3,37 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/FARMER/button'
 import Input from '../../../components/FARMER/Input'
 import Select from '../../../components/FARMER/Select'
+import { UpdateFormState } from '../../../utils/setFormState'
 
 import { Checkbox } from 'flowbite-react'
+import { useState } from 'react'
 
-function CreateProductionPlan(props) {
+function CreateProductionPlan() {
 	const navigate = useNavigate()
 
+	const [productionPlanForm, setProductionPlanForm] = useState({
+		poultryType: '',
+		startDate: `${new Date().toISOString().slice(0, 10)}`,
+		noOfBirds: 0,
+		durationOfProductionInWeeks: 0,
+		docBrand: '',
+		feedBrand: '',
+		insurance: false,
+		loan: false,
+		market: false,
+		name: ''
+	})
+
+	// Function to handle onChange
+	const handleOnchange = (event) => {
+		UpdateFormState(
+			event.target.name,
+			event.target.value,
+			productionPlanForm,
+			setProductionPlanForm
+		)
+		
+	}
 	return (
 		<div className=' px-3 font-bold pb-12 text-left'>
 			<div className='flex items-center'>
@@ -23,11 +48,23 @@ function CreateProductionPlan(props) {
 
 			<div className='flex flex-col md:flex-row gap-16 mt-12'>
 				<div className='flex-1'>
-					<div className='grid'>
+				<div className='grid '>
+						<Input
+							type='text'
+							placeholder='Name of production plan'
+							label='Name of Plan'
+							name='name'
+							onChange={handleOnchange}
+							value={productionPlanForm.name}
+						/>
+					</div>
+					<div className='grid mt-4'>
 						<Select
-							name='poultry'
+							name='poultryType'
 							label='Poultry Type'
-							id='countries'
+							id='poultry-type'
+							onChange={handleOnchange}
+							value={productionPlanForm.poultryType}
 						>
 							<option>Broilers </option>
 							<option>Layers (DoC) </option>
@@ -40,19 +77,25 @@ function CreateProductionPlan(props) {
 							type='text'
 							placeholder='12.08.2022'
 							label='Start date'
+							name='startDate'
+							onChange={handleOnchange}
+							value={productionPlanForm.startDate}
 						/>
 					</div>
 
 					<div className='grid mt-4'>
 						<Input
 							type='text'
-							placeholder='Enter a specific number (minimum)'
+							placeholder='Enter a specific number'
 							label='Number of birds to be reared:'
+							name='noOfBirds'
+							onChange={handleOnchange}
+							value={productionPlanForm.noOfBirds}
 						/>
 					</div>
 					<div className='grid mt-4'>
 						<Select
-							label='Duration of Production'
+							label='Duration of Production (weeks)'
 							id='duration'
 							name='duration'
 						>

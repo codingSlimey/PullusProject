@@ -17,7 +17,7 @@ function RecentProduction(props) {
 		<div className='font-bold md:pb-12'>
 			<div className='text-primary text-left my-6'>Recent Productions</div>
 			<div className='flex gap-16'>
-				<div className='flex  flex-col md:flex-1'>
+				<div className='flex w-full flex-col tablet:flex-1'>
 					<Accordion>
 						<Accordion.Panel>
 							<Accordion.Title>
@@ -39,14 +39,14 @@ function RecentProduction(props) {
 													alt=''
 												/>
 												<div>
-													<div className='flex items-center gap-4 text-sm'>
+													<div className='flex items-center gap-2 lgmobile:gap-4 text-sm'>
 														<span className='font-bold'>Broilers</span>
 														<span>|</span>
 														<span>500 birds</span>
 													</div>
-													<div className='flex items-center gap-4 text-sm'>
+													<div className='lgmobile:flex text-left lgmobile:items-center gap-4 text-sm'>
 														<span>42 days (6 weeks)</span>
-														<span>|</span>
+														<span className='lgmobile:block hidden'>|</span>
 														<div>
 															{' '}
 															<span className='font-bold'>
@@ -84,7 +84,7 @@ function RecentProduction(props) {
 					</div>
 				</div>
 
-				<div className='flex-1'></div>
+				<div className='flex-1 tablet:block hidden'></div>
 			</div>
 		</div>
 	)

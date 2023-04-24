@@ -2,9 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import Input from '../../../components/FARMER/Input'
-import { createNewCycle, getMyCycles,createProductionPLan } from '../../../api'
-import { useUserAuth } from '../../../context/auth'
-import axios from 'axios'
+import { createNewCycle } from '../../../api'
+import { UpdateFormState } from '../../../utils/setFormState'
 import Select from '../../../components/FARMER/Select'
 
 const inputData = [
@@ -20,12 +19,12 @@ const inputData = [
 		type: 'text',
 		name: 'startDate',
 	},
-	{
-		placeholder: 'Broilers',
-		label: 'Feed Type',
-		type: 'text',
-		name: 'feedType',
-	},
+	// {
+	// 	placeholder: 'Broilers',
+	// 	label: 'Feed Type',
+	// 	type: 'text',
+	// 	name: 'feedType',
+	// },
 	{
 		placeholder: 'Broilers',
 		label: 'Breed',
@@ -41,21 +40,25 @@ const inputData = [
 ]
 
 function NewCycle() {
-	const { user } = useUserAuth()
 
 	const navigate = useNavigate()
 	const [cycleData, setCycleData] = useState({
-		breed: 'Broilers',
-		feedType: 'Lilo',
-		name: "Tobi's",
-		noOfBirds: 1000,
-		startDate: '2023-04-22',
+		breed: 'broilers',
+		feedType: '',
+		name: '',
+		noOfBirds: 0,
+		startDate: `${new Date().toISOString().slice(0, 10)}`,
 	})
 
 	// Function to handle onChange
-	const handleOnchange = (e) => {
-		const { name, value } = e.target
-		setCycleData({ ...cycleData, [name]: value })
+	const handleOnchange = (event) => {
+		UpdateFormState(
+			event.target.name,
+			event.target.value,
+			cycleData,
+			setCycleData
+		)
+		
 	}
 
 	// Function to create a new cycle
@@ -63,25 +66,12 @@ function NewCycle() {
 		const data = { ...cycleData }
 		console.log(data)
 		try{
-			const res =  await getMyCycles()
-			// const res =  await createNewCycle(data)
+			const res =  await createNewCycle(data)
 			console.log(res);
 		}
 		catch(error){
 			console.log(error);
 		}
-		// try {
-		// 	const response = await axios.get(
-		// 		'https://pullusafrica.com.ng:8080/apis/v1/pullus/cycleManagement/getFarmerCycles',
-		// 		{
-		// 			headers: { Authorization: `Bearer ${user?.jwtToken}` },
-		// 			params: { isActive: true, limit: 1, offset: 0 },
-		// 		}
-		// 	)
-		// 	console.log(response)
-		// } catch (error) {
-		// 	console.error(error)
-		// }
 	}
 
 	return (
@@ -102,6 +92,8 @@ function NewCycle() {
 						{inputData.map((data, i) => {
 							return (
 								<div key={i}>
+									{
+									data.name !== 'breed' ?
 									<Input
 										type={data.type}
 										onChange={handleOnchange}
@@ -110,6 +102,20 @@ function NewCycle() {
 										placeholder={data.placeholder}
 										label={data.label}
 									/>
+									:
+									<Select
+										name='breed'
+										label='Poultry Type'
+										id='poultry-type'
+										value={cycleData.breed}
+										onChange={handleOnchange}
+									>
+										<option value={'Broilers'} >Broilers </option>
+										{/* <option value={'Layers (DoC)'} >Layers (DoC) </option>
+										<option value={'Noilers'} >Noilers </option>
+										<option value={'Turkey'} >Turkey </option> */}
+									</Select>
+									}
 								</div>
 								// 	<div>
 								// 		<label className='my-3 text-start text-primary' htmlFor='name'> {data.label} </label>
@@ -117,18 +123,7 @@ function NewCycle() {
 								// </div>
 							)
 						})}
-						{/* <Select
-							name='poultry'
-							label='Breed'
-							id='countries'
-							value={cycleData.breed}
-							onChange={(e) => setCycleData({ ...cycleData, breed: e.target.value })}
-						>
-							<option value="Broilers" >Broilers </option>
-							<option value='Layers (Doc) ' >Layers (DoC) </option>
-							<option value='Noilers' >Noilers </option>
-							<option value='Turkey' >Turkey </option>
-						</Select> */}
+						
 
 					</div>
 				</div>

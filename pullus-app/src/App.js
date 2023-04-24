@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, useLocation,  Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import Home from './components/HOME/Home'
@@ -15,7 +15,6 @@ import Farmer from './pages/FARMER'
 import MarketPlace from './pages/MARKET/marketPlace'
 import ProductDetail from './pages/MARKET/productDetail'
 import Cart from './pages/CART/cart'
-import SelectVendor from './pages/CART/selectVendor'
 import Checkout from './pages/CART/checkout'
 
 // wallet
@@ -34,17 +33,14 @@ import Footer from './components/FOOTER/Footer'
 // import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
-import { UserAuthContextProvider,useUserAuth } from './context/auth'
+import { UserAuthContextProvider } from './context/auth'
 import { CartProvider } from './context/cart'
-import ProtectedRoute from './utils/ProtectedRoute'
 
 import {ToastContainer} from 'react-toastify'
 
 
 function App() {
-	// console.log(user?.jwtToken);
 	const user = localStorage.getItem('user')
-	// const navigate = useNavigate()
 	const [fixedFooterState, setFixedFooterState] = useState(false)
 	
 	const { pathname } = useLocation()
@@ -52,8 +48,6 @@ function App() {
 	useEffect(() => {
 		const routeForFixed = [
 			'/',
-			// '/login',
-			// '/sign-up',
 			'/forgot-password',
 			'/reset-password',
 			'/new-password',
@@ -143,10 +137,7 @@ function App() {
 								path='/cart'
 								element={<Cart />}
 							/>
-							{/* <Route
-								path='/select-vendor'
-								element={<SelectVendor />}
-							/> */}
+							
 							<Route
 								path='/checkout'
 								element={<Checkout />}
@@ -165,22 +156,22 @@ function App() {
 							/>
 							<Route
 								path='/onboarding/biodata'
-								element={ user ? <BuyerBioData /> : <Navigate to='/login' replace />}
+								element={ user ? <BuyerBioData /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/onboarding/address'
 								element={ user ? 
-								<BuyerAdress /> : <Navigate to='/login' replace />}
+								<BuyerAdress /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 	
 							<Route
 								path='/onboarding/business-info'
 								element={ user ? 
-								<BusinessInfo />: <Navigate to='/login' replace />}
+								<BusinessInfo />: <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/onboarding/document-upload'
-								element={ user ? <DocumentUpload /> : <Navigate to='/login' replace />}
+								element={ user ? <DocumentUpload /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							{/* /////////////////////////// */}
 						</Routes>

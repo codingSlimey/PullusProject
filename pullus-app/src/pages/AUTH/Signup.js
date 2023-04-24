@@ -35,7 +35,7 @@ export default function Login() {
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const navigate = useNavigate()
 
-	const { firstRegister } = useUserAuth()
+	const { firstRegister,clearTemporaryUserData } = useUserAuth()
 
 	const handleChange = (event) => {
 		UpdateFormState(
@@ -59,6 +59,7 @@ export default function Login() {
 				console.log(res)
 				if (res) handleModal()
 				setIsLoading(false)
+				clearTemporaryUserData()
 				// console.log('Submit')
 			} catch (error) {
 				console.log(error)

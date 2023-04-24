@@ -6,7 +6,7 @@ export default function Select(props) {
 		<div>
 			<label
 				htmlFor={name}
-				className='md:mb-3 flex  text-primary'
+				className='md:my-3 flex  text-primary'
 			>
 				{' '}
 				{label}
