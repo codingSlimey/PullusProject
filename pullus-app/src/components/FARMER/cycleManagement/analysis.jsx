@@ -1,4 +1,5 @@
 import { SlFrame } from 'react-icons/sl'
+import { Analytics } from '../../../constants/redundantKeys'
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 
@@ -15,14 +16,14 @@ function Analysis(props) {
 		<div className='grid grid-cols-2 max-[750px]:grid-cols-1  gap-12 text-left tablet:gap-8 xl:gap-14'>
 			<div>
 				<div className='grid grid-cols-3 gap-4 tablet:gap-6'>
-					{[...Array(6)].map((item, index) => {
+					{Analytics.map((item, index) => {
 						return (
 							<div
 								key={index}
 								className='h-[120px] flex flex-col justify-center items-center bg-grey shadow-xl rounded-xl text-primary'
 							>
-								<span className='text-sm font-light'>Alive Birds</span>
-								<span className='text-xl font-bold'>995</span>
+								<span className='text-sm font-light'>{item.title} </span>
+								<span className='text-xl font-bold'>{item.stats} </span>
 							</div>
 						)
 					})}

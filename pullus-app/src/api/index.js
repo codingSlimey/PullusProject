@@ -5,15 +5,23 @@ const API = axios.create({
 })
 
 // Add the 'Access-Control-Allow-Origin' header to the Axios instance
-// API.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+API.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 // To attach authorization headers when making each request
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('user')) {
-		req.headers.authorization = `Bearer ${
-			JSON.parse(localStorage.getItem('user')).jwtToken
-		}`
-	}
+		// const { jwtToken } = JSON.parse(localStorage.getItem('user'))
+		// req.headers.authorization = `Bearer ${jwtToken}`
+		// if (req.method === 'OPTIONS') {
+		// req.headers['X-Access-Token'] = jwtToken
+		// }
+			req.headers.authorization = `Bearer ${
+			  JSON.parse(localStorage.getItem('user')).jwtToken
+			}`
+		  }
+		  if (req.method === 'OPTIONS') {
+			req.headers['Access-Control-Request-Headers'] = 'authorization'
+		  }
 	return req
 })
 
@@ -30,3 +38,7 @@ export const uploadFile = (data,query,email) => API.post(`/apis/v1/pullus/signup
 
 // cycleManagement 
 export const createNewCycle = (data)=> API.post('/apis/v1/pullus/cycleManagement/createCycleManagement', data )
+export const getMyCycles = ()=> API.get('/apis/v1/pullus/cycleManagement/getFarmerCycles?isActive=true&limit=1&offset=0')
+
+//Production Plan
+export const createProductionPLan = (data)=> API.post('/apis/v1/pullus/productionPlan/createProductionPlan', data )

@@ -15,3 +15,37 @@
     zipCode: "",
     pin: ""
 }
+
+export const Analytics = [
+    {
+        id: 1,
+        title: "Alive Birds",
+        stats: "995"
+    },
+    {
+        id: 2,
+        title: "Mortality",
+        stats: "0.5%"
+    },
+    {
+        id: 3,
+        title: "Daily Feed",
+        stats: "151 g/bird"
+    },
+    {
+        id: 4,
+        title: "Avg. Weight",
+        stats: "60 g"
+    },
+    {
+        id: 5,
+        title: "Age",
+        stats: "1 weeks"
+    },
+    {
+        id: 6,
+        title: "Laying percentage",
+        stats: "0%"
+
+    }
+]

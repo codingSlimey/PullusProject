@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import Home from './components/HOME/Home'
@@ -34,7 +34,7 @@ import Footer from './components/FOOTER/Footer'
 // import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
-import { UserAuthContextProvider } from './context/auth'
+import { UserAuthContextProvider,useUserAuth } from './context/auth'
 import { CartProvider } from './context/cart'
 import ProtectedRoute from './utils/ProtectedRoute'
 
@@ -42,37 +42,40 @@ import {ToastContainer} from 'react-toastify'
 
 
 function App() {
-	// const [fixedFooterState, setFixedFooterState] = useState(false)
+	// console.log(user?.jwtToken);
+	const user = localStorage.getItem('user')
+	// const navigate = useNavigate()
+	const [fixedFooterState, setFixedFooterState] = useState(false)
+	
+	const { pathname } = useLocation()
+	
+	useEffect(() => {
+		const routeForFixed = [
+			'/',
+			// '/login',
+			// '/sign-up',
+			'/forgot-password',
+			'/reset-password',
+			'/new-password',
+			'/onboarding/biodata',
+			'/onboarding/address',
+			'/onboarding/business-info',
+			'/onboarding/document-upload',
+		]
+		const checkRouteName = () => {
+			const isRouteFixed = routeForFixed.includes(pathname)
+			setFixedFooterState(isRouteFixed)
+		}
 
-	// const { pathname } = useLocation()
-
-	// useEffect(() => {
-	// 	const routeForFixed = [
-	// 		'/',
-	// 		'/login',
-	// 		'/sign-up',
-	// 		'/forgot-password',
-	// 		'/reset-password',
-	// 		'/new-password',
-	// 		'/onboarding/biodata',
-	// 		'/onboarding/address',
-	// 		'/onboarding/business-info',
-	// 		'/onboarding/document-upload',
-	// 	]
-	// 	const checkRouteName = () => {
-	// 		const isRouteFixed = routeForFixed.includes(pathname)
-	// 		setFixedFooterState(isRouteFixed)
-	// 	}
-
-	// 	checkRouteName()
-	// }, [pathname])
+		checkRouteName()
+	}, [pathname])
 	return (
 		<UserAuthContextProvider>
 			<CartProvider>
 				<main
 					className={`App ${
-						// fixedFooterState
-						// 	? 'h-screen overflow-auto '
+						fixedFooterState
+							? 'h-screen overflow-auto ' :
 							 'h-fit justify-between'
 					} flex flex-col `}
 				>	
@@ -80,12 +83,14 @@ function App() {
 
 					<Navbar />
 					<div
-					// fixedFooterState ? ' overflow-auto flex-1' :
+					// 
 						className={`${
-							 'h-fit '
+							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit '
 						}  mt-24`}
 					>
 						<Routes>
+
+							{/* //Unauthenticated Routes // */}
 							<Route
 								path='/'
 								element={<Home />}
@@ -114,37 +119,20 @@ function App() {
 								path='/privacy'
 								element={<Privacy />}
 							/>
-							{/* <Route
-						path='/vendor/biodata/information'
-						element={<BioData func={getBiodata} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/address'
-						element={<BioDataAddress func={getAddressData} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/business'
-						element={<BioDataBusinessInfo func={getBusinessInfo} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/service-to-provide'
-						element={<ServiceToProvide func={getSelectedService} />}
-					/>
-					<Route
-						path='/vendor/biodata/information/documents-upload'
-						element={<BioDataDocUpload func={print} />}
-					/> */}
-							{/* <Route
+							{/* /////////////////////////// */}
+						
+							{/* //Authenticated Routes // */}
+							<Route
 								path='/farmer/*'
-								element={<Farmer />}
-							/> */}
-							<ProtectedRoute exact path="/farmer/*" component={Farmer} />
+								// element={ <Farmer /> }
+								element={user ? <Farmer /> :  <Navigate to='/login' replace />}
+							/>
 							<Route
 								path='/market-place'
 								element={
-									<ProtectedRoute>
+									// <ProtectedRoute>
 										<MarketPlace />
-									</ProtectedRoute>
+									// </ProtectedRoute>
 								}
 							/>
 							<Route
@@ -173,26 +161,28 @@ function App() {
 							/>
 							<Route
 								path='/enter-pin'
-								element={<EnterPin />}
+								element={ <EnterPin />}
 							/>
 							<Route
 								path='/onboarding/biodata'
-								element={<BuyerBioData />}
+								element={ user ? <BuyerBioData /> : <Navigate to='/login' replace />}
 							/>
-							{/* <Route
+							<Route
 								path='/onboarding/address'
-								element={
-								<BuyerAdress />}
-							/> */}
-							<ProtectedRoute exact path="/onboarding/address" component={BuyerAdress} />
+								element={ user ? 
+								<BuyerAdress /> : <Navigate to='/login' replace />}
+							/>
+	
 							<Route
 								path='/onboarding/business-info'
-								element={<BusinessInfo />}
+								element={ user ? 
+								<BusinessInfo />: <Navigate to='/login' replace />}
 							/>
 							<Route
 								path='/onboarding/document-upload'
-								element={<DocumentUpload />}
+								element={ user ? <DocumentUpload /> : <Navigate to='/login' replace />}
 							/>
+							{/* /////////////////////////// */}
 						</Routes>
 					</div>
 					{/* <CartFloatingButton /> */}
