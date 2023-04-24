@@ -1,10 +1,22 @@
-import React, { useNavigate, Navigate } from 'react'
+import React  from 'react' 
 import { useUserAuth } from '../context/auth'
-import { Route } from 'react-router-dom'
+import { Route, useNavigate } from 'react-router-dom'
+import { withRouter } from 'react-router';
 
-export default function ProtectedRoute({ children }) {
+
+const ProtectedRoute = ({ component: Component, ...rest })=> {
   const {isLogin} = useUserAuth()
   const navigate = useNavigate()
+   
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        isLogin ? <Component {...props} /> : navigate('/login')
+      }
+    />
 
-  return isLogin === true ? children : <Navigate to="/login" replace />;
+  )
 }
+
+export default withRouter(ProtectedRoute)

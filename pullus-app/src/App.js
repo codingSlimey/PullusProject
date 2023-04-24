@@ -134,10 +134,11 @@ function App() {
 						path='/vendor/biodata/information/documents-upload'
 						element={<BioDataDocUpload func={print} />}
 					/> */}
-							<Route
+							{/* <Route
 								path='/farmer/*'
 								element={<Farmer />}
-							/>
+							/> */}
+							<ProtectedRoute exact path="/farmer/*" component={Farmer} />
 							<Route
 								path='/market-place'
 								element={
@@ -178,10 +179,12 @@ function App() {
 								path='/onboarding/biodata'
 								element={<BuyerBioData />}
 							/>
-							<Route
+							{/* <Route
 								path='/onboarding/address'
-								element={<BuyerAdress />}
-							/>
+								element={
+								<BuyerAdress />}
+							/> */}
+							<ProtectedRoute exact path="/onboarding/address" component={BuyerAdress} />
 							<Route
 								path='/onboarding/business-info'
 								element={<BusinessInfo />}

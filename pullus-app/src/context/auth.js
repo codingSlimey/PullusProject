@@ -39,16 +39,18 @@ export function UserAuthContextProvider({ children }) {
 		const res = await login(form)
 		localStorage.setItem('user', JSON.stringify(res.data))
 		setUser(res.data)
+		if(user.jwtToken){
 		setIsLogin(true)
-		console.log(isLogin)
+		console.log(isLogin);
+		}
 		return res.data
 	}
 
 	const userLogout = ()=>{
-		console.log('logout');
 		setUser(null)
 		localStorage.removeItem('user')
 		setIsLogin(false)
+		console.log('logout');
 		navigate('/login')
 		console.log(isLogin)
 	}
