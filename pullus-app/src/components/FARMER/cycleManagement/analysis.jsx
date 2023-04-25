@@ -15,7 +15,7 @@ function Analysis(props) {
 	return (
 		<div className='grid grid-cols-2 max-[750px]:grid-cols-1  gap-12 text-left tablet:gap-8 xl:gap-14'>
 			<div>
-				<div className='grid grid-cols-3 gap-4 tablet:gap-6'>
+				<div className='grid grid-cols-2 mobile:grid-cols-3 gap-4 tablet:gap-6'>
 					{Analytics.map((item, index) => {
 						return (
 							<div
