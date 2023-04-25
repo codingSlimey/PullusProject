@@ -19,7 +19,7 @@ function Summary(props) {
 			</div>
 
 			<div className='flex flex-col md:flex-row items-center gap-16 mt-12'>
-				<div className='flex-1'>
+				<div className='w-full md:flex-1'>
 					<div className='flex gap-2 text-primary mb-3'>
 						<span className='font-bold'>Start Date: </span>
 						<span className='font-normal'>November 14, 2022 </span>
@@ -54,7 +54,7 @@ function Summary(props) {
 					</div>
 				</div>
 
-				<div className='flex-1'>
+				<div className='w-full md:flex-1'>
 					<div className='relative overflow-x-auto'>
 						<table className='w-full text-sm text-left  border-collapse border border-slate-400'>
 							<thead className='text-xs  uppercase bg-primary text-[#fff] border border-[white]'>

@@ -18,7 +18,7 @@ const tabs = [
         link : "my-orders"
     },
     { icon: <AiFillSetting className='h-6 w-6' />, name: 'Settings', link : "settings" },
-    { icon: <IoLogInOutline className='h-6 w-6' />, name: 'Logout' , link : "logout" },
+    { icon: <IoLogInOutline className='h-6 w-6' />, name: 'Logout' , },
 ]
 
 export default tabs
