@@ -6,17 +6,21 @@ import { useUserAuth } from '../../context/auth'
 
 import tabs from '../../constants/sideBarLinks'
 
+
 export default function MobileSideBar({
 	toggleMobileSideBar,
 	showMobileSideBar,
 	setShowMobileSideBar,
 }) {
+	const { userLogout } = useUserAuth()
 	const handleToggle = () => {
 		setShowMobileSideBar(!showMobileSideBar)
 		
 	}
-	const { userLogout } = useUserAuth()
-
+	const logout = ()=>{
+		userLogout()
+		handleToggle()
+	}
 
 	return (
 		<div
@@ -26,7 +30,7 @@ export default function MobileSideBar({
 			onClick={handleToggle}
 		>
 			<div
-				className={`  w-[70%]  h-full bg-green  py-6 `}
+				className={`  w-[70%]  h-full overflow-auto bg-green  py-6 `}
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className='flex flex-col  gap-2 '>
@@ -60,10 +64,9 @@ export default function MobileSideBar({
 								key={index}
 								className='text-white text-start px-5 font-semibold '
 							> {
-								item.link === 'logout' ? <button className='flex gap-3 items-center font-bold text-lg' onClick={userLogout}>{item.icon}{item.name}</button> :
+								item.link === 'logout' ? <button className='flex gap-3 items-center font-bold text-lg' onClick={logout}>{item.icon}{item.name}</button> :
 							
 								<NavLink
-									key={index}
 									onClick={handleToggle}
 									// to={`/farmer/${item.link}`}
 									to={`/farmer/${item.name.replaceAll(' ', '-').toLowerCase()}`}

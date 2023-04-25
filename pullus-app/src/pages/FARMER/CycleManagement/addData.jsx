@@ -153,17 +153,17 @@ function AddData() {
 				</div>
 			</div>
 
-			<div className='mt-16 flex gap-16 justify-center'>
+			<div className='mt-8 lgmobile:mt-16 max-lgmobile:flex-col flex gap-8 lgmobile:gap-16 justify-center items-center'>
 				<button
 					onClick={handleSubmit}
-					className='w-[20%] bg-fade py-3 rounded-full shadow-xl text-[#fff] mt-8 mb-6'
+					className='w-full lgmobile:w-[40%] tablet:w-[20%] bg-fade py-3 rounded-full shadow-xl text-[#fff] lgmobile:mt-8 lgmobile:mb-6'
 				>
 					Save
 				</button>
 
 				<button
 					onClick={() => navigate('/farmer/cycle-management')}
-					className='w-[20%] flex justify-center items-center bg-[#fff] py-3 rounded-full text-primary shadow-xl my-4'
+					className='w-full lgmobile:w-[40%] tablet:w-[20%] flex justify-center items-center bg-[#fff] py-3 rounded-full text-primary shadow-xl lgmobile:mt-8 lgmobile:mb-6'
 				>
 					Cancel
 				</button>
