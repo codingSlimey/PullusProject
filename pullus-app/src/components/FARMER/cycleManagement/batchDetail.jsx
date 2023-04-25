@@ -7,7 +7,7 @@ import formatDays from '../../../utils/formatDays'
 import { useEffect, useState } from 'react'
 import { getSingleCycleInfo } from '../../../api'
 import { toast } from 'react-toastify'
-export default function BatchDetail({ name }) {
+export default function BatchDetail() {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const [detailsSkeleton, setDetailsSkeleton] = useState(false)
@@ -17,7 +17,7 @@ export default function BatchDetail({ name }) {
 
 	// Get the value of a specific query parameter
 	const paramValue = queryParams.get('cycle')
-	console.log(paramValue)
+	// console.log(paramValue)
 
 	useEffect(() => {
 		if (paramValue) {
@@ -46,7 +46,7 @@ export default function BatchDetail({ name }) {
 
 			fetchData()
 		}
-	}, [location])
+	}, [location, paramValue])
 
 	// if (!paramValue) return
 

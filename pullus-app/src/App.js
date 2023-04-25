@@ -79,7 +79,7 @@ function App() {
 					<div
 					// 
 						className={`${
-							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit '
+							fixedFooterState ? ' overflow-auto flex-1' : 'h-full tablet:h-fit '
 						}  mt-24`}
 					>
 						<Routes>
