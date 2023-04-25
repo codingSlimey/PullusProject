@@ -1,11 +1,13 @@
 import React from 'react'
 import styles from './styles.module.css'
+import { useUserAuth } from '../../context/auth'
 
 import { useNavigate } from 'react-router-dom'
 import Button from '../FARMER/button'
 
 export default function Home() {
 	const navigate = useNavigate()
+	const { user } = useUserAuth()
 	return (
 		<div
 			className={
@@ -24,7 +26,7 @@ export default function Home() {
 
 			<div className={'mt-14 flex justify-center items-center gap-8 md:gap-14'}>
 				<Button
-					action={() => navigate('/farmer/cycle-management')}
+					action={() => navigate(`/sign-up?user_type=${user && user.userType} `)}
 					color={'fade'}
 					title={'FARMER'}
 					extraClass={'font-bold px-7 md:px-auto text-xs md:text-lg border border-white capitalize'}

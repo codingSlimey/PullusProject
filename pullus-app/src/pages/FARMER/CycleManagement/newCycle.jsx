@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import Input from '../../../components/FARMER/Input'
 import { createNewCycle } from '../../../api'
 import { UpdateFormState } from '../../../utils/setFormState'
 import Select from '../../../components/FARMER/Select'
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const inputData = [
 	{
@@ -42,8 +45,9 @@ const inputData = [
 function NewCycle() {
 
 	const navigate = useNavigate()
+	const [isDisabled , setisdisabled] = useState(true)
 	const [cycleData, setCycleData] = useState({
-		breed: 'broilers',
+		breed: '',
 		feedType: '',
 		name: '',
 		noOfBirds: 0,
@@ -60,6 +64,16 @@ function NewCycle() {
 		)
 		
 	}
+	useEffect(() => {
+		if(cycleData.startDate && cycleData.noOfBirds && cycleData.name ){
+			setisdisabled(false)
+			return
+		}
+		else{
+			setisdisabled(true)
+			return
+		}
+	}, [cycleData])
 
 	// Function to create a new cycle
 	const submitNewCycle = async () => {
@@ -68,9 +82,12 @@ function NewCycle() {
 		try{
 			const res =  await createNewCycle(data)
 			console.log(res);
+			toast.success("Successfully Created a Cycle")
+			navigate('/farmer/cycle-management')
 		}
-		catch(error){
-			console.log(error);
+		catch({response}){
+			console.log(response)
+			toast.error("An Error occured")
 		}
 	}
 
@@ -83,7 +100,7 @@ function NewCycle() {
 				>
 					<HiOutlineArrowLeft className='h-6 w-6' />
 				</button>
-				<div className='text-primary  my-6'>Start a New Cycle</div>
+				<div className='text-primary  my-6'>Start a New Cycle </div>
 			</div>
 
 			<div className='md:flex gap-16 mt-12'>
@@ -110,7 +127,7 @@ function NewCycle() {
 										value={cycleData.breed}
 										onChange={handleOnchange}
 									>
-										<option value={'Broilers'} >Broilers </option>
+										<option value={'Broilerss'} >Broilers </option>
 										{/* <option value={'Layers (DoC)'} >Layers (DoC) </option>
 										<option value={'Noilers'} >Noilers </option>
 										<option value={'Turkey'} >Turkey </option> */}
@@ -131,10 +148,14 @@ function NewCycle() {
 				<div className='flex-1'></div>
 			</div>
 
-			<div className='mt-8 '>
+			<div className='mt-8  flex items-center justify-center'>
 				<button
 					onClick={submitNewCycle}
-					className='md:w-[30%] w-1/2 bg-fade py-3  rounded-full shadow-xl text-[#fff] mt-8 mb-6'
+					className={`text-xs md:w-1/3  text-center justify-center  py-4 px-10 flex items-center ${
+						isDisabled
+							? 'disabled:cursor-not-allowed bg-grey filter text-black/40'
+							: 'bg-fade text-white'
+					}   md:text-base rounded-full shadow-xl  my-auto`}
 				>
 					Start Cycle
 				</button>

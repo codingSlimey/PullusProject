@@ -143,25 +143,27 @@ export default function Login() {
 							</div>
 							</div>
 
-						<div className='flex items-center gap-3 text-primary font-bold'>
+						{/* <div className='flex items-center gap-3 text-primary font-bold'>
 							<input
 								type={'checkbox'}
 								name={'remember'}
 							/>
 							<label htmlFor={'remember'}>Remember me</label>
-						</div>
-						<div className='flex '>
+						</div> */}
+						<div className='flex flex-col '>
 							<Button
 								action={() => null}
 								color={'fade'}
 								title={'LOGIN'}
 								extraClass={
-									'font-bold text-xl text-center w-full flex justify-center items-center'
+									'font-bold text-sm md:text-xl text-center w-full flex justify-center items-center'
 								}
 								loading={isLoading}
 							/>
+							<p className='text-primary tablet:hidden mt-3 '>Don't have an Account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/sign-up')}}>SignUp</b> </p>
+
 						</div>
-						<div className='flex mt-4 text-primary font-bold'>
+						<div className='flex mt-1 text-primary font-bold'>
 							<Link to={'/forgot-password'}>Forgot your password?</Link>
 						</div>
 					</div>

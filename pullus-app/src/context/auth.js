@@ -36,6 +36,7 @@ export function UserAuthContextProvider({ children }) {
 		const res = await login(form)
 		localStorage.setItem('user', JSON.stringify(res.data))
 		setUser(res.data)
+		// console.log(res.data)
 		// setIsLogin(true)
 		// console.log(isLogin)
 		return res.data

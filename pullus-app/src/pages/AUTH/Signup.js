@@ -157,15 +157,16 @@ export default function Login() {
 
 						<p className='text-[red] font-medium'>{error}</p>
 
-						<div className='flex '>
+						<div className='flex flex-col justify-center items-center '>
 							<Button
 								action={() => null}
 								color={'fade'}
 								title={'Sign Up'}
 								extraClass={
-									'font-bold text-xl text-center w-full flex uppercase justify-center items-center'
+									'font-bold text-sm md:text-xl text-center w-full flex uppercase justify-center items-center'
 								}
 							/>
+							<p className='text-primary tablet:hidden my-3 '>Already have an account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/login')}}>Login</b> </p>
 						</div>
 						{isLoading && (
 							<div className=' flex gap-3 justify-center items-center'>
