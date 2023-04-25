@@ -1,6 +1,6 @@
 import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 import SingleBatch from '../../../components/FARMER/cycleManagement/singleBatch'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getMyCycles } from '../../../api'
 
 export default function CycleType({
@@ -11,11 +11,17 @@ export default function CycleType({
 	openBatchDetail,
 	isActive,
 }) {
+	const [cycles, setCycles] = useState([])
+	const [skeleton, setSkeleton] = useState(false)
+
 	useEffect(() => {
 		async function fetchData() {
+			setSkeleton(true)
 			// You can await here
 			const res = await getMyCycles(isActive)
-			console.log(res)
+			console.log(res.data.data.obj)
+			setCycles(res?.data?.data?.obj)
+			setSkeleton(false)
 		}
 		fetchData()
 	}, [isActive])
@@ -43,18 +49,39 @@ export default function CycleType({
 			<div
 				className={` ${
 					openIndex === index ? 'block' : 'hidden'
-				} p-5 my-1 rounded-xl `}
+				} p-5 my-1 rounded-xl grid gap-4`}
 			>
-				{[...Array(2)].map((item, index) => {
-					return (
-						<div
-							key={index}
-							onClick={openBatchDetail}
-						>
-							<SingleBatch />
-						</div>
-					)
-				})}
+				{!skeleton ? (
+					<>
+						{cycles.map((item, index) => {
+							return (
+								<div
+									key={index}
+									onClick={() => openBatchDetail(item?.cycleName)}
+								>
+									<SingleBatch item={item} />
+								</div>
+							)
+						})}
+					</>
+				) : (
+					<>
+						{[...Array(3)].map((_, idx) => {
+							return (
+								<div
+									key={idx}
+									className='h-14 animate-pulse rounded-lg bg-primary/30'
+								></div>
+							)
+						})}
+					</>
+				)}
+
+				{!cycles.length && !skeleton && (
+					<div className='text-primary font-light text-center'>
+						There is no {item?.title} cycle
+					</div>
+				)}
 			</div>
 		</div>
 	)

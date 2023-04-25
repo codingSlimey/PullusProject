@@ -1,20 +1,19 @@
 //react-icons
 import { FaPlay } from 'react-icons/fa'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import useScreenWidth from '../../../hooks/useScreenWidth'
 
 import Analysis from '../../../components/FARMER/cycleManagement/analysis'
 import BatchDetail from '../../../components/FARMER/cycleManagement/batchDetail'
-
-import { getMyCycles } from '../../../api'
 import CycleType from '../../../components/FARMER/cycleManagement/CycleType'
 
 function MyCycle() {
 	const navigate = useNavigate()
+	const location = useLocation()
 	const screenWidth = useScreenWidth()
 
 	const [activeTab, setActiveTab] = useState('batch info')
@@ -22,10 +21,10 @@ function MyCycle() {
 
 	const cycles = [
 		{
-			title: 'Active Batches',
+			title: 'Active Cycles',
 		},
 		{
-			title: 'Closed Batches',
+			title: 'Closed Cycles',
 		},
 	]
 
@@ -36,9 +35,10 @@ function MyCycle() {
 	}
 
 	const [showDetails, setShowDetails] = useState(false)
-	function openBatchDetail() {
+	function openBatchDetail(cycleName) {
 		if (screenWidth > 960) setShowDetails(true)
-		else navigate('/farmer/cycle-management/batch/detail')
+		navigate(`/farmer/cycle-management?cycle=${cycleName}`)
+		// else navigate('/farmer/cycle-management/batch/detail')
 	}
 
 	return (
