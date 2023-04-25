@@ -87,15 +87,16 @@ function App() {
 							{/* //Unauthenticated Routes // */}
 							<Route
 								path='/'
-								element={<Home />}
+								element={!user ? <Home /> :  <Navigate to='/login' replace />}
 							/>
 							<Route
 								path='/login'
-								element={<Login />}
+								element={!user ? <Login /> :  <Navigate to='/login' replace />}
+								
 							/>
 							<Route
 								path='/sign-up'
-								element={<Signup />}
+								element={!user ? <Signup /> :  <Navigate to='/login' replace />}
 							/>
 							<Route
 								path='/forgot-password'
