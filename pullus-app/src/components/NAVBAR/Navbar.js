@@ -91,7 +91,7 @@ export default function Navbar() {
 				/>
 
 				<div className='hidden tablet:block'>
-				{user.jwtToken ? (
+				{user?.jwtToken ? (
 					<div className='flex gap-8'>
 						<div className='flex gap-8 items-center '>
 							{userLinks.map((item, index) => {
