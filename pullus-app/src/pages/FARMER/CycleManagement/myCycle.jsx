@@ -41,7 +41,7 @@ function MyCycle() {
 		if (screenWidth > 960) {
 			setShowDetails(true)
 			navigate(`/farmer/cycle-management?cycle=${cycleName}`)
-		} else navigate('/farmer/cycle-management/batch/detail')
+		} else navigate(`/farmer/cycle-management/batch/detail?cycle=${cycleName}`)
 	}
 
 	return (
