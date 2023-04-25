@@ -19,7 +19,7 @@ export default function CycleType({
 			setSkeleton(true)
 			// You can await here
 			const res = await getMyCycles(isActive)
-			console.log(res.data.data.obj)
+			// console.log(res.data.data.obj)
 			setCycles(res?.data?.data?.obj)
 			setSkeleton(false)
 		}
@@ -79,7 +79,7 @@ export default function CycleType({
 
 				{!cycles.length && !skeleton && (
 					<div className='text-primary font-light text-center'>
-						There is no {item?.title} cycle
+						There are no {item?.title}
 					</div>
 				)}
 			</div>

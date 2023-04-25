@@ -1,7 +1,7 @@
 //react-icons
 import { FaPlay } from 'react-icons/fa'
 
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 
@@ -13,7 +13,7 @@ import CycleType from '../../../components/FARMER/cycleManagement/CycleType'
 
 function MyCycle() {
 	const navigate = useNavigate()
-	const location = useLocation()
+
 	const screenWidth = useScreenWidth()
 
 	const [activeTab, setActiveTab] = useState('batch info')
@@ -35,10 +35,13 @@ function MyCycle() {
 	}
 
 	const [showDetails, setShowDetails] = useState(false)
+
+	// function to open a single batch
 	function openBatchDetail(cycleName) {
-		if (screenWidth > 960) setShowDetails(true)
-		navigate(`/farmer/cycle-management?cycle=${cycleName}`)
-		// else navigate('/farmer/cycle-management/batch/detail')
+		if (screenWidth > 960) {
+			setShowDetails(true)
+			navigate(`/farmer/cycle-management?cycle=${cycleName}`)
+		} else navigate('/farmer/cycle-management/batch/detail')
 	}
 
 	return (
