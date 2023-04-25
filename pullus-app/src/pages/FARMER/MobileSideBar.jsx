@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import avatar from '../../images/avatar.svg'
 import Select from '../../components/FARMER/Select'
+import { useUserAuth } from '../../context/auth'
 
 import tabs from '../../constants/sideBarLinks'
 
@@ -14,6 +15,8 @@ export default function MobileSideBar({
 		setShowMobileSideBar(!showMobileSideBar)
 		
 	}
+	const { userLogout } = useUserAuth()
+
 
 	return (
 		<div
@@ -56,7 +59,9 @@ export default function MobileSideBar({
 							<div
 								key={index}
 								className='text-white text-start px-5 font-semibold '
-							>
+							> {
+								item.link === 'logout' ? <button className='flex gap-3 items-center font-bold text-lg' onClick={userLogout}>{item.icon}{item.name}</button> :
+							
 								<NavLink
 									key={index}
 									onClick={handleToggle}
@@ -67,6 +72,7 @@ export default function MobileSideBar({
 									{item.icon}
 									{item.name}
 								</NavLink>
+					}
 							</div>
 						)
 					})}
