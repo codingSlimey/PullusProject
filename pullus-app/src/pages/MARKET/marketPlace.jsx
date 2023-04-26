@@ -35,7 +35,7 @@ function MarketPlace(props) {
 					color={'fade'}
 				/>
 			</div>
-			{screenWidth > 800 ? (
+			{screenWidth > 960 ? (
 				<div className='flex px-16  gap-14 mt-12'>
 					<div className=' w-[18vw]'>
 						<div className='text-primary font-bold text-left text-2xl mb-6'>

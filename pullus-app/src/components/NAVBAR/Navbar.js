@@ -140,12 +140,25 @@ export default function Navbar() {
 						/>
 					</div>
 				) : (
-					<Button
-						action={() => navigate('/login')}
-						color={'fade'}
-						title={'Login'}
-						extraClass={'font-bold md:text-lg'}
-					/>
+					<>
+					{
+						pathname === '/sign-up' ?
+						<Button
+							action={() => navigate('/login')}
+							color={'fade'}
+							title={'Login'}
+							extraClass={'font-bold md:text-lg'}
+						/>
+						:
+						<Button
+							action={() => navigate('/sign-up')}
+							color={'fade'}
+							title={'Sign Up'}
+							extraClass={'font-bold md:text-lg'}
+						/>
+
+					}
+					</>
 				)}
 
 				</div>
@@ -156,12 +169,25 @@ export default function Navbar() {
 					toggleMobileSideBar={toggleMobileSideBar}
 				/>
 				{ !user?.jwtToken  ? (
+									<>
+									{
+										pathname === '/sign-up' ?
 										<Button
-										action={() => navigate('/login')}
-										color={'fade'}
-										title={'Login'}
-										extraClass={'font-bold md:text-lg tablet:hidden'}
-									/>
+											action={() => navigate('/login')}
+											color={'fade'}
+											title={'Login'}
+											extraClass={'font-bold md:text-lg'}
+										/>
+										:
+										<Button
+											action={() => navigate('/sign-up')}
+											color={'fade'}
+											title={'Sign Up'}
+											extraClass={'font-bold md:text-lg'}
+										/>
+				
+									}
+									</>
 				): (
                    <div className='tablet:hidden  w-full flex justify-end '>
 					   <GiHamburgerMenu

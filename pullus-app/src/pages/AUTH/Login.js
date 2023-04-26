@@ -156,7 +156,7 @@ export default function Login() {
 								color={'fade'}
 								title={'LOGIN'}
 								extraClass={
-									'font-bold text-sm md:text-xl text-center w-full flex justify-center items-center'
+									'font-bold max-lgmobile:py-2 text-lg lgmobile:text-xl text-center w-full flex justify-center items-center'
 								}
 								loading={isLoading}
 							/>

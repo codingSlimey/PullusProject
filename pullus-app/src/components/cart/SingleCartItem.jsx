@@ -6,11 +6,11 @@ import { useCart } from '../../context/cart'
 export default function SingleCartItem({ openDeleteDialog, product }) {
 	const { increaseQuantity, decreaseQuantity } = useCart()
 	return (
-		<tr className='   text-primary text-center'>
-			<td className=' px-6 py-4 flex gap-4 items-center'>
+		<tr className='text-primary text-center'>
+			<td className=' px-3 tablet:px-6 py-4 flex gap-4 items-center'>
 				<IoCloseCircleOutline
 					onClick={() => openDeleteDialog(product)}
-					className='h-5 w-5 cursor-pointer'
+					className='text-3xl tablet:text-xl cursor-pointer'
 				/>
 				<img
 					src={bird}
@@ -18,10 +18,10 @@ export default function SingleCartItem({ openDeleteDialog, product }) {
 					className='shadow-xl w-16 h-16 p-2 bg-grey rounded-xl'
 				/>
 			</td>
-			<td className='px-6 py-4 font-medium'>{product?.name}</td>
-			<td className=' px-6 py-4'>Abuja, Nigeria</td>
-			<td className=' px-6 py-4'>N{product?.price}</td>
-			<td className=' px-6 py-4 flex justify-center'>
+			<td className='px-3 tablet:px-6 py-4 font-medium'>{product?.name}</td>
+			<td className=' px-3 tablet:px-6 py-4'>Abuja, Nigeria</td>
+			<td className=' px-3 tablet:px-6 py-4'>N{product?.price}</td>
+			<td className=' px-3 tablet:px-6 py-4 flex justify-center'>
 				<div className='flex gap-4 items-center justify-center w-fit bg-grey px-5 py-1 rounded-lg'>
 					<button
 						disabled={product?.quantity === 1}
@@ -41,7 +41,9 @@ export default function SingleCartItem({ openDeleteDialog, product }) {
 					</button>
 				</div>
 			</td>
-			<td className=' px-6 py-4'>N{product?.quantity * product?.price}</td>
+			<td className=' px-3 tablet:px-6 py-4'>
+				N{product?.quantity * product?.price}
+			</td>
 		</tr>
 	)
 }
