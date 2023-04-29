@@ -1,15 +1,21 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Input from '../../../components/FARMER/Input'
 import { useState } from 'react'
 import { UpdateFormState } from '../../../utils/setFormState'
 
 function AddData() {
 	const navigate = useNavigate()
+	const location = useLocation()
+	const queryParams = new URLSearchParams(location.search)
+
+	// Get the value of a specific query parameter
+	const paramValue = queryParams.get('cycle')
+	// console.log(paramValue)
 
 	const [cycleDataForm, setCycleDataForm] = useState({
 		causeOfDeadBirds: '',
-		cycleManagementName: '',
+		cycleManagementName: `${paramValue}`,
 		damagedEggs: 0,
 		dateOfRecord: `${new Date().toISOString().slice(0, 10)}`,
 		feedInKg: 0,
@@ -56,41 +62,42 @@ function AddData() {
 							placeholder='12.08.2022'
 							label='Date of record'
 							value={cycleDataForm.dateOfRecord}
+							onChange={handleOnchange}
 						/>
 					</div>
 
 					<div className='grid mt-4'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Number of dead birds'
 							label='Mortality'
 							name='noOfDeadBirds'
-							value={cycleDataForm.noOfDeadBirds}
+							// value={cycleDataForm.noOfDeadBirds}
 							onChange={handleOnchange}
 						/>
 						<Input
 							type='text'
 							placeholder='Cause'
 							name='causeOfDeadBirds'
-							value={cycleDataForm.causeOfDeadBirds}
+							// value={cycleDataForm.causeOfDeadBirds}
 							onChange={handleOnchange}
 						/>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Number of Solid birds'
 							name='noOfSoldBirds'
-							value={cycleDataForm.noOfSoldBirds}
+							// value={cycleDataForm.noOfSoldBirds}
 							onChange={handleOnchange}
 						/>
 					</div>
 
 					<div className='grid mt-4'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Total feeds given (Kilogram)'
 							label='Feed'
 							name='feedInKg'
-							value={cycleDataForm.feedInKg}
+							// value={cycleDataForm.feedInKg}
 							onChange={handleOnchange}
 						/>
 					</div>
@@ -99,29 +106,29 @@ function AddData() {
 				<div className='flex-1'>
 					<div className='grid'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Total water given (Liters)'
 							label='Water'
 							name='waterInLitres'
-							value={cycleDataForm.waterInLitres}
+							// value={cycleDataForm.waterInLitres}
 							onChange={handleOnchange}
 						/>
 					</div>
 
 					<div className='grid mt-4'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Number of weighed birds'
 							label='Body Weight'
 							name='noOfWeighedBirds'
-							value={cycleDataForm.noOfWeighedBirds}
+							// value={cycleDataForm.noOfWeighedBirds}
 							onChange={handleOnchange}
 						/>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Total weight of birds in grams'
 							name='totalWeightOfBirdsInGrams'
-							value={cycleDataForm.totalWeightOfBirdsInGrams}
+							// value={cycleDataForm.totalWeightOfBirdsInGrams}
 							onChange={handleOnchange}
 						/>
 					</div>
