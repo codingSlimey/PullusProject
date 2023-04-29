@@ -74,7 +74,7 @@ function Analysis(props) {
 
 			<div className='shadow xl bg-white rounded-xl'>
 				<div className='my-4 px-8 flex justify-between text-primary'>
-					<p>Feed Intake</p>
+					<p>Mortality</p>
 					<SlFrame className='w-5 h-5' />
 				</div>
 				<LineChart
@@ -99,7 +99,7 @@ function Analysis(props) {
 
 				<div className='flex gap-2 mt-6 mb-2 items-center px-8'>
 					<div className='h-4 w-4 bg-primary rounded-full'></div>
-					<div className='text-primary font-medium'>Feed</div>
+					<div className='text-primary font-medium'>Cumulative Mortality %</div>
 				</div>
 				<div className='bg-grey flex gap-6 justify-center items-center py-3 px-5'>
 					<div className='text-center'>

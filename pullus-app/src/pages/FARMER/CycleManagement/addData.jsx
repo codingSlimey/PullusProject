@@ -3,15 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Input from '../../../components/FARMER/Input'
 import { useState } from 'react'
 import { UpdateFormState } from '../../../utils/setFormState'
+import { addDataToSingleCycle } from '../../../api'
+import Button from '../../../components/FARMER/button'
 
 function AddData() {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const queryParams = new URLSearchParams(location.search)
-
-	// Get the value of a specific query parameter
 	const paramValue = queryParams.get('cycle')
-	// console.log(paramValue)
+
+	const [loading, setLoading] = useState(false)
 
 	const [cycleDataForm, setCycleDataForm] = useState({
 		causeOfDeadBirds: '',
@@ -30,16 +31,32 @@ function AddData() {
 
 	// Function to handle onChange
 	const handleOnchange = (event) => {
+		let fieldValue
+		if (event.target.type === 'number') {
+			fieldValue = parseFloat(event.target.value)
+		} else {
+			fieldValue = event.target.value
+		}
+
 		UpdateFormState(
 			event.target.name,
-			event.target.value,
+			fieldValue,
 			cycleDataForm,
 			setCycleDataForm
 		)
 	}
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		console.log(cycleDataForm)
+		setLoading(true)
+		try {
+			const res = await addDataToSingleCycle(cycleDataForm)
+			console.log(res)
+			setLoading(false)
+			navigate(`/farmer/cycle-management?cycle=${paramValue}`)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (
@@ -161,12 +178,12 @@ function AddData() {
 			</div>
 
 			<div className='mt-8 lgmobile:mt-16 max-lgmobile:flex-col flex gap-8 lgmobile:gap-16 justify-center items-center'>
-				<button
-					onClick={handleSubmit}
-					className='w-full lgmobile:w-[40%] tablet:w-[20%] bg-fade py-3 rounded-full shadow-xl text-[#fff] lgmobile:mt-8 lgmobile:mb-6'
-				>
-					Save
-				</button>
+				<Button
+					loading={loading}
+					action={handleSubmit}
+					title='Save'
+					extraClass='w-full lgmobile:w-[40%] flex justify-center tablet:w-[20%] bg-fade py-3 rounded-full shadow-xl text-[#fff] lgmobile:mt-8 lgmobile:mb-6'
+				/>
 
 				<button
 					onClick={() => navigate('/farmer/cycle-management')}
