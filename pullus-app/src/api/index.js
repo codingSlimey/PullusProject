@@ -46,3 +46,5 @@ export const addDataToSingleCycle = (data)=> API.post(`/apis/v1/pullus/cycleMana
 
 //Production Plan
 export const createProductionPlan = (data)=> API.post('/apis/v1/pullus/productionPlan/createProductionPlan', data )
+export const getSingleProductionPlan = (name)=> API.get(`/apis/v1/pullus/productionPlan/getProductionPlan?name=${name}` )
+export const totalFeedCalculator = (data)=> API.post(`/apis/v1/pullus/productionPlan/getTotalFeedCalc`, data )

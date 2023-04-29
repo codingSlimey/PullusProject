@@ -8,6 +8,8 @@ import Button from '../../../components/FARMER/button'
 
 function AddData() {
 	const navigate = useNavigate()
+
+	//Getting the query name
 	const location = useLocation()
 	const queryParams = new URLSearchParams(location.search)
 	const paramValue = queryParams.get('cycle')

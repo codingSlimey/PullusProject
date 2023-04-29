@@ -14,7 +14,7 @@ const useCreateProductionPlanForm = () => {
 	const validateField = (fieldName, value) => {
 		switch (fieldName) {
 			case 'poultryType':
-				if (value.trim() === '') {
+				if (value === '') {
 					setErrors((prevErrors) => ({
 						...prevErrors,
 						poultryType: 'Poultry type is required',
@@ -27,7 +27,7 @@ const useCreateProductionPlanForm = () => {
 				}
 				break
 			case 'noOfBirds':
-				if (value.trim() === '') {
+				if (value === '') {
 					setErrors((prevErrors) => ({
 						...prevErrors,
 						noOfBirds: 'Number of is required',
@@ -53,7 +53,7 @@ const useCreateProductionPlanForm = () => {
 				}
 				break
 			case 'durationOfProductionInWeeks':
-				if (value.trim() === '') {
+				if (value === '') {
 					setErrors((prevErrors) => ({
 						...prevErrors,
 						durationOfProductionInWeeks: 'Duration is required',

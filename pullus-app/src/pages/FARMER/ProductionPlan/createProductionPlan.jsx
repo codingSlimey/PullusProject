@@ -54,17 +54,17 @@ function CreateProductionPlan() {
 		)
 	}
 
+	// Function to Submit the form
 	const handleSubmit = async () => {
 		console.log(productionPlanForm)
 		const isValid = validateForm(productionPlanForm)
 		if (isValid) {
-			// Submit the form
 			setLoading(true)
 			try {
 				const res = await createProductionPlan(productionPlanForm)
 				console.log(res)
 				setLoading(false)
-				navigate(`summary`)
+				navigate(`summary?plan=${productionPlanForm.name}`)
 			} catch (error) {
 				console.log(error)
 			}
