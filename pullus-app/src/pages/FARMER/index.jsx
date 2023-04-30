@@ -110,11 +110,11 @@ function Farmer() {
 						element={<CreateProductionPlan />}
 					/>
 					<Route
-						path='/production-plan/create-production-plan/summary'
+						path='/production-plan/summary'
 						element={<Summary />}
 					/>
 					<Route
-						path='/production-plan/create-production-plan/summary/production-schedule'
+						path='/production-plan/production-schedule'
 						element={<ProductionSchedule />}
 					/>
 

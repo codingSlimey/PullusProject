@@ -64,7 +64,9 @@ function CreateProductionPlan() {
 				const res = await createProductionPlan(productionPlanForm)
 				console.log(res)
 				setLoading(false)
-				navigate(`summary?plan=${productionPlanForm.name}`)
+				navigate(
+					`/farmer/production-plan/summary?plan=${productionPlanForm.name}`
+				)
 			} catch (error) {
 				console.log(error)
 			}

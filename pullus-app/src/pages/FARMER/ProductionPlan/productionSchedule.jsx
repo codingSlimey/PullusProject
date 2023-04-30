@@ -1,9 +1,13 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/FARMER/button'
+import BroilersTable from '../../../constants/BroilersTable'
+import useGetProductionPlan from '../../../hooks/ProductionPlan/useGetProductionPlan'
 
-function ProductionSchedule(props) {
+function ProductionSchedule() {
 	const navigate = useNavigate()
+
+	const { summary, skeleton } = useGetProductionPlan()
 
 	return (
 		<div className='font-bold pb-12 '>
@@ -20,16 +24,24 @@ function ProductionSchedule(props) {
 			<div className='grid gap-16 mt-12'>
 				<div className=''>
 					<div className='flex gap-2 text-primary mb-3'>
-						<span className='font-bold'>Start Date: </span>
-						<span className='font-normal'>November 14, 2022 </span>
-					</div>
-					<div className='flex gap-2 text-primary mb-3'>
 						<span className='font-bold'>Number of Birds: </span>
-						<span className='font-normal'>1000 </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.noOfBirds} </span>
+						)}
 					</div>
 					<div className='flex gap-2 text-primary mb-3'>
-						<span className='font-bold'>Bird Type: </span>
-						<span className='font-normal'>Broilers</span>
+						<span className='font-bold'>Hatchery: </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.docBrand} </span>
+						)}
+					</div>
+					<div className='flex gap-2 text-primary mb-3'>
+						<span className='font-bold'>Average weight at Dat 1: </span>
+						{skeleton ? <Skeleton /> : <span className='font-normal'>70g</span>}
 					</div>
 				</div>
 
@@ -39,11 +51,11 @@ function ProductionSchedule(props) {
 							<tr className=''>
 								<th
 									scope='col'
-									className=' px-2 md:px-6 md:py-3'
+									className=' px-6 py-3'
 								>
-									Day
+									Age
 								</th>
-								<th
+								{/* <th
 									scope='col'
 									className='px-6 py-3'
 								>
@@ -54,7 +66,7 @@ function ProductionSchedule(props) {
 									className='px-6 py-3'
 								>
 									Quantity
-								</th>
+								</th> */}
 								<th
 									scope='col'
 									className='px-6 py-3'
@@ -67,27 +79,29 @@ function ProductionSchedule(props) {
 								>
 									Routine
 								</th>
-								<th
+								{/* <th
 									scope='col'
 									className='px-6 py-3'
 								>
 									Description
-								</th>
+								</th> */}
 							</tr>
 						</thead>
 						<tbody className='bg-green'>
-							{[...Array(7)].map((item, index) => {
+							{BroilersTable.map((item, index) => {
 								return (
 									<tr
 										key={index}
 										className=' border border-[white] text-[white]'
 									>
-										<td className='px-6 py-4 font-medium  border '>1</td>
-										<td className='border px-6 py-4'>1</td>
-										<td className='border px-6 py-4'>990</td>
+										<td className='px-6 py-4 font-medium  border '>
+											{item.age}
+										</td>
+										{/* <td className='border px-6 py-4'>1</td> */}
+										{/* <td className='border px-6 py-4'>990</td> */}
 										<td className='border px-6 py-4'>Vaccine</td>
-										<td className='border px-6 py-4'>NDV (Hitchner)</td>
-										<td className='border px-6 py-4'>Done at the hatchery</td>
+										<td className='border px-6 py-4'>{item.activity}</td>
+										{/* <td className='border px-6 py-4'>Done at the hatchery</td> */}
 									</tr>
 								)
 							})}
@@ -109,3 +123,7 @@ function ProductionSchedule(props) {
 }
 
 export default ProductionSchedule
+
+function Skeleton() {
+	return <div className='w-28 h-4 rounded-md animate-pulse bg-primary/30'></div>
+}
