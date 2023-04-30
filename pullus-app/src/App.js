@@ -30,13 +30,14 @@ import EnterPin from './pages/FARMER/MyEwallet/EnterPin'
 import DocumentUpload from './pages/REGISTRATION/DocumentUpload'
 import Navbar from './components/NAVBAR/Navbar'
 import Footer from './components/FOOTER/Footer'
-// import CartFloatingButton from './components/buttons/cartFloatingButton'
+import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
 import { UserAuthContextProvider } from './context/auth'
 import { CartProvider } from './context/cart'
 
 import {ToastContainer} from 'react-toastify'
+import ScrollToTop from './hooks/useScrollToTop'
 
 
 function App() {
@@ -79,9 +80,10 @@ function App() {
 					<div
 					// 
 						className={`${
-							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit '
+							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit'
 						}  mt-24`}
-					>
+					>	
+					<ScrollToTop />
 						<Routes>
 
 							{/* //Unauthenticated Routes // */}
@@ -176,7 +178,7 @@ function App() {
 							{/* /////////////////////////// */}
 						</Routes>
 					</div>
-					{/* <CartFloatingButton /> */}
+					<CartFloatingButton />
 					<Footer />
 				</main>
 			</CartProvider>

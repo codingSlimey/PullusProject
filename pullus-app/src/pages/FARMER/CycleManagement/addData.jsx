@@ -1,19 +1,25 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Input from '../../../components/FARMER/Input'
 import { useEffect, useState } from 'react'
 import { UpdateFormState } from '../../../utils/setFormState'
-import  {addCycleData}  from '../../../api'
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { addDataToSingleCycle } from '../../../api'
+import Button from '../../../components/FARMER/button'
 
 function AddData() {
 	const navigate = useNavigate()
 	const [isDisabled , setisdisabled] = useState(true)
 
+	//Getting the query name
+	const location = useLocation()
+	const queryParams = new URLSearchParams(location.search)
+	const paramValue = queryParams.get('cycle')
+
+	const [loading, setLoading] = useState(false)
+
 	const [cycleDataForm, setCycleDataForm] = useState({
 		causeOfDeadBirds: '',
-		cycleManagementName: '',
+		cycleManagementName: `${paramValue}`,
 		damagedEggs: 0,
 		dateOfRecord: `${new Date().toISOString().slice(0, 10)}`,
 		feedInKg: 0,
@@ -37,24 +43,31 @@ function AddData() {
 
 	// Function to handle onChange
 	const handleOnchange = (event) => {
+		let fieldValue
+		if (event.target.type === 'number') {
+			fieldValue = parseFloat(event.target.value)
+		} else {
+			fieldValue = event.target.value
+		}
+
 		UpdateFormState(
 			event.target.name,
-			event.target.value,
+			fieldValue,
 			cycleDataForm,
 			setCycleDataForm
 		)
 	}
 
 	const handleSubmit = async () => {
-		const data = {...cycleDataForm}
 		console.log(cycleDataForm)
+		setLoading(true)
 		try {
-			const res = await addCycleData(data)
-			toast.success("Data Added Successfully")
+			const res = await addDataToSingleCycle(cycleDataForm)
 			console.log(res)
-		} catch({response}){
-			console.log(response)
-			toast.error("An Error occured")
+			setLoading(false)
+			navigate(`/farmer/cycle-management?cycle=${paramValue}`)
+		} catch (error) {
+			console.log(error)
 		}
 	}
 
@@ -84,36 +97,36 @@ function AddData() {
 
 					<div className='grid mt-4'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Number of dead birds'
 							label='Mortality'
 							name='noOfDeadBirds'
-							value={cycleDataForm.noOfDeadBirds}
+							// value={cycleDataForm.noOfDeadBirds}
 							onChange={handleOnchange}
 						/>
 						<Input
 							type='text'
 							placeholder='Cause'
 							name='causeOfDeadBirds'
-							value={cycleDataForm.causeOfDeadBirds}
+							// value={cycleDataForm.causeOfDeadBirds}
 							onChange={handleOnchange}
 						/>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Number of Solid birds'
 							name='noOfSoldBirds'
-							value={cycleDataForm.noOfSoldBirds}
+							// value={cycleDataForm.noOfSoldBirds}
 							onChange={handleOnchange}
 						/>
 					</div>
 
 					<div className='grid mt-4'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Total feeds given (Kilogram)'
 							label='Feed'
 							name='feedInKg'
-							value={cycleDataForm.feedInKg}
+							// value={cycleDataForm.feedInKg}
 							onChange={handleOnchange}
 						/>
 					</div>
@@ -122,29 +135,29 @@ function AddData() {
 				<div className='flex-1'>
 					<div className='grid'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Total water given (Liters)'
 							label='Water'
 							name='waterInLitres'
-							value={cycleDataForm.waterInLitres}
+							// value={cycleDataForm.waterInLitres}
 							onChange={handleOnchange}
 						/>
 					</div>
 
 					<div className='grid mt-4'>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Number of weighed birds'
 							label='Body Weight'
 							name='noOfWeighedBirds'
-							value={cycleDataForm.noOfWeighedBirds}
+							// value={cycleDataForm.noOfWeighedBirds}
 							onChange={handleOnchange}
 						/>
 						<Input
-							type='text'
+							type='number'
 							placeholder='Total weight of birds in grams'
 							name='totalWeightOfBirdsInGrams'
-							value={cycleDataForm.totalWeightOfBirdsInGrams}
+							// value={cycleDataForm.totalWeightOfBirdsInGrams}
 							onChange={handleOnchange}
 						/>
 					</div>
@@ -177,17 +190,12 @@ function AddData() {
 			</div>
 
 			<div className='mt-8 lgmobile:mt-16 max-lgmobile:flex-col flex gap-8 lgmobile:gap-16 justify-center items-center'>
-				<button
-					onClick={handleSubmit}
-					className={`text-xs md:w-1/3  text-center justify-center  py-4 px-10 flex items-center ${
-						isDisabled
-							? 'disabled:cursor-not-allowed bg-grey filter text-black/40'
-							: 'bg-fade text-white'
-					}   md:text-base rounded-full shadow-xl  my-auto`}
-
-				>
-					Save
-				</button>
+				<Button
+					loading={loading}
+					action={handleSubmit}
+					title='Save'
+					extraClass='w-full lgmobile:w-[40%] flex justify-center tablet:w-[20%] bg-fade py-3 rounded-full shadow-xl text-[#fff] lgmobile:mt-8 lgmobile:mb-6'
+				/>
 
 				<button
 					onClick={() => navigate('/farmer/cycle-management')}

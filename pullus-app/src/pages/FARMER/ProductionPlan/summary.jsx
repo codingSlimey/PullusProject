@@ -1,56 +1,107 @@
-import { HiOutlineArrowLeft } from 'react-icons/hi'
+// import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/FARMER/button'
+import useGetProductionPlan from '../../../hooks/ProductionPlan/useGetProductionPlan'
 
-
-function Summary(props) {
+function Summary() {
 	const navigate = useNavigate()
+
+	const { paramValue, summary, skeleton } = useGetProductionPlan()
+
+	// Function to change date Format
+	function formatDate(dateString) {
+		const date = new Date(dateString)
+		const options = { month: 'long', day: 'numeric', year: 'numeric' }
+		return date.toLocaleDateString('en-US', options)
+	}
+
+	const leftHandSideClass = 'flex items-center gap-2 text-primary mb-3'
 
 	return (
 		<div className='font-bold pb-12'>
 			<div className='flex items-center'>
-				<button
+				{/* <button
 					onClick={() => navigate('/farmer/cycle-management')}
 					className='bg-primary py-1 px-2 rounded-lg mr-4 text-[#fff]'
 				>
 					<HiOutlineArrowLeft className='h-6 w-6' />
-				</button>
-				<div className='text-primary  my-6'>Summary</div>
+				</button> */}
+				<div className='text-primary my-4 text-lg'>{paramValue} Summary</div>
 			</div>
 
-			<div className='flex flex-col md:flex-row items-center gap-16 mt-12'>
+			<div className='flex flex-col md:flex-row items-center gap-16 mt-8'>
 				<div className='w-full md:flex-1'>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Start Date: </span>
-						<span className='font-normal'>November 14, 2022 </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{formatDate(summary?.startDate)}{' '}
+							</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Number of Birds: </span>
-						<span className='font-normal'>1000 </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.noOfBirds} </span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Bird Type: </span>
-						<span className='font-normal'>Broilers</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.poultryType}</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Duration of Production: </span>
-						<span className='font-normal'>6 Weeks </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.durationOfProductionInWeeks} Weeks{' '}
+							</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>DoC Brand: </span>
-						<span className='font-normal'>OLAM </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.docBrand} </span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Feed Brand: </span>
-						<span className='font-normal'>Hybrid </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.feedBrand} </span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Insurance: </span>
-						<span className='font-normal'>Yes</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.insurance === true ? 'Yes' : 'No'}
+							</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Off-take: </span>
-						<span className='font-normal'>Yes</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.market === true ? 'Yes' : 'No'}
+							</span>
+						)}
 					</div>
 				</div>
 
@@ -63,58 +114,70 @@ function Summary(props) {
 										scope='col'
 										className='px-6 py-3'
 									>
-										Product name
+										Item
 									</th>
 									<th
 										scope='col'
 										className='px-6 py-3'
 									>
-										Color
+										Value
 									</th>
 								</tr>
 							</thead>
 							<tbody className='bg-green'>
 								<tr className=' border border-[white] text-[white]'>
-									<td
-										className='px-6 py-4 font-medium  border '
-									>
-										DoC Brand
-									</td>
-									<td className='border px-6 py-4'>OLAM</td>
+									<td className='px-6 py-4 font-medium  border '>DoC Brand</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>{summary?.docBrand}</td>
+									)}
 								</tr>
 								<tr className=' border border-[white] text-[white]'>
-									<td
-										className='px-6 py-4 font-medium  border '
-									>
-										Feed Brand
-									</td>
-									<td className='border px-6 py-4'>Hybrid</td>
+									<td className='px-6 py-4 font-medium  border '>Feed Brand</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>{summary?.feedBrand}</td>
+									)}
 								</tr>
 								<tr className=' border border-[white] text-[white]'>
-									<td
-										className='px-6 py-4 font-medium  border '
-									>
+									<td className='px-6 py-4 font-medium  border '>
 										Duration of Production
 									</td>
-									<td className='border px-6 py-4'>6 weeks</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>
+											{summary?.durationOfProductionInWeeks} Weeks{' '}
+										</td>
+									)}
 								</tr>
 
 								<tr className=' border border-[white] text-[white]'>
-									<td
-										className='px-6 py-4 font-medium  border '
-									>
+									<td className='px-6 py-4 font-medium  border '>
 										Quantity of DoC
 									</td>
-									<td className='border px-6 py-4'>1,000</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>
+											{summary?.totalWeightGain}
+										</td>
+									)}
 								</tr>
 
 								<tr className=' border border-[white] text-[white]'>
-									<td
-										className='px-6 py-4 font-medium  border '
-									>
+									<td className='px-6 py-4 font-medium  border '>
 										Quantity of Feed
 									</td>
-									<td className='border px-6 py-4'>200 Kg</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>
+											{summary?.totalFeedRequired / 1000} Kg
+										</td>
+									)}
 								</tr>
 							</tbody>
 						</table>
@@ -127,7 +190,11 @@ function Summary(props) {
 					title={'Proceed to Production Schedule'}
 					icon={true}
 					color={'fade'}
-					action={() => navigate('production-schedule')}
+					action={() =>
+						navigate(
+							`/farmer/production-plan/production-schedule?plan=${paramValue}`
+						)
+					}
 				/>
 			</div>
 		</div>
@@ -135,3 +202,7 @@ function Summary(props) {
 }
 
 export default Summary
+
+function Skeleton() {
+	return <div className='w-28 h-4 rounded-md animate-pulse bg-primary/30'></div>
+}

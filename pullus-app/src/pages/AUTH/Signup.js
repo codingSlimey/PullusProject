@@ -163,7 +163,7 @@ export default function Login() {
 								color={'fade'}
 								title={'Sign Up'}
 								extraClass={
-									'font-bold text-sm md:text-xl text-center w-full flex uppercase justify-center items-center'
+									'font-bold max-lgmobile:py-2 text-lg lgmobile:text-xl text-center w-full flex uppercase justify-center items-center'
 								}
 							/>
 							<p className='text-primary tablet:hidden my-3 '>Already have an account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/login')}}>Login</b> </p>

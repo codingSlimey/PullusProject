@@ -1,20 +1,22 @@
 import successImg from '../../images/success.svg'
 import bird from '../../images/bird.svg'
 
-import {  Modal } from 'flowbite-react'
+import { Modal } from 'flowbite-react'
 
 import { ImLocation } from 'react-icons/im'
 import { FiEdit } from 'react-icons/fi'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function Checkout(props) {
+function Checkout() {
+	const navigate = useNavigate()
 	const [addressDialog, setAddressDialog] = useState(false)
 	const [shippingDialog, setShippingDialog] = useState(false)
 	const [success, setSuccess] = useState(false)
 	return (
-		<div className='px-36 py-10 text-left text-primary'>
-			<h1 className='  text-2xl font-bold mt-6 mb-16'>Checkout</h1>
-			<div className='flex gap-10'>
+		<div className='px-5 md:px-10 laptop:px-36 py-2 md:py-10 text-left text-primary'>
+			<h1 className='  text-2xl font-bold md:mt-6 my-4 md:mb-16'>Checkout</h1>
+			<div className='flex max-md:flex-col gap-10'>
 				<div className='flex-1'>
 					<h5 className='  font-bold mb-6'>Order List</h5>
 
@@ -247,45 +249,45 @@ function Checkout(props) {
 				</Modal.Footer>
 			</Modal>
 
-			<Modal
-				show={success}
-				onClose={() => setSuccess(false)}
-				size='sm'
-				className='success-modal'
-			>
-				{/* <Modal.Header className='text-primary'>Type of Shipping</Modal.Header> */}
-				<Modal.Body>
-					<div className='px-4 py-6   grid place-items-center bg-white  mb-4 '>
-						<img
-							src={successImg}
-							alt=''
-							className='bg-[white]'
-						/>
+			{success && (
+				<div
+					className={` z-40 fixed bg-modal left-0 top-0 h-screen flex flex-col items-center justify-center w-full`}
+					onClick={() => setSuccess(false)}
+				>
+					<div
+						onClick={(e) => e.stopPropagation()}
+						className='bg-white px-8 py-5 rounded-2xl w-fit'
+					>
+						<div className='px-4 py-6   grid place-items-center bg-white  mb-4 '>
+							<img
+								src={successImg}
+								alt=''
+								className='bg-[white]'
+							/>
+						</div>
+						<h5 className='text-primary text-center font-bold text-xl my-2'>
+							Order Successful!
+						</h5>
+						<p className='text-primary text-center'>
+							You have successfully made an order
+						</p>
+						<div className='mt-4 grid w-full gap-6 justify-center '>
+							<button
+								onClick={() => navigate('/farmer/cycle-management')}
+								className={`w-full bg-fade text-[#fff] text-base font-bold py-3 px-8 flex justify-center  items-center rounded-full shadow-xl  my-auto`}
+							>
+								View Dashboard
+							</button>
+							<button
+								onClick={() => setSuccess(false)}
+								className={`w-full bg-grey text-primary text-base font-bold py-3 px-8 flex  items-center justify-center rounded-full shadow-xl  my-auto`}
+							>
+								View E-Receipt
+							</button>
+						</div>
 					</div>
-					<h5 className='text-primary text-center font-bold text-xl my-2'>
-						Order Successful!
-					</h5>
-					<p className='text-primary text-center'>
-						You have successfully made an order
-					</p>
-					<div className='mt-4 grid w-full gap-6 justify-center '>
-						<button
-							onClick={() => setSuccess(false)}
-							className={`w-full bg-fade text-[#fff] text-base font-bold py-3 px-8 flex justify-center  items-center rounded-full shadow-xl  my-auto`}
-						>
-							View Dashboard
-						</button>
-						<button
-							onClick={() => setSuccess(false)}
-							className={`w-full bg-grey text-primary text-base font-bold py-3 px-8 flex  items-center justify-center rounded-full shadow-xl  my-auto`}
-						>
-							View E-Receipt
-						</button>
-					</div>
-				</Modal.Body>
-				{/* <Modal.Footer>
-				</Modal.Footer> */}
-			</Modal>
+				</div>
+			)}
 		</div>
 	)
 }

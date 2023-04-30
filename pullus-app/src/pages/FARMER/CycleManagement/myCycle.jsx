@@ -1,9 +1,9 @@
 //react-icons
 import { FaPlay } from 'react-icons/fa'
 
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import useScreenWidth from '../../../hooks/useScreenWidth'
 
@@ -13,6 +13,9 @@ import CycleType from '../../../components/FARMER/cycleManagement/CycleType'
 
 function MyCycle() {
 	const navigate = useNavigate()
+	const location = useLocation()
+	const queryParams = new URLSearchParams(location.search)
+	const paramValue = queryParams.get('cycle')
 
 	const screenWidth = useScreenWidth()
 
@@ -43,6 +46,12 @@ function MyCycle() {
 			navigate(`/farmer/cycle-management?cycle=${cycleName}`)
 		} else navigate(`/farmer/cycle-management/batch/detail?cycle=${cycleName}`)
 	}
+
+	useEffect(() => {
+		if (paramValue) {
+			setShowDetails(true)
+		}
+	}, [paramValue])
 
 	return (
 		<div className='font-bold pb-12'>

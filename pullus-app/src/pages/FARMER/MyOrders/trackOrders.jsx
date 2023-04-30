@@ -6,9 +6,13 @@ import { SlSocialDropbox } from 'react-icons/sl'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 
 import logo from '../../../images/logo.png'
+import ModalComponent from '../../../components/Modal'
+import VendorProfile from './vendorProfile'
+import { useState } from 'react'
 
 function TrackOrder(props) {
 	const navigate = useNavigate()
+	const [showModal, setShowModal] = useState(false)
 
 	return (
 		<div className='px-3 font-bold  md:pb-12 md:px-20'>
@@ -86,7 +90,7 @@ function TrackOrder(props) {
 					))}
 
 					<button
-						onClick={() => navigate('vendor-profile')}
+						onClick={() => setShowModal(true)}
 						className={`w-fit bg-[#fff] text-primary py-2 px-6 flex  items-center rounded-full  my-6`}
 					>
 						View vendor profile here
@@ -94,6 +98,13 @@ function TrackOrder(props) {
 					</button>
 				</div>
 			</div>
+
+			<ModalComponent
+				isOpen={showModal}
+				handleClose={() => setShowModal(false)}
+			>
+				<VendorProfile />
+			</ModalComponent>
 		</div>
 	)
 }

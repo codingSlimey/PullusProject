@@ -37,7 +37,7 @@ function OrderDasboard(props) {
 								className={`px-4 text-primary font-medium w-40 text-center border-b-2 border-grey pb-2 cursor-pointer relative ${
 									activeTab === item
 										? 'after:absolute after:w-full after:bottom-0 after:translate-y-[50%] after:h-1 after:left-0 after:rounded-full after:bg-primary '
-										: ''
+										: 'text-primary'
 								} `}
 							>
 								{item}

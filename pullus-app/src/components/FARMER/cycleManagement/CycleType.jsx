@@ -49,7 +49,7 @@ export default function CycleType({
 			<div
 				className={` ${
 					openIndex === index ? 'block' : 'hidden'
-				} p-5 my-1 rounded-xl grid gap-4`}
+				} p-2 lgmobile:p-5 my-1 rounded-xl grid gap-4`}
 			>
 				{!skeleton ? (
 					<>
