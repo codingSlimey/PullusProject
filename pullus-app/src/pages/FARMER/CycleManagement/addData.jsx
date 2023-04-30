@@ -1,11 +1,15 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import Input from '../../../components/FARMER/Input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UpdateFormState } from '../../../utils/setFormState'
+import  {addCycleData}  from '../../../api'
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddData() {
 	const navigate = useNavigate()
+	const [isDisabled , setisdisabled] = useState(true)
 
 	const [cycleDataForm, setCycleDataForm] = useState({
 		causeOfDeadBirds: '',
@@ -21,6 +25,15 @@ function AddData() {
 		totalWeightOfBirdsInGrams: 0,
 		waterInLitres: 0,
 	})
+	useEffect(()=>{
+		if(  cycleDataForm.dateOfRecord && cycleDataForm.noOfDeadBirds && cycleDataForm.noOfWeighedBirds && cycleDataForm.waterInLitres && cycleDataForm.feedInKg 	){
+			setisdisabled(false)
+			return
+		}
+		else{
+			setisdisabled(true)
+		}
+	}, [cycleDataForm])
 
 	// Function to handle onChange
 	const handleOnchange = (event) => {
@@ -32,8 +45,17 @@ function AddData() {
 		)
 	}
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		const data = {...cycleDataForm}
 		console.log(cycleDataForm)
+		try {
+			const res = await addCycleData(data)
+			toast.success("Data Added Successfully")
+			console.log(res)
+		} catch({response}){
+			console.log(response)
+			toast.error("An Error occured")
+		}
 	}
 
 	return (
@@ -56,6 +78,7 @@ function AddData() {
 							placeholder='12.08.2022'
 							label='Date of record'
 							value={cycleDataForm.dateOfRecord}
+							onChange={handleOnchange}
 						/>
 					</div>
 
@@ -156,7 +179,12 @@ function AddData() {
 			<div className='mt-8 lgmobile:mt-16 max-lgmobile:flex-col flex gap-8 lgmobile:gap-16 justify-center items-center'>
 				<button
 					onClick={handleSubmit}
-					className='w-full lgmobile:w-[40%] tablet:w-[20%] bg-fade py-3 rounded-full shadow-xl text-[#fff] lgmobile:mt-8 lgmobile:mb-6'
+					className={`text-xs md:w-1/3  text-center justify-center  py-4 px-10 flex items-center ${
+						isDisabled
+							? 'disabled:cursor-not-allowed bg-grey filter text-black/40'
+							: 'bg-fade text-white'
+					}   md:text-base rounded-full shadow-xl  my-auto`}
+
 				>
 					Save
 				</button>
