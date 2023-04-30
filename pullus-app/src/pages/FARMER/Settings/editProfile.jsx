@@ -1,20 +1,53 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import { UpdateFormState } from '../../../utils/setFormState'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
+import axios from 'axios'
+import Select from '../../../components/FARMER/Select'
 
 function EditProfile(props) {
 	const navigate = useNavigate()
+	const [states, setStates] = useState([])
+	const [lgas, setLgas] = useState([])
+	const [selectedState, setSelectedState] = useState('')
+	const [selectedLga, setSelectedLga] = useState('')
+
 	const [profile, setProfile]= useState({
 		name: " ",
 		Country: "Nigeria",
 		dob: "",
 		phone: "",
 		email: "",
-		state:"",
+		state: selectedState,
 		picture: ""
 
 	})
+	useEffect(() => {
+		axios
+			.get(
+				'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/statesAndLga'
+			)
+			.then((res) => {
+				const apiArray = Object.entries(res.data)
+				const mappedArray = apiArray.map((item) => {
+					// console.log(item[0])
+					return { state: item[0], lga: item[1] }
+				})
+				// console.log(mappedArray)
+				setStates(mappedArray)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}, [])
+	const handleStateChange = (e) => {
+		const state = e.target.value
+		console.log(state)
+		const selectedState = states.find((item) => item.state === state)
+		setLgas(selectedState.lga)
+		setSelectedState(state)
+		// setTemporaryUserData({ ...tempUser, area: state })
+	}
 
 	const handleForm = (event)=>{
 	
@@ -140,17 +173,25 @@ function EditProfile(props) {
 				>
 				State
 				</label>
-					<select
+				<Select
+						name='country'
 						id='countries'
-						onChange={handleForm}
-						value={profile.state}
-						className='h-14 px-6 placeholder:text-placeholder text-primary font-normal my-auto shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
+						placeholder='country'
+						onChange={handleStateChange}
+						label='Select State'
 					>
-						<option>United States</option>
-						<option>Canada</option>
-						<option>France</option>
-						<option>Germany</option>
-					</select>
+						<option> Select State</option>
+						{states.map((state, index) => {
+							return (
+								<option
+									key={index}
+									value={state.state}
+								>
+									{state.state}
+								</option>
+							)
+						})}
+					</Select>
 				</div>
 
 				<div className='grid mt-4'>

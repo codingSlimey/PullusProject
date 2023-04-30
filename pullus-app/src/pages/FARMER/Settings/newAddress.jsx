@@ -1,8 +1,56 @@
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import Select from '../../../components/FARMER/Select'
+import axios from 'axios'
 
 function NewAddress(props) {
 	const navigate = useNavigate()
+	const [states, setStates] = useState([])
+	const [lgas, setLgas] = useState([])
+	const [selectedState, setSelectedState] = useState('')
+	const [selectedLga, setSelectedLga] = useState('')
+
+	const [profile, setProfile]= useState({
+		name: " ",
+		Country: "Nigeria",
+		dob: "",
+		phone: "",
+		email: "",
+		state: selectedState,
+		picture: ""
+
+	})
+	useEffect(() => {
+		axios
+			.get(
+				'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/statesAndLga'
+			)
+			.then((res) => {
+				const apiArray = Object.entries(res.data)
+				const mappedArray = apiArray.map((item) => {
+					// console.log(item[0])
+					return { state: item[0], lga: item[1] }
+				})
+				// console.log(mappedArray)
+				setStates(mappedArray)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}, [])
+	
+	const handleStateChange = (e) => {
+		const state = e.target.value
+		console.log(state)
+		const selectedState = states.find((item) => item.state === state)
+		setLgas(selectedState.lga)
+		setSelectedState(state)
+		// setTemporaryUserData({ ...tempUser, area: state })
+	}
+	const handleLgaChange = (e) => {
+		setSelectedLga(e.target.value)
+	}
 
 	return (
 		<div className='font-bold pb-12'>
@@ -18,7 +66,7 @@ function NewAddress(props) {
 
 			<div className='flex flex-col md:flex-row gap-14'>
 				<div className='grid  flex-1 gap-y-4'>
-					<div className='grid'>
+					<div className='flex flex-col items-start justify-start'>
 						<label className='mb-3 text-primary'>Street Name</label>
 						<input
 							type='text'
@@ -27,54 +75,72 @@ function NewAddress(props) {
 						/>
 					</div>
 
-					<div className='grid mt-4'>
+					<div className='flex flex-col justify-start items-start mt-4'>
 						<label className='mb-3 text-primary'>Country</label>
 
 						<select
 							id='countries'
 							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal my-auto shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
 						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
+							<option>Nigeria</option>
 						</select>
 					</div>
 
-					<div className='grid mt-4'>
+					<div className='flex flex-col justify-start w-full items-start mt-4'>
 						<label className='mb-3 text-primary'>State</label>
-						<select
-							id='countries'
-							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal my-auto shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
-						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
-						</select>
+						<Select
+						name='country'
+						id='countries'
+						placeholder='country'
+						onChange={handleStateChange}
+						label='Select State'
+					>
+						<option> Select State</option>
+						{states.map((state, index) => {
+							return (
+								<option
+									key={index}
+									value={state.state}
+								>
+									{state.state}
+								</option>
+							)
+						})}
+					</Select>
 					</div>
 
-					<div className='grid mt-4'>
+					<div className='flex flex-col items-start justify-start w-full mt-4'>
 						<label className='mb-3 text-primary'>Local Government</label>
-						<select
-							id='countries'
-							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal my-auto shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
-						>
-							<option>United States</option>
-							<option>Canada</option>
-							<option>France</option>
-							<option>Germany</option>
-						</select>
+						<Select
+						name='lga'
+						id='lgas'
+						placeholder='lga'
+						onChange={handleLgaChange}
+						label='Select LGA'
+					>
+						<option> Select LGA</option>
+						{lgas.map((lga, index) => {
+							return (
+								<option
+									key={index}
+									value={lga}
+								>
+									{lga}
+								</option>
+							)
+						})}
+					</Select>
+
 					</div>
 
-					<div className='grid mt-4'>
+					<div className=' flex flex-col items-start w-full justify-start mt-4'>
 						<label className='mb-3 text-primary'>Capture Address</label>
-						<div className='bg-primary h-12 text-center flex items-center justify-center text-[#fff] cursor-pointer text-xl'>
+						<div className='bg-primary h-12 w-full text-center flex items-center justify-center text-[#fff] cursor-pointer text-xl'>
 							Click here to capture GPS Location
 						</div>
 					</div>
 
-					<div className='grid mt-4'>
+					<div className='flex flex-col items-start justify-start w-full mt-4'>
 						<label className='mb-3 text-primary'>Address Details</label>
 						<input
 							type='text'
