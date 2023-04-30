@@ -42,8 +42,6 @@ export const getMyCycles = (isActive)=> API.get(`/apis/v1/pullus/cycleManagement
 export const getSingleCycleInfo = (name)=> API.get(`/apis/v1/pullus/cycleManagement/getFarmerCycleManagementGeneralInfo?name=${name}`)
 export const addDataToSingleCycle = (data)=> API.post(`/apis/v1/pullus/cycleManagement/addCycleManagementData`, data)
 
-
-
 //Production Plan
 export const createProductionPlan = (data)=> API.post('/apis/v1/pullus/productionPlan/createProductionPlan', data )
 export const getSingleProductionPlan = (name)=> API.get(`/apis/v1/pullus/productionPlan/getProductionPlan?name=${name}` )

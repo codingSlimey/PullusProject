@@ -8,16 +8,12 @@ import { BsArrowUpSquareFill } from 'react-icons/bs'
 import Button from '../../../components/FARMER/button'
 import Emodal from '../../../modal/EModal'
 import PaymentMethod from './PaymentMethod'
+import ModalComponent from '../../../components/Modal'
 
 function FarmerWallet() {
 	const [showModal, setShowModal] = React.useState(false)
 	const handleModal = () => {
 		setShowModal(!showModal)
-	}
-	const closeModal = (event) => {
-		// if (!event.target.closest('.emodal')) {
-		setShowModal(false)
-		// }
 	}
 
 	return (
@@ -102,16 +98,22 @@ function FarmerWallet() {
 						</div>
 					</div>
 				</div>
-				{showModal && (
+				{/* {showModal && (
 					<div
 						className={` z-10 fixed bg-modal flex flex-col justify-center left-0 top-0 h-screen w-full`}
 						onClick={closeModal}
-					>
-						<div className='emodal'>
-							<Emodal modalProps={<PaymentMethod />} />
-						</div>
+					></div>
+				)} */}
+
+				<ModalComponent
+					isOpen={showModal}
+					handleClose={() => setShowModal(false)}
+				>
+					<div className='emodal w-full'>
+						<PaymentMethod />
 					</div>
-				)}
+				</ModalComponent>
+
 				<div className='flex my-20 mx-auto justify-center '>
 					<Button
 						title={'Top Up Wallet'}

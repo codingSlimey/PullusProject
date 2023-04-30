@@ -2,12 +2,13 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '../../../components/FARMER/button'
 import { useEffect, useState } from 'react'
-import { getSingleProductionPlan } from '../../../api'
+import { getSingleProductionPlan, totalFeedCalculator } from '../../../api'
 import { toast } from 'react-toastify'
 
 function Summary() {
 	const navigate = useNavigate()
 	const [summary, setSummary] = useState(null)
+	const [skeleton, setSkeleton] = useState(false)
 
 	const location = useLocation()
 	const queryParams = new URLSearchParams(location.search)
@@ -21,33 +22,50 @@ function Summary() {
 	}
 
 	useEffect(() => {
-		if (paramValue) {
-			const fetchData = async () => {
-				// setDetailsSkeleton(true)
-				setSummary(null)
-				try {
-					const res = await getSingleProductionPlan(paramValue)
-					console.log(res)
-					setSummary(res?.data?.data?.obj)
-					// setDetailsSkeleton(false)
-				} catch ({ response }) {
-					// console.log(response)
-					const { status } = response
-					// setDetailsSkeleton(false)
-					if (status === 500)
-						toast.error('Error fetching this particular cycle')
-					if (status === 400)
-						toast.error('This particular cycle does not exist')
+		const fetchData = async () => {
+			setSkeleton(true)
+			try {
+				const {
+					data: {
+						data: { obj: res1 },
+					},
+				} = await getSingleProductionPlan(paramValue)
 
-					setTimeout(() => {
-						// setDetailsSkeleton(false)
-					}, 5000)
+				if (res1) {
+					const valueToBeCalc = {
+						durationOfProductionInWeeks: res1.durationOfProductionInWeeks,
+						noOfBirds: res1.noOfBirds,
+					}
+					const {
+						data: {
+							data: { obj: res2 },
+						},
+					} = await totalFeedCalculator(valueToBeCalc)
+					setSummary({
+						...res1,
+						...res2,
+					})
+					setSkeleton(false)
 				}
+			} catch (error) {
+				const {
+					response: { status },
+				} = error
+				if (status === 500) {
+					toast.error('Error fetching the summary')
+				}
+				setTimeout(() => {
+					setSkeleton(false)
+				}, 5000)
 			}
+		}
 
+		if (paramValue) {
 			fetchData()
 		}
 	}, [paramValue])
+
+	const leftHandSideClass = 'flex items-center gap-2 text-primary mb-3'
 
 	return (
 		<div className='font-bold pb-12'>
@@ -58,51 +76,82 @@ function Summary() {
 				>
 					<HiOutlineArrowLeft className='h-6 w-6' />
 				</button> */}
-				<div className='text-primary my-6'>{paramValue} Summary</div>
+				<div className='text-primary my-4 text-lg'>{paramValue} Summary</div>
 			</div>
 
-			<div className='flex flex-col md:flex-row items-center gap-16 mt-12'>
+			<div className='flex flex-col md:flex-row items-center gap-16 mt-8'>
 				<div className='w-full md:flex-1'>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Start Date: </span>
-						<span className='font-normal'>
-							{formatDate(summary?.startDate)}{' '}
-						</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{formatDate(summary?.startDate)}{' '}
+							</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Number of Birds: </span>
-						<span className='font-normal'>{summary?.noOfBirds} </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.noOfBirds} </span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Bird Type: </span>
-						<span className='font-normal'>{summary?.poultryType}</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.poultryType}</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Duration of Production: </span>
-						<span className='font-normal'>
-							{summary?.durationOfProductionInWeeks} Weeks{' '}
-						</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.durationOfProductionInWeeks} Weeks{' '}
+							</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>DoC Brand: </span>
-						<span className='font-normal'>{summary?.docBrand} </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.docBrand} </span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Feed Brand: </span>
-						<span className='font-normal'>{summary?.feedBrand} </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>{summary?.feedBrand} </span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Insurance: </span>
-						<span className='font-normal'>
-							{' '}
-							{summary?.insurance === true ? 'Yes' : 'No'}{' '}
-						</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.insurance === true ? 'Yes' : 'No'}
+							</span>
+						)}
 					</div>
-					<div className='flex gap-2 text-primary mb-3'>
+					<div className={leftHandSideClass}>
 						<span className='font-bold'>Off-take: </span>
-						<span className='font-normal'>
-							{summary?.market === true ? 'Yes' : 'No'}{' '}
-						</span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.market === true ? 'Yes' : 'No'}
+							</span>
+						)}
 					</div>
 				</div>
 
@@ -115,46 +164,70 @@ function Summary() {
 										scope='col'
 										className='px-6 py-3'
 									>
-										Product name
+										Item
 									</th>
 									<th
 										scope='col'
 										className='px-6 py-3'
 									>
-										Color
+										Value
 									</th>
 								</tr>
 							</thead>
 							<tbody className='bg-green'>
 								<tr className=' border border-[white] text-[white]'>
 									<td className='px-6 py-4 font-medium  border '>DoC Brand</td>
-									<td className='border px-6 py-4'>{summary?.docBrand}</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>{summary?.docBrand}</td>
+									)}
 								</tr>
 								<tr className=' border border-[white] text-[white]'>
 									<td className='px-6 py-4 font-medium  border '>Feed Brand</td>
-									<td className='border px-6 py-4'>{summary?.feedBrand}</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>{summary?.feedBrand}</td>
+									)}
 								</tr>
 								<tr className=' border border-[white] text-[white]'>
 									<td className='px-6 py-4 font-medium  border '>
 										Duration of Production
 									</td>
-									<td className='border px-6 py-4'>
-										{summary?.durationOfProductionInWeeks} Weeks{' '}
-									</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>
+											{summary?.durationOfProductionInWeeks} Weeks{' '}
+										</td>
+									)}
 								</tr>
 
 								<tr className=' border border-[white] text-[white]'>
 									<td className='px-6 py-4 font-medium  border '>
 										Quantity of DoC
 									</td>
-									<td className='border px-6 py-4'>1,000</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>
+											{summary?.totalWeightGain}
+										</td>
+									)}
 								</tr>
 
 								<tr className=' border border-[white] text-[white]'>
 									<td className='px-6 py-4 font-medium  border '>
 										Quantity of Feed
 									</td>
-									<td className='border px-6 py-4'>200 Kg</td>
+									{skeleton ? (
+										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
+									) : (
+										<td className='border px-6 py-4'>
+											{summary?.totalFeedRequired / 1000} Kg
+										</td>
+									)}
 								</tr>
 							</tbody>
 						</table>
@@ -167,7 +240,7 @@ function Summary() {
 					title={'Proceed to Production Schedule'}
 					icon={true}
 					color={'fade'}
-					action={() => navigate('production-schedule')}
+					action={() => navigate(`production-schedule?plan=${paramValue}`)}
 				/>
 			</div>
 		</div>
@@ -175,3 +248,7 @@ function Summary() {
 }
 
 export default Summary
+
+function Skeleton() {
+	return <div className='w-28 h-4 rounded-md animate-pulse bg-primary/30'></div>
+}

@@ -9,6 +9,7 @@ import { FaPlay } from 'react-icons/fa'
 
 import { useCart } from '../../context/cart'
 import VendorProfile from '../FARMER/MyOrders/vendorProfile'
+import ModalComponent from '../../components/Modal'
 
 function ProductDetail() {
 	const { addToCart, increaseQuantity, decreaseQuantity, items } = useCart()
@@ -142,19 +143,12 @@ function ProductDetail() {
 				</div>
 			</div>
 
-			{showModal && (
-				<div
-					className={` z-40 fixed bg-modal left-0 top-0 h-screen flex flex-col items-center justify-center w-full`}
-					onClick={() => setShowModal(false)}
-				>
-					<div
-						onClick={(e) => e.stopPropagation()}
-						className='bg-white px-8 py-5 rounded-2xl w-fit'
-					>
-						<VendorProfile />
-					</div>
-				</div>
-			)}
+			<ModalComponent
+				isOpen={showModal}
+				handleClose={() => setShowModal(false)}
+			>
+				<VendorProfile />
+			</ModalComponent>
 		</div>
 	)
 }

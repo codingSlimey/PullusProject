@@ -9,7 +9,7 @@ function ProductionSchedule(props) {
 		<div className='font-bold pb-12 '>
 			<div className='flex items-center'>
 				<button
-					onClick={() => navigate('/farmer/cycle-management')}
+					onClick={() => window.history.back()}
 					className='bg-primary py-1 px-2 rounded-lg mr-4 text-[#fff]'
 				>
 					<HiOutlineArrowLeft className='h-6 w-6' />
@@ -34,7 +34,7 @@ function ProductionSchedule(props) {
 				</div>
 
 				<div className='overflow-x-auto'>
-					<table className=' max-tablet:overflow-x-auto text-sm text-left  border-collapse border border-slate-400'>
+					<table className='w-full  max-tablet:overflow-x-auto text-sm text-left  border-collapse border border-slate-400'>
 						<thead className='text-xs  uppercase bg-primary text-[#fff] border border-[white]'>
 							<tr className=''>
 								<th
