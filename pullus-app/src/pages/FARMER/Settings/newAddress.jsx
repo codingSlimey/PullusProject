@@ -10,7 +10,6 @@ function NewAddress(props) {
 	const [lgas, setLgas] = useState([])
 	const [selectedState, setSelectedState] = useState('')
 	const [selectedLga, setSelectedLga] = useState('')
-
 	const [profile, setProfile]= useState({
 		name: " ",
 		Country: "Nigeria",
@@ -77,7 +76,6 @@ function NewAddress(props) {
 
 					<div className='flex flex-col justify-start items-start mt-4'>
 						<label className='mb-3 text-primary'>Country</label>
-
 						<select
 							id='countries'
 							className='h-14 px-6 placeholder:text-placeholder text-primary font-normal my-auto shadow-xl bg-[#fff] border-none outline-none w-full rounded-full  focus:outline-none focus:border-none '
@@ -120,7 +118,7 @@ function NewAddress(props) {
 					>
 						<option> Select LGA</option>
 						{lgas.map((lga, index) => {
-							return (
+							return (  
 								<option
 									key={index}
 									value={lga}
