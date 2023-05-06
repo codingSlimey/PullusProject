@@ -213,7 +213,7 @@ export default function Login() {
 							Account Created !
 						</h5>
 						<p className='text-primary text-center w-[50%] mx-auto'>
-							You have successfully created an account with Pullus Afrcia. You
+							You have successfully created an account with Pullus Africa. You
 							just have few more steps to onboard.
 						</p>
 						<div className='mt-4 grid w-full gap-6 justify-center '>

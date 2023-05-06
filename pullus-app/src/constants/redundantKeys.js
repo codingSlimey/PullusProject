@@ -29,7 +29,7 @@ export const Analytics = [
     },
     {
         id: 3,
-        title: "Daily Feed",
+        title: "Feed Intake",
         stats: "151 g/bird"
     },
     {
@@ -44,8 +44,8 @@ export const Analytics = [
     },
     {
         id: 6,
-        title: "Laying percentage",
-        stats: "0%"
+        title: "FCR",
+        stats: "0.0"
 
     }
 ]

@@ -162,7 +162,7 @@ export default function Navbar() {
 				)}
 
 				</div>
-
+{/* 
 				<MobileSideBar
 					showMobileSideBar={showMobileSideBar}
 					setShowMobileSideBar={setShowMobileSideBar}
@@ -195,7 +195,7 @@ export default function Navbar() {
 						className='tablet:hidden   text-primary text-3xl'
 					/>
 				</div>
-				)}
+				)} */}
 
 				
 			</section>
