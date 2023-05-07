@@ -31,7 +31,7 @@ function BuyerBioData() {
 		firstName: '',
 		lastName: '',
 		middleName: '',
-		email: '',
+		email: tempUser ? tempUser.email : '',
 		phoneNumber: '',
 		dob: '',
 		gender: '',
@@ -55,7 +55,7 @@ function BuyerBioData() {
 	}, [FormData])
 
 	useEffect(() => {
-		if (tempUser.bvn) {
+		if (tempUser.bvn && tempUser.email) {
 			navigate('/onboarding/address')
 		}
 	})
@@ -166,7 +166,7 @@ function BuyerBioData() {
 					<Input
 						type='email'
 						placeholder='Email'
-						value={tempUser ? tempUser.email : FormData.email}
+						value={FormData.email}
 						onChange={handleChange}
 						name='email'
 						label='Enter your email'

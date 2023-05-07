@@ -8,7 +8,7 @@ import FarmersLocation from './FarmersLocation'
 import { useUserAuth } from '../../context/auth'
 import { FaPlay } from 'react-icons/fa'
 
-import { getStates } from "../../api";
+import { getStates } from '../../api'
 
 //Hooks
 
@@ -43,7 +43,6 @@ export default function BuyerAdress() {
 	const [long, setLong] = useState('')
 	const { tempUser, setTemporaryUserData } = useUserAuth()
 	const [isdisabled, setIsdisabled] = useState(true)
-
 
 	const [location, setLocation] = useState('')
 
@@ -103,10 +102,8 @@ export default function BuyerAdress() {
 			.then((res) => {
 				const apiArray = Object.entries(res.data)
 				const mappedArray = apiArray.map((item) => {
-					// console.log(item[0])
 					return { state: item[0], lga: item[1] }
 				})
-				// console.log(mappedArray)
 				setStates(mappedArray)
 			})
 			.catch((err) => {
@@ -120,7 +117,6 @@ export default function BuyerAdress() {
 		const selectedState = states.find((item) => item.state === state)
 		setLgas(selectedState.lga)
 		setSelectedState(state)
-		// setTemporaryUserData({ ...tempUser, area: state })
 	}
 
 	const handleLgaChange = (e) => {
@@ -128,22 +124,16 @@ export default function BuyerAdress() {
 	}
 
 	const navigate = useNavigate()
-	
+
 	useEffect(() => {
-		if (
-			lat &&
-			long &&
-			selectedState &&
-			selectedLga &&
-			location
-		) {
+		if (lat && long && selectedState && selectedLga && location) {
 			setIsdisabled(false)
 			return
 		} else {
 			setIsdisabled(true)
 			return
 		}
-	}, [location])
+	}, [lat, location, long, selectedLga, selectedState])
 
 	const handleSubmit = () => {
 		setTemporaryUserData({
@@ -157,6 +147,13 @@ export default function BuyerAdress() {
 		console.log(tempUser)
 		navigate('/onboarding/business-info')
 	}
+
+	useEffect(() => {
+		if (tempUser.selectedState) {
+			navigate('/onboarding/business-info')
+		}
+	})
+
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
 			<div className='m-auto w-full max-w-[800px] px-10'>
@@ -168,6 +165,7 @@ export default function BuyerAdress() {
 							placeholder='Country: select Country'
 							value='Nigeria'
 							label='Select Country'
+							// onChange={handleStateChange}
 							disabled
 						/>
 					</div>
@@ -235,10 +233,10 @@ export default function BuyerAdress() {
 						value={location}
 					/>
 				</div>
-				
+
 				<div className='flex justify-center'>
 					<button
-					disabled={isdisabled}
+						disabled={isdisabled}
 						onClick={handleSubmit}
 						className={`text-xs w-fit  py-4 px-10 flex items-center ${
 							isdisabled
@@ -249,7 +247,7 @@ export default function BuyerAdress() {
 						Continue
 						<FaPlay className='ml-3 h-4 w-4' />
 					</button>
-					</div>
+				</div>
 				{showModal && (
 					<div className={` z-10 fixed bg-modal left-0 top-0 h-screen w-full`}>
 						<div className='emodal'>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
@@ -11,33 +11,39 @@ import { useUserAuth } from '../../context/auth'
 import thankYou from '../../images/thankYou.svg'
 
 import { UpdateFormState } from '../../utils/setFormState'
+import ModalComponent from '../../components/Modal'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)
 	const [error, setError] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
+
 	const handleModal = () => {
 		setShowModal(!showModal)
 	}
 	const [showPassword, setShowPassword] = useState(false)
-	const closeModal = (event) => {
+
+	// Close and redircet to onboarding screen 
+	const closeModal = () => {
 		navigate('/onboarding/biodata')
-		// if (!event.target.closest('.emodal')) {
 		setShowModal(false)
-		// }
 	}
+
 	const [signUpForm, setSignInForm] = useState({
 		email: '',
 		password: '',
 	})
 
+	const { tempUser, clearTemporaryUserData } = useUserAuth()
+	
 
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const navigate = useNavigate()
 
-	const { firstRegister,clearTemporaryUserData } = useUserAuth()
+	const { firstRegister } = useUserAuth()
 
 	const handleChange = (event) => {
+		setError('')
 		UpdateFormState(
 			event.target.name,
 			event.target.value,
@@ -59,7 +65,7 @@ export default function Login() {
 				console.log(res)
 				if (res) handleModal()
 				setIsLoading(false)
-				clearTemporaryUserData()
+				// clearTemporaryUserData()
 				// console.log('Submit')
 			} catch (error) {
 				console.log(error)
@@ -72,6 +78,16 @@ export default function Login() {
 		}
 		// console.log(values)
 	}
+
+	useEffect(() => {
+		if (tempUser.email) {
+			navigate('/onboarding/biodata')
+		} else {
+				clearTemporaryUserData()
+		}
+	}, [navigate, tempUser.email])
+
+	
 
 	return (
 		<section className={'flex h-full w-full'}>
@@ -165,14 +181,11 @@ export default function Login() {
 								extraClass={
 									'font-bold max-lgmobile:py-2 text-lg lgmobile:text-xl text-center w-full flex uppercase justify-center items-center'
 								}
+								loading={isLoading}
 							/>
-							<p className='text-primary tablet:hidden my-3 '>Already have an account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/login')}}>Login</b> </p>
+							<p className='text-primary tablet:hidden my-5'>Already have an account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/login')}}>Login</b> </p>
 						</div>
-						{isLoading && (
-							<div className=' flex gap-3 justify-center items-center'>
-								<div className='spinner'></div>
-							</div>
-						)}
+						
 					</div>
 				</form>
 			</section>
@@ -182,11 +195,11 @@ export default function Login() {
 					'hidden tablet:flex bg-login bg-center bg-no-repeat bg-cover flex-1 flex-col justify-center text-white'
 				}
 			>
-				<h1 className='text-5xl font-semibold'>New Here?</h1>
-				<p className='text-2xl my-4 w-[45%] mx-auto'>
-					Sign up and experience the best poultry solution in Africa.
+				<h1 className='text-4xl font-semibold'>Already have an account?</h1>
+				<p className='text-xl my-4 w-[45%] mx-auto'>
+					Login and experience the best poultry solution in Africa.
 				</p>
-				<div className='flex  justify-center mt-14'>
+				<div className='flex  justify-center mt-12'>
 					<Button
 						action={() => navigate('/login')}
 						color={'white'}
@@ -196,16 +209,15 @@ export default function Login() {
 				</div>
 			</section>
 
-			{showModal && (
-				<div
-					className={` z-10 fixed bg-modal left-0 top-0 h-screen flex flex-col items-center justify-center w-full`}
-					// onClick={closeModal}
-				>
-					<div className='bg-white px-8 py-5 rounded-2xl w-fit'>
+
+			<ModalComponent isOpen={showModal}
+					handleClose={closeModal}>
+
+					<div className='bg-white px-8 py-5 rounded-2xl w-fit mx-auto'>
 						<div className='px-4 py-6   grid place-items-center bg-white  mb-4 '>
 							<img
 								src={thankYou}
-								alt=''
+								alt='Successful sign up'
 								className='bg-[white]'
 							/>
 						</div>
@@ -225,8 +237,10 @@ export default function Login() {
 							</button>
 						</div>
 					</div>
-				</div>
-			)}
+
+			</ModalComponent>
+
+			
 		</section>
 	)
 }

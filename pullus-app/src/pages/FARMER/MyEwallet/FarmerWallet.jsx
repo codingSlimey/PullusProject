@@ -6,7 +6,7 @@ import folder from '../../../images/folder.svg'
 import { BsArrowDownSquareFill } from 'react-icons/bs'
 import { BsArrowUpSquareFill } from 'react-icons/bs'
 import Button from '../../../components/FARMER/button'
-import Emodal from '../../../modal/EModal'
+// import Emodal from '../../../modal/EModal'
 import PaymentMethod from './PaymentMethod'
 import ModalComponent from '../../../components/Modal'
 

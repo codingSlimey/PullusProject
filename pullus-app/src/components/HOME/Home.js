@@ -11,7 +11,7 @@ export default function Home() {
 	return (
 		<div
 			className={
-				'bg-homepage bg-cover bg-center bg-no-repeat h-full flex flex-col justify-center text-center text-white'
+				'bg-homepage bg-cover bg-center bg-no-repeat h-screen flex flex-col justify-center text-center text-white'
 			}
 		>
 			<h1 className='text-3xl md:text-4xl lg:text-5xl font-bold'>Welcome to PULLUS</h1>
@@ -26,7 +26,7 @@ export default function Home() {
 
 			<div className={'mt-14 flex justify-center items-center gap-8 md:gap-14'}>
 				<Button
-					action={() => navigate(`/sign-up?user_type=${user && user.userType} `)}
+					action={() => navigate(`/signup?user_type=${user && user.userType} `)}
 					color={'fade'}
 					title={'FARMER'}
 					extraClass={'font-bold px-7 md:px-auto text-xs md:text-lg border border-white capitalize'}

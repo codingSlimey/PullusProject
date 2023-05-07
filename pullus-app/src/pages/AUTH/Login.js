@@ -11,7 +11,6 @@ import { useUserAuth } from '../../context/auth'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export default function Login() {
 	const navigate = useNavigate()
 	const [formData, setFormData] = useState({ username: '', password: '' })
@@ -57,6 +56,9 @@ export default function Login() {
 					case "Incorrect username":
 					  toast.error("incorrect Email")
 					  break;
+					  case "Email not confirmed":
+						toast.error("Please check your mail inbox for confirmation mail")
+						break;
 					case "user-not-found":
 					  toast.error("User Not Found")
 					  break;
@@ -160,7 +162,7 @@ export default function Login() {
 								}
 								loading={isLoading}
 							/>
-							<p className='text-primary tablet:hidden mt-3 '>Don't have an Account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/sign-up')}}>SignUp</b> </p>
+							<p className='text-primary tablet:hidden mt-5 '>Don't have an Account ? <b className='text-lg cursor-pointer' onClick={()=>{ navigate('/signup')}}>SignUp</b> </p>
 
 						</div>
 						<div className='flex mt-1 text-primary font-bold'>
@@ -181,7 +183,7 @@ export default function Login() {
 				</p>
 				<div className='flex justify-center mt-14'>
 					<Button
-						action={() => navigate('/sign-up')}
+						action={() => navigate('/signup')}
 						color={'white'}
 						title={'Sign Up'}
 						extraClass={'font-bold text-xl  text-primary'}

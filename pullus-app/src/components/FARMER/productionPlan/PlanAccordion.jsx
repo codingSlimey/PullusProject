@@ -1,29 +1,37 @@
 import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
-// import { getMyCycles } from '../../../api'
+import { getAllProductionPlan } from '../../../api'
 
 //Image
 import logo from '../../../images/logo.png'
 
 export default function PlanAccordion() {
 	const [openAccordion, setOpenAccordion] = useState(true)
-	const toggleAccordion = (index) => {
+
+	const toggleAccordion = () => {
 		setOpenAccordion(!openAccordion)
 	}
-	// const [cycles, setCycles] = useState([])
-	// const [skeleton, setSkeleton] = useState(false)
+	const [plans, setPlans] = useState([])
+	const [skeleton, setSkeleton] = useState(false)
 
-	// useEffect(() => {
-	// 	async function fetchData() {
-	// 		setSkeleton(true)
-	// 		// You can await here
-	// 		const res = await getMyCycles(isActive)
-	// 		// console.log(res.data.data.obj)
-	// 		setCycles(res?.data?.data?.obj)
-	// 		setSkeleton(false)
-	// 	}
-	// 	fetchData()
-	// }, [isActive])
+	useEffect(() => {
+		async function fetchData() {
+			setSkeleton(true)
+			try {
+				// You can await here
+				const res = await getAllProductionPlan()
+				console.log(res)
+				setPlans(res?.data?.data?.obj)
+				setSkeleton(false)
+			} catch (error) {
+				console.log(error)
+				setTimeout(() => {
+					setSkeleton(false)
+				}, 5000)
+			}
+		}
+		fetchData()
+	}, [])
 	return (
 		<div
 			className={`mt-4  bg-white border border-primary/20 shadow-lg rounded-xl `}
@@ -46,45 +54,45 @@ export default function PlanAccordion() {
 			<div
 				className={` ${
 					openAccordion ? 'block' : 'hidden'
-				} p-2 lgmobile:p-5 my-1 rounded-xl grid gap-4`}
+				} p-2 lgmobile:p-5 my-1 rounded-xl grid gap-3`}
 			>
-				{/* {!skeleton ? ( */}
-				<>
-					{[...Array(4)].map((item, index) => {
-						return (
-							<div
-								key={index}
-								className='py-0 my-4'
-							>
-								<div className='flex items-center font-normal text-primary gap-6'>
-									<img
-										className='h-8 w-8'
-										src={logo}
-										alt=''
-									/>
-									<div>
-										<div className='flex items-center gap-2 lgmobile:gap-4 text-sm'>
-											<span className='font-bold'>Broilers</span>
-											<span>|</span>
-											<span>500 birds</span>
-										</div>
-										<div className='lgmobile:flex text-left lgmobile:items-center gap-4 text-sm'>
-											<span>42 days (6 weeks)</span>
-											<span className='lgmobile:block hidden'>|</span>
-											<div>
-												{' '}
-												<span className='font-bold'>Start Date:</span>
-												08.12.2022
+				{!skeleton ? (
+					<>
+						{plans.map((item, index) => {
+							return (
+								<div
+									key={index}
+									className='py-3 px-2 rounded-md shadow-md bg-grey'
+								>
+									<div className='flex items-center font-normal text-primary gap-6'>
+										<img
+											className='h-8 w-8'
+											src={logo}
+											alt=''
+										/>
+										<div>
+											<div className='flex items-center gap-2 lgmobile:gap-4 text-sm'>
+												<span className='font-bold'>Broilers</span>
+												<span>|</span>
+												<span>500 birds</span>
+											</div>
+											<div className='lgmobile:flex text-left lgmobile:items-center gap-4 text-sm'>
+												<span>42 days (6 weeks)</span>
+												<span className='lgmobile:block hidden'>|</span>
+												<div>
+													{' '}
+													<span className='font-bold'>Start Date:</span>
+													08.12.2022
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						)
-					})}
-				</>
-				{/* ) : ( */}
-				{/* <>
+							)
+						})}
+					</>
+				) : (
+					<>
 						{[...Array(3)].map((_, idx) => {
 							return (
 								<div
@@ -94,13 +102,13 @@ export default function PlanAccordion() {
 							)
 						})}
 					</>
-				)} */}
+				)}
 
-				{/* {!cycles.length && !skeleton && (
+				{!plans.length && !skeleton && (
 					<div className='text-primary font-light text-center'>
-						There are no {item?.title}
+						There are no Production Plans
 					</div>
-				)} */}
+				)}
 			</div>
 		</div>
 	)

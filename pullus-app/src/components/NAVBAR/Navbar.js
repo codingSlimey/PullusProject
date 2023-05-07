@@ -54,7 +54,7 @@ export default function Navbar() {
 		const routes = [
 			'/',
 			'/login',
-			'/sign-up',
+			'/signup',
 			'/forgot-password',
 			'/reset-password',
 			'/new-password',
@@ -142,7 +142,7 @@ export default function Navbar() {
 				) : (
 					<>
 					{
-						pathname === '/sign-up' ?
+						pathname === '/signup' ?
 						<Button
 							action={() => navigate('/login')}
 							color={'fade'}
@@ -151,7 +151,7 @@ export default function Navbar() {
 						/>
 						:
 						<Button
-							action={() => navigate('/sign-up')}
+							action={() => navigate('/signup')}
 							color={'fade'}
 							title={'Sign Up'}
 							extraClass={'font-bold md:text-lg'}
@@ -162,16 +162,16 @@ export default function Navbar() {
 				)}
 
 				</div>
-{/* 
+
 				<MobileSideBar
 					showMobileSideBar={showMobileSideBar}
 					setShowMobileSideBar={setShowMobileSideBar}
 					toggleMobileSideBar={toggleMobileSideBar}
 				/>
 				{ !user?.jwtToken  ? (
-									<>
+									<div className='tablet:hidden'>
 									{
-										pathname === '/sign-up' ?
+										pathname === '/signup' ?
 										<Button
 											action={() => navigate('/login')}
 											color={'fade'}
@@ -180,14 +180,14 @@ export default function Navbar() {
 										/>
 										:
 										<Button
-											action={() => navigate('/sign-up')}
+											action={() => navigate('/signup')}
 											color={'fade'}
 											title={'Sign Up'}
 											extraClass={'font-bold md:text-lg'}
 										/>
 				
 									}
-									</>
+									</div>
 				): (
                    <div className='tablet:hidden  w-full flex justify-end '>
 					   <GiHamburgerMenu
@@ -195,7 +195,7 @@ export default function Navbar() {
 						className='tablet:hidden   text-primary text-3xl'
 					/>
 				</div>
-				)} */}
+				)}
 
 				
 			</section>

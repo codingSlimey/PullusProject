@@ -68,20 +68,14 @@ function App() {
 		<UserAuthContextProvider>
 			<CartProvider>
 				<main
-					className={`App ${
-						fixedFooterState
-							? 'h-screen overflow-auto ' :
-							 'h-fit justify-between'
-					} flex flex-col `}
+					className={`App  flex flex-col `}
 				>	
 			<ToastContainer/>
 
 					<Navbar />
 					<div
 					// 
-						className={`${
-							fixedFooterState ? ' overflow-auto flex-1' : 'h-fit'
-						}  mt-24`}
+						className={`mt-20 md:mt-24`}
 					>	
 					<ScrollToTop />
 						<Routes>
@@ -89,23 +83,28 @@ function App() {
 							{/* //Unauthenticated Routes // */}
 							<Route
 								path='/'
-								element={<Home />}
+								// element={<Home />}
+								element={ !user ? <Home /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/login'
-								element={<Login />}
+								// element={<Login />}
+								element={ !user ? <Login /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
-								path='/sign-up'
-								element={<Signup />}
+								path='/signup'
+								// element={<Signup />}
+								element={ !user ? <Signup /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/forgot-password'
-								element={<ForgotPassword />}
+								// element={<ForgotPassword />}
+								element={ !user ? <ForgotPassword /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/reset-password'
-								element={<ResetPassword />}
+								// element={<ResetPassword />}
+								element={ !user ? <ResetPassword /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/new-password'
@@ -158,22 +157,22 @@ function App() {
 							/>
 							<Route
 								path='/onboarding/biodata'
-								element={ user ? <BuyerBioData /> : <Navigate to='/farmer/cycle-management' replace />}
+								element={ !user ? <BuyerBioData /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/onboarding/address'
-								element={ user ? 
+								element={ !user ? 
 								<BuyerAdress /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 	
 							<Route
 								path='/onboarding/business-info'
-								element={ user ? 
+								element={ !user ? 
 								<BusinessInfo />: <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							<Route
 								path='/onboarding/document-upload'
-								element={ user ? <DocumentUpload /> : <Navigate to='/farmer/cycle-management' replace />}
+								element={ !user ? <DocumentUpload /> : <Navigate to='/farmer/cycle-management' replace />}
 							/>
 							{/* /////////////////////////// */}
 						</Routes>

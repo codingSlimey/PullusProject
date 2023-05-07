@@ -16,7 +16,7 @@ function BusinessInfo() {
 
 	const [bizForm, setBizForm] = useState({
 		businessName: '',
-		// registeredDate: '',
+		registeredDate: '',
 		rcNumber: '',
 		tinNumber: '',
 	})
@@ -24,11 +24,7 @@ function BusinessInfo() {
 		UpdateFormState(event.target.name, event.target.value, bizForm, setBizForm)
 	}
 	useEffect(() => {
-		if (
-			bizForm.businessName &&
-			bizForm.rcNumber &&
-			bizForm.tinNumber 
-		){
+		if (bizForm.businessName && bizForm.rcNumber && bizForm.tinNumber) {
 			setIsdisabled(false)
 			return
 		} else {
@@ -37,21 +33,31 @@ function BusinessInfo() {
 		}
 	}, [bizForm])
 
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		if (!bizForm.businessName || !bizForm.rcNumber || !bizForm.tinNumber) {
 			alert('Please fill all fields')
 			return
 		} else {
-			setTemporaryUserData({ ...tempUser, ...bizForm,registeredDate:`${today}` })
+			setTemporaryUserData({
+				...tempUser,
+				...bizForm,
+				registeredDate: `${today}`,
+			})
 			console.log(tempUser)
 			navigate('/onboarding/document-upload')
 		}
 	}
+
+	useEffect(() => {
+		if (tempUser.rcNumber) {
+			navigate('/onboarding/document-upload')
+		}
+	})
+
 	return (
 		<div className='py-10 mx-auto  font-bold h-full flex justify-center'>
-			<div className='mx-auto w-1/2  px-10'>
+			<div className='m-auto max-w-[800px] w-full  px-10'>
 				<h1 className='text-primary my-5 font-bold text-xl'>
 					Business Information{' '}
 				</h1>
@@ -65,11 +71,11 @@ function BusinessInfo() {
 					/>
 					<Input
 						// type='date'
-						placeholder='Registered Date:'
+						placeholder={today}
 						// label={'Registration Date'}
 						name='registeredDate'
-						value={today}
-						disabled={true}
+						value={bizForm.registeredDate}
+						// disabled={true}
 						onChange={handleChange}
 						label='Registered Date'
 					/>
@@ -78,20 +84,20 @@ function BusinessInfo() {
 						placeholder='RC Number:'
 						name='rcNumber'
 						onChange={handleChange}
-						label=" What is your RC number"
+						label=' What is your RC number'
 					/>
 					<Input
 						type='text'
 						placeholder='TIN Number'
 						name='tinNumber'
 						onChange={handleChange}
-						label="What is your TIn number"
+						label='What is your TIn number'
 					/>
 				</div>
 
 				<div className='flex justify-center'>
 					<button
-					disabled={isdisabled}
+						disabled={isdisabled}
 						onClick={handleSubmit}
 						className={`text-xs w-fit  py-4 px-10 flex items-center ${
 							isdisabled
@@ -102,7 +108,7 @@ function BusinessInfo() {
 						Continue
 						<FaPlay className='ml-3 h-4 w-4' />
 					</button>
-					</div>
+				</div>
 			</div>
 		</div>
 	)

@@ -3,7 +3,7 @@ import { Analytics } from '../../../constants/redundantKeys'
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 
-function Analysis(props) {
+function Analysis() {
 	const data = [
 		{ name: ' A', uv: 400, pv: 2400, amt: 2400 },
 		{ name: ' B', uv: 150, pv: 2000, amt: 2000 },
@@ -151,9 +151,10 @@ function Analysis(props) {
 				<div className='bg-grey flex gap-6 justify-center items-center py-3 px-5'>
 					<div className='text-center'>
 						<p className='text-red-400 text-xl'>N/A kg</p>
-						<p className='text-[grey] text-sm'>Estimated total Weight of flocks</p>
+						<p className='text-[grey] text-sm'>
+							Estimated total Weight of flocks
+						</p>
 					</div>
-					
 				</div>
 			</div>
 
@@ -191,7 +192,6 @@ function Analysis(props) {
 						<p className='text-blue-700 text-xl'> 0 l/bird</p>
 						<p className='text-[grey] text-sm'>Total water intake per bird</p>
 					</div>
-					
 				</div>
 			</div>
 

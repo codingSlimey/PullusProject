@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 // import avatar from '../../images/avatar.svg'
 import Select from '../../components/FARMER/Select'
@@ -7,8 +7,10 @@ import { useUserAuth } from '../../context/auth'
 import tabs from '../../constants/sideBarLinks'
 import { BsPersonCircle } from 'react-icons/bs'
 
+// import { getMe } from '../../api'
+
 export default function MobileSideBar({
-	toggleMobileSideBar,
+	// toggleMobileSideBar,
 	showMobileSideBar,
 	setShowMobileSideBar,
 }) {
@@ -20,6 +22,19 @@ export default function MobileSideBar({
 		userLogout()
 		handleToggle()
 	}
+
+	// useEffect(() => {
+	// 	const fetchProfile = async () => {
+	// 		try {
+	// 			const res = await getMe('tobiikupolati33@gmail.com')
+	// 			console.log(res)
+	// 		} catch (error) {
+	// 			console.log(error)
+	// 		}
+	// 	}
+
+	// 	fetchProfile()
+	// })
 
 	return (
 		<div
