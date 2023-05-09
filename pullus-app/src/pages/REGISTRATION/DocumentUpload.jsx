@@ -13,6 +13,7 @@ import { useUserAuth } from '../../context/auth'
 
 //api
 import { completeSignUp } from '../../api'
+import { toast } from 'react-toastify'
 
 const FileUpload = () => {
 	const navigate = useNavigate()
@@ -61,17 +62,6 @@ const FileUpload = () => {
 		setImagesUrl({ ...imagesUrl, [imageUrlName]: data })
 	}
 
-	const handleFileChange = (event, item) => {
-		const file = event.target.files[0]
-		updateFile(item.name, file)
-
-		const reader = new FileReader()
-		reader.onload = () => {
-			updateFileThumbnail(item.name, reader.result)
-		}
-		reader.readAsDataURL(file)
-	}
-
 	const updateFileThumbnail = (fileName, thumbnail) => {
 		setFiles((prevState) => {
 			const updatedFiles = prevState.map((file) => {
@@ -99,16 +89,10 @@ const FileUpload = () => {
 	}
 
 	useEffect(() => {
-		if (
-			!imagesUrl.nationalIDUrl ||
-			!imagesUrl.profilePicUrl ||
-			!imagesUrl.cacUrl
-		) {
+		if (!imagesUrl.nationalIDUrl || !imagesUrl.profilePicUrl) {
 			setIsdisabled(true)
-			// return;
 		} else {
 			setIsdisabled(false)
-			// return;
 		}
 	}, [imagesUrl])
 
@@ -126,8 +110,9 @@ const FileUpload = () => {
 			setIsloading(false)
 			setSuccess(true)
 			clearTemporaryUserData()
-		} catch (error) {
-			console.log(error)
+		} catch ({ response }) {
+			const { data } = response
+			toast.error(data.message)
 			setTimeout(() => {
 				setIsloading(false)
 			}, 5000)
@@ -152,7 +137,7 @@ const FileUpload = () => {
 	return (
 		<>
 			<div className='py-10 font-bold h-full flex'>
-				<div className='m-auto max-w-[800px] px-10'>
+				<div className='m-auto  max-w-[800px] px-10'>
 					<h1 className='text-primary text-xl my-5'>Document Upload</h1>
 
 					<div className='mx-auto flex flex-col gap-4 justify-center items-center my-10 '>
@@ -161,7 +146,8 @@ const FileUpload = () => {
 								<SingleFileUpload
 									key={index}
 									item={item}
-									handleFileChange={handleFileChange}
+									updateFile={updateFile}
+									updateFileThumbnail={updateFileThumbnail}
 									handleThumbnailClick={handleThumbnailClick}
 									updateImageUrl={updateImageUrl}
 								/>

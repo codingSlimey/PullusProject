@@ -46,7 +46,10 @@ export const addDataToSingleCycle = (data)=> API.post(`/apis/v1/pullus/cycleMana
 export const createProductionPlan = (data)=> API.post('/apis/v1/pullus/productionPlan/createProductionPlan', data )
 export const getSingleProductionPlan = (name)=> API.get(`/apis/v1/pullus/productionPlan/getProductionPlan?name=${name}` )
 export const totalFeedCalculator = (data)=> API.post(`/apis/v1/pullus/productionPlan/getTotalFeedCalc`, data )
-export const getAllProductionPlan = ()=> API.get(`/apis/v1/pullus/productionPlan/getProductionPlans?&limit=10&offset=0&name=p`)
+export const getAllProductionPlan = ()=> API.get(`/apis/v1/pullus/productionPlan/getProductionPlans?&limit=10&offset=0`)
+export const deleteSingleProductionPlan = (name)=> API.delete(`/apis/v1/pullus/productionPlan/deleteProductionPlan?name=${name}` )
+
 
 //User
 export const getMe = (email)=> API.put(`/apis/v1/pullus/signup/profile/user/getProfile?userName=${email}`)
+export const editMe = (data)=> API.put(`/apis/v1/pullus/signup/profile/user/editProfile`, data)

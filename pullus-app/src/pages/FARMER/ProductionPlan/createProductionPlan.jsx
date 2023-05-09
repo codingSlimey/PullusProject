@@ -65,7 +65,7 @@ function CreateProductionPlan() {
 				console.log(res)
 				setLoading(false)
 				navigate(
-					`/farmer/production-plan/summary?plan=${productionPlanForm.name}`
+					`/farmer/production-plan/new-plan-summary?plan=${productionPlanForm.name}`
 				)
 			} catch (error) {
 				console.log(error)

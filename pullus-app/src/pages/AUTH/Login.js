@@ -45,7 +45,7 @@ export default function Login() {
 			toast.success("Login Successful")
 				navigate ('/farmer/cycle-management')
 			  
-		} catch ({response,}) {
+		} catch ({response}) {
 			if(response){
 				const {data} = response
 				console.log(data)

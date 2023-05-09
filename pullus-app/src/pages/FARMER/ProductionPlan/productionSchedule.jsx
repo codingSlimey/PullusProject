@@ -40,8 +40,14 @@ function ProductionSchedule() {
 						)}
 					</div>
 					<div className='flex gap-2 text-primary mb-3'>
-						<span className='font-bold'>Average weight at Dat 1: </span>
-						{skeleton ? <Skeleton /> : <span className='font-normal'>70g</span>}
+						<span className='font-bold'>Quantity of Feed: </span>
+						{skeleton ? (
+							<Skeleton />
+						) : (
+							<span className='font-normal'>
+								{summary?.totalFeedRequired / 1000} Kg
+							</span>
+						)}
 					</div>
 				</div>
 

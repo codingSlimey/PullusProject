@@ -70,7 +70,7 @@ function BusinessInfo() {
 						label="What's your business Name"
 					/>
 					<Input
-						// type='date'
+						type='date'
 						placeholder={today}
 						// label={'Registration Date'}
 						name='registeredDate'

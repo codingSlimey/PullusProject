@@ -1,4 +1,4 @@
-import {  Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { CiCircleChevRight } from 'react-icons/ci'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { ImLocation } from 'react-icons/im'
@@ -8,10 +8,9 @@ import { MdSecurity } from 'react-icons/md'
 import { BsGlobe } from 'react-icons/bs'
 import { BiLockAlt, BiLogOut } from 'react-icons/bi'
 import { IoHelpCircleSharp } from 'react-icons/io5'
+import useGetUserProfile from '../../../hooks/useGetUserProfile'
 
-
-function SettingsDashboard(props) {
-
+function SettingsDashboard() {
 	const links = [
 		{
 			name: 'Edit Profile',
@@ -54,19 +53,23 @@ function SettingsDashboard(props) {
 			component: <IoHelpCircleSharp className='h-5 w-5' />,
 		},
 	]
+
+	const { userData } = useGetUserProfile()
 	return (
 		<div className='font-bold py-5 px-5 lg:py-12 lg:px-20'>
 			{/* <div className='grid  place-items-center mt-12 '> */}
 			<div className='flex flex-col lg:flex-row justify-center items-center gap-10  md:gap-36'>
 				<div>
 					<img
-						src='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
-						alt=''
+						src={userData?.profilePicUrl}
+						alt='User Profile'
 						className='h-56 w-56 shadow-2xl rounded-full'
 					/>
-					<div className='text-primary text-center  mt-8'>Anthony Adams</div>
+					<div className='text-primary text-center  mt-8'>
+						{userData?.lastName} {userData?.firstName}
+					</div>
 					<div className='text-primary font-light text-center  mt-4'>
-						+234 803 1111 1111
+						{userData?.phone}
 					</div>
 				</div>
 
@@ -80,7 +83,7 @@ function SettingsDashboard(props) {
 							>
 								<div className='flex items-center gap-2'>
 									{item.component}
-									<span className=''>{item.name} </span>
+									<span>{item.name} </span>
 								</div>
 								<CiCircleChevRight className='h-6 w-6' />
 							</Link>

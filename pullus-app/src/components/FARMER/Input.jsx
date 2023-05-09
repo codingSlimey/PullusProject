@@ -7,7 +7,7 @@ export default function Input(props) {
 			{label && (
 				<label
 					htmlFor={name}
-					className=' my-3 text-start text-primary flex items-start w-full'
+					className=' my-3 text-start text-primary flex items-start w-full capitalize'
 				>
 					{label}
 				</label>

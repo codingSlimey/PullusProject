@@ -1,8 +1,5 @@
 import { Route, Routes, NavLink } from 'react-router-dom'
-import React, { useState } from 'react'
 import { Tabs } from '../../components/FARMER/tabs'
-// import { GiHamburgerMenu } from 'react-icons/gi'
-// import MobileSideBar from './MobileSideBar'
 
 import MyCycle from './CycleManagement/myCycle'
 import AddData from './CycleManagement/addData'
@@ -12,6 +9,7 @@ import MobileDetailsPage from './CycleManagement/mobileDetailsPage'
 import RecentProduction from './ProductionPlan/recentProductions'
 import CreateProductionPlan from './ProductionPlan/createProductionPlan'
 import Summary from './ProductionPlan/summary'
+import CreationSummary from './ProductionPlan/CreationSummary'
 import ProductionSchedule from './ProductionPlan/productionSchedule'
 
 import OrderDasboard from './MyOrders/orderDashboard'
@@ -33,11 +31,6 @@ import FarmerWallet from './MyEwallet/FarmerWallet'
 import Notification from './Notification/Notification'
 
 function Farmer() {
-	// const [showMobileSideBar, setShowMobileSideBar] = useState(false)
-	// const toggleMobileSideBar = () => {
-	// 	setShowMobileSideBar(!showMobileSideBar)
-	// }
-
 	const tabs = Tabs
 
 	return (
@@ -68,18 +61,6 @@ function Farmer() {
 					</div>
 					<hr className='mt-8 border-[1.5px] rounded-full' />
 				</nav>
-				{/* <MobileSideBar
-					showMobileSideBar={showMobileSideBar}
-					setShowMobileSideBar={setShowMobileSideBar}
-					toggleMobileSideBar={toggleMobileSideBar}
-				/>
-
-				<div className='tablet:hidden  w-full flex justify-end '>
-					<GiHamburgerMenu
-						onClick={toggleMobileSideBar}
-						className='tablet:hidden   text-primary text-3xl'
-					/>
-				</div> */}
 
 				<Routes>
 					{/* Cylce management  */}
@@ -108,6 +89,10 @@ function Farmer() {
 					<Route
 						path='/production-plan/create-production-plan'
 						element={<CreateProductionPlan />}
+					/>
+					<Route
+						path='/production-plan/new-plan-summary'
+						element={<CreationSummary />}
 					/>
 					<Route
 						path='/production-plan/summary'

@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 // import avatar from '../../images/avatar.svg'
 import Select from '../../components/FARMER/Select'
 import { useUserAuth } from '../../context/auth'
 
 import tabs from '../../constants/sideBarLinks'
-import { BsPersonCircle } from 'react-icons/bs'
+// import { BsPersonCircle } from 'react-icons/bs'
 
-// import { getMe } from '../../api'
+import useGetUserProfile from '../../hooks/useGetUserProfile'
 
 export default function MobileSideBar({
-	// toggleMobileSideBar,
 	showMobileSideBar,
 	setShowMobileSideBar,
 }) {
@@ -23,18 +21,7 @@ export default function MobileSideBar({
 		handleToggle()
 	}
 
-	// useEffect(() => {
-	// 	const fetchProfile = async () => {
-	// 		try {
-	// 			const res = await getMe('tobiikupolati33@gmail.com')
-	// 			console.log(res)
-	// 		} catch (error) {
-	// 			console.log(error)
-	// 		}
-	// 	}
-
-	// 	fetchProfile()
-	// })
+	const { userData } = useGetUserProfile()
 
 	return (
 		<div
@@ -48,14 +35,14 @@ export default function MobileSideBar({
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className='flex flex-col gap-2'>
-					<BsPersonCircle className='w-32 h-32 text-grey mx-auto ' />
-					{/* <img
-						src={avatar}
-						alt='avatar'
+					{/* <BsPersonCircle className='w-32 h-32 text-grey mx-auto ' /> */}
+					<img
+						src={userData?.profilePicUrl}
+						alt='user profile'
 						className='w-40 h-40 mx-auto rounded-full'
-					/> */}
+					/>
 					<h1 className='text-center text-white font-bold text-xl'>
-						Ikupolati Tobi
+						{userData?.lastName} {userData?.firstName}
 					</h1>
 					<h1 className='text-center text-white font-bold text-xl'>N100,000</h1>
 				</div>

@@ -1,33 +1,12 @@
+// import { HiOutlineArrowLeft } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import Button from '../../../components/FARMER/button'
 import useGetProductionPlan from '../../../hooks/ProductionPlan/useGetProductionPlan'
-import { HiOutlineArrowLeft } from 'react-icons/hi'
-
-import { deleteSingleProductionPlan } from '../../../api'
-import { toast } from 'react-toastify'
 
 function Summary() {
 	const navigate = useNavigate()
 
 	const { paramValue, summary, skeleton } = useGetProductionPlan()
-	const [loading, setLoading] = useState(false)
-
-	const handleDelete = async () => {
-		setLoading(true)
-		try {
-			const res = await deleteSingleProductionPlan(paramValue)
-			console.log(res)
-			navigate('/farmer/production-plan')
-			setLoading(false)
-		} catch ({ response }) {
-			const { data } = response
-			toast.error(data.message)
-			setTimeout(() => {
-				setLoading(false)
-			}, 5000)
-		}
-	}
 
 	// Function to change date Format
 	function formatDate(dateString) {
@@ -40,15 +19,14 @@ function Summary() {
 
 	return (
 		<div className='font-bold pb-12'>
-			<div className='flex items-center justify-between'>
-				<button
-					onClick={() => window.history.back()}
+			<div className='flex items-center'>
+				{/* <button
+					onClick={() => navigate('/farmer/cycle-management')}
 					className='bg-primary py-1 px-2 rounded-lg mr-4 text-[#fff]'
 				>
 					<HiOutlineArrowLeft className='h-6 w-6' />
-				</button>
+				</button> */}
 				<div className='text-primary my-4 text-lg'>{paramValue} Summary</div>
-				<div></div>
 			</div>
 
 			<div className='flex flex-col md:flex-row items-center gap-16 mt-8'>
@@ -183,9 +161,7 @@ function Summary() {
 									{skeleton ? (
 										<td className='h-4 w-20 bg-white/70 animate-pulse'></td>
 									) : (
-										<td className='border px-6 py-4'>
-											{summary?.totalWeightGain}
-										</td>
+										<td className='border px-6 py-4'>{summary?.noOfBirds}</td>
 									)}
 								</tr>
 
@@ -207,14 +183,16 @@ function Summary() {
 				</div>
 			</div>
 
-			<div className='mt-12 flex justify-end w-full'>
+			<div className='mt-12 flex justify-center gap-16 '>
 				<Button
-					title={'Delete Plan'}
-					icon={false}
-					color={'red-600'}
-					extraClass='text-white'
-					action={handleDelete}
-					loading={loading}
+					title={'Proceed to Production Schedule'}
+					icon={true}
+					color={'fade'}
+					action={() =>
+						navigate(
+							`/farmer/production-plan/production-schedule?plan=${paramValue}`
+						)
+					}
 				/>
 			</div>
 		</div>

@@ -42,7 +42,6 @@ function BuyerBioData() {
 		if (
 			FormData.firstName &&
 			FormData.lastName &&
-			FormData.middleName &&
 			FormData.phoneNumber &&
 			FormData.gender
 		) {

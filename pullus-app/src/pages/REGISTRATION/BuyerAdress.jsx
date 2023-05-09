@@ -236,7 +236,7 @@ export default function BuyerAdress() {
 
 				<div className='flex justify-center'>
 					<button
-						disabled={isdisabled}
+						// disabled={isdisabled}
 						onClick={handleSubmit}
 						className={`text-xs w-fit  py-4 px-10 flex items-center ${
 							isdisabled

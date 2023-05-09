@@ -4,6 +4,7 @@ import { getAllProductionPlan } from '../../../api'
 
 //Image
 import logo from '../../../images/logo.png'
+import { Link } from 'react-router-dom'
 
 export default function PlanAccordion() {
 	const [openAccordion, setOpenAccordion] = useState(true)
@@ -13,6 +14,17 @@ export default function PlanAccordion() {
 	}
 	const [plans, setPlans] = useState([])
 	const [skeleton, setSkeleton] = useState(false)
+
+	function getDateDifference(dateString) {
+		const today = new Date()
+		const date = new Date(dateString)
+		const diffInMs = today - date
+		const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24))
+		const weeks = Math.floor(diffInDays / 7)
+		const days = diffInDays % 7
+		const formattedString = `${weeks} weeks (${days} days)`
+		return formattedString
+	}
 
 	useEffect(() => {
 		async function fetchData() {
@@ -60,34 +72,35 @@ export default function PlanAccordion() {
 					<>
 						{plans.map((item, index) => {
 							return (
-								<div
+								<Link
+									to={`/farmer/production-plan/summary?plan=${item?.productionPlanName}`}
 									key={index}
-									className='py-3 px-2 rounded-md shadow-md bg-grey'
+									className='py-3 px-2 cursor-pointer hover:brightness-90 rounded-md shadow-md bg-grey'
 								>
 									<div className='flex items-center font-normal text-primary gap-6'>
 										<img
 											className='h-8 w-8'
 											src={logo}
-											alt=''
+											alt='user production plan'
 										/>
 										<div>
 											<div className='flex items-center gap-2 lgmobile:gap-4 text-sm'>
-												<span className='font-bold'>Broilers</span>
+												<span className='font-bold'>{item?.poultryType}</span>
 												<span>|</span>
-												<span>500 birds</span>
+												<span>{item?.noOfBirds} birds</span>
 											</div>
 											<div className='lgmobile:flex text-left lgmobile:items-center gap-4 text-sm'>
-												<span>42 days (6 weeks)</span>
+												<span>{getDateDifference(item?.startDate)}</span>
 												<span className='lgmobile:block hidden'>|</span>
 												<div>
 													{' '}
-													<span className='font-bold'>Start Date:</span>
-													08.12.2022
+													<span className='font-bold'>Start Date: </span>
+													{item?.startDate}
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								</Link>
 							)
 						})}
 					</>

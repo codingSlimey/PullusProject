@@ -8,14 +8,36 @@ import { useState } from 'react'
 export default function SingleFileUpload({
 	item,
 	handleThumbnailClick,
-	handleFileChange,
 	updateImageUrl,
+	updateFile,
+	updateFileThumbnail,
 }) {
 	const { tempUser } = useUserAuth()
 
 	const [error, setError] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [uploadState, setUploadState] = useState(false)
+
+	const handleFileChange = (event, item) => {
+		setError('')
+		const file = event.target.files[0]
+
+		if (file && file.size > 1000000) {
+			setError('File size should be less than 1MB')
+			updateFile(item.name, null)
+			updateFileThumbnail(item.name, null)
+			return
+		}
+
+		setError('')
+		updateFile(item.name, file)
+
+		const reader = new FileReader()
+		reader.onload = () => {
+			updateFileThumbnail(item.name, reader.result)
+		}
+		reader.readAsDataURL(file)
+	}
 
 	const handleFileUpload = async () => {
 		if (item.file) {
