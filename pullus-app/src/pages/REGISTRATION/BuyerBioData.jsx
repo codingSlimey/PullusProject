@@ -14,6 +14,8 @@ import { useUserAuth } from '../../context/auth'
 //Hooks & Utils
 import { UpdateFormState } from '../../utils/setFormState'
 import useBeforeUnload from '../../hooks/useBeforeUnload'
+import useOnboardingBioDataForm from '../../hooks/FormValidators/useOnboardingBioDataForm'
+import { toast } from 'react-toastify'
 
 function BuyerBioData() {
 	// Function to warn users when they have not completed their onboarding steps
@@ -24,26 +26,29 @@ function BuyerBioData() {
 	const navigate = useNavigate()
 	const [isdisabled, setIsdisabled] = useState(true)
 	const [isFormfilled, setIsFormFilled] = useState(true)
-	const [errors, setError] = useState('')
+	const [bvnError, setBvnError] = useState('')
 	const [successMsg, setSuccessMsg] = useState('')
 	const [isloading, setIsLoading] = useState(false)
-	const [FormData, setFormData] = useState({
+	const [bioDataForm, setbioDataForm] = useState({
 		firstName: '',
 		lastName: '',
 		middleName: '',
-		email: tempUser ? tempUser.email : '',
+		email: '',
 		phoneNumber: '',
 		dob: '',
 		gender: '',
 		bvn: '',
 	})
 
+	//Form validation hook
+	const { errors, validateField, validateForm } = useOnboardingBioDataForm()
+
 	useEffect(() => {
 		if (
-			FormData.firstName &&
-			FormData.lastName &&
-			FormData.phoneNumber &&
-			FormData.gender
+			bioDataForm.firstName &&
+			bioDataForm.lastName &&
+			bioDataForm.phoneNumber &&
+			bioDataForm.gender
 		) {
 			setIsFormFilled(false)
 			return
@@ -51,59 +56,64 @@ function BuyerBioData() {
 			setIsFormFilled(true)
 			return
 		}
-	}, [FormData])
+	}, [bioDataForm])
 
+	// If the user has already started the registeration, it fetches the already inputted data and sets it
 	useEffect(() => {
-		if (tempUser.bvn && tempUser.email) {
-			navigate('/onboarding/address')
+		if (tempUser) {
+			const formData = {
+				firstName: tempUser.firstName || '',
+				lastName: tempUser.lastName || '',
+				middleName: tempUser.middleName || '',
+				email: tempUser.email || '',
+				phoneNumber: tempUser.phoneNumber || '',
+				dob: tempUser.dob || '',
+				gender: tempUser.gender || '',
+				bvn: tempUser.bvn || '',
+			}
+			setbioDataForm(formData)
 		}
-	})
+	}, [tempUser])
 
 	const handleChange = (event) => {
+		validateField(event.target.name, event.target.value)
 		UpdateFormState(
 			event.target.name,
 			event.target.value,
-			FormData,
-			setFormData
+			bioDataForm,
+			setbioDataForm
 		)
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		if (
-			!FormData.firstName ||
-			!FormData.lastName ||
-			!FormData.middleName ||
-			!FormData.phoneNumber ||
-			!FormData.gender
-		) {
-			alert('Please fill all fields')
-			return
-		} else {
-			setTemporaryUserData({ ...tempUser, ...FormData })
+		const isValid = validateForm(bioDataForm)
+		if (isValid) {
+			setTemporaryUserData({ ...tempUser, ...bioDataForm })
 			navigate('/onboarding/address')
+		} else {
+			toast.error('Please attend to all fields errors')
 		}
 	}
 
 	const handleOnChangeBVN = async (e) => {
 		const bvnInput = e.target.value
 
-		setFormData({ ...FormData, bvn: bvnInput })
+		setbioDataForm({ ...bioDataForm, bvn: bvnInput })
 
-		if (FormData.bvn.length === 10) {
+		if (bioDataForm.bvn.length === 10) {
 			setIsLoading(true)
 			setSuccessMsg('')
 			const data = {
-				firstName: FormData.firstName,
-				lastName: FormData.lastName,
-				middleName: FormData.middleName,
-				gender: FormData.gender,
+				firstName: bioDataForm.firstName,
+				lastName: bioDataForm.lastName,
+				middleName: bioDataForm.middleName,
+				gender: bioDataForm.gender,
 				bvn: bvnInput,
 			}
 			try {
 				const response = await checkBvn(data)
 				console.log(response)
-				setIsdisabled(false)
 				setIsLoading(false)
 				setSuccessMsg('Details Match, Proceed!')
 				return
@@ -112,23 +122,55 @@ function BuyerBioData() {
 
 				setIsLoading(false)
 				setSuccessMsg('')
-				setError(data.message)
+				setBvnError(data.message)
 				if (!bvnInput) {
 					setIsLoading(false)
-					setError('')
+					setBvnError('')
 				}
 				console.log(errors)
 				return
 			}
 		}
 		if (bvnInput !== 11) {
-			setError('')
+			setBvnError('')
 		}
 		if (!bvnInput) {
 			setIsLoading(false)
-			setError('please fill the field')
+			setBvnError('please fill the field')
 		}
 	}
+
+	useEffect(() => {
+		const checkBVNStatus = async () => {
+			if (bioDataForm.bvn.length === 11) {
+				const data = {
+					firstName: bioDataForm.firstName,
+					lastName: bioDataForm.lastName,
+					middleName: bioDataForm.middleName,
+					gender: bioDataForm.gender,
+					bvn: bioDataForm.bvn,
+				}
+				try {
+					// setIsLoading(true)
+					setSuccessMsg('')
+					const response = await checkBvn(data)
+					setIsLoading(false)
+					console.log(response)
+					setSuccessMsg('Details Match, Proceed!')
+					return
+				} catch ({ response }) {
+					const { data } = response
+					setIsLoading(false)
+					setSuccessMsg('')
+					setBvnError(data.message)
+				}
+			}
+		}
+
+		if (bioDataForm.bvn) {
+			checkBVNStatus()
+		}
+	}, [bioDataForm])
 
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
@@ -141,89 +183,103 @@ function BuyerBioData() {
 					<Input
 						type='text'
 						placeholder='first name'
-						value={FormData.firstName}
+						value={bioDataForm.firstName}
 						name='firstName'
 						onChange={handleChange}
 						label='First name'
+						error={errors.firstName}
 					/>
 					<Input
 						type='text'
 						placeholder='Surname'
-						value={FormData.lastName}
+						value={bioDataForm.lastName}
 						name='lastName'
 						onChange={handleChange}
 						label='Surname'
+						error={errors.lastName}
 					/>
 					<Input
 						type='text'
 						placeholder='middle name'
-						value={FormData.middleName}
+						value={bioDataForm.middleName}
 						name='middleName'
 						onChange={handleChange}
 						label='Middle name'
+						error={errors.middleName}
 					/>
 					<Input
 						type='email'
 						placeholder='Email'
-						value={FormData.email}
+						value={bioDataForm.email}
 						onChange={handleChange}
 						name='email'
 						label='Enter your email'
+						error={errors.email}
 					/>
 					<Input
 						type='tel'
 						placeholder='Phone Number'
 						name='phoneNumber'
-						value={FormData.phoneNumber}
+						value={bioDataForm.phoneNumber}
 						onChange={handleChange}
 						label='Enter your phone number'
+						error={errors.phoneNumber}
 					/>
 					<Input
 						type='date'
 						placeholder='date of birth'
-						value={FormData.dob}
+						value={bioDataForm.dob}
 						name='dob'
 						onChange={handleChange}
 						label='Enter your date of birth'
+						error={errors.dob}
 					/>
-					<p className='text-start text-primary '> Gender</p>
-					<div className='flex py-5 items-center px-5 gap-5 text-slate-600 '>
-						<label
-							className='flex gap-5 items-center '
-							htmlFor='gender'
-						>
-							Male
-							<input
-								type='radio'
-								checked={FormData.gender === 'male'}
-								onChange={(e) =>
-									setFormData({ ...FormData, gender: e.target.value })
-								}
-								value='male'
-							/>
-						</label>
-						<label className='flex gap-5 items-center'>
-							Female
-							<input
-								type='radio'
-								checked={FormData.gender === 'female'}
-								onChange={(e) =>
-									setFormData({ ...FormData, gender: e.target.value })
-								}
-								value='female'
-							/>
-						</label>
+					<div className='mt-3'>
+						<p className='text-start text-primary '> Gender</p>
+						<div className='flex py-5 items-center px-5 gap-5 text-slate-600 '>
+							<label
+								className='flex gap-5 items-center '
+								htmlFor='gender'
+							>
+								Male
+								<input
+									type='radio'
+									checked={bioDataForm.gender === 'male'}
+									onChange={(e) =>
+										setbioDataForm({ ...bioDataForm, gender: e.target.value })
+									}
+									value='male'
+								/>
+							</label>
+							<label className='flex gap-5 items-center'>
+								Female
+								<input
+									type='radio'
+									checked={bioDataForm.gender === 'female'}
+									onChange={(e) =>
+										setbioDataForm({ ...bioDataForm, gender: e.target.value })
+									}
+									value='female'
+								/>
+							</label>
+						</div>
+						{errors.gender && !bioDataForm.gender && (
+							<p className='text-[red] text-left font-light text-sm mt-1'>
+								{errors.gender}
+							</p>
+						)}
 					</div>
 					<Input
 						type='number'
 						placeholder='Bank Verification Number (BVN)'
-						value={FormData.bvn}
+						value={bioDataForm.bvn}
 						name='bvn'
 						onChange={handleOnChangeBVN}
 						disabled={isFormfilled}
 						maxLength={10}
+						error={errors.bvn}
 					/>
-					<p className='text-red-600 capitalize'> {errors} </p>
+					<p className='text-red-600 capitalize'> {bvnError} </p>
 					{isloading && (
 						<div className=' flex gap-3 justify-center items-center'>
 							<div className='spinner'></div>
@@ -238,11 +294,7 @@ function BuyerBioData() {
 				<div className='flex justify-center'>
 					<button
 						onClick={handleSubmit}
-						className={`text-xs w-fit  py-4 px-10 flex items-center ${
-							isdisabled
-								? 'disabled:cursor-not-allowed bg-grey filter text-black/40'
-								: 'bg-fade text-white'
-						}   md:text-base rounded-full shadow-xl  my-auto`}
+						className={`text-xs w-fit  py-4 px-10 flex items-center bg-fade text-white md:text-base rounded-full shadow-xl  my-auto`}
 					>
 						Continue
 						<FaPlay className='ml-3 h-4 w-4' />

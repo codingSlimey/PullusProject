@@ -31,7 +31,7 @@ export function UserAuthContextProvider({ children }) {
 
 	// Real user
 	const userData = localStorage.getItem('user')
-	const [user, setUser] = useState(userData ? JSON.parse(userData) : {})
+	const [user, setUser] = useState(userData ? JSON.parse(userData) : null)
 	const userLogin = async (form) => {
 		const res = await login(form)
 		localStorage.setItem('user', JSON.stringify(res.data))

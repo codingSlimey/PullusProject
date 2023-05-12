@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/FARMER/button'
@@ -12,6 +12,7 @@ import thankYou from '../../images/thankYou.svg'
 
 import { UpdateFormState } from '../../utils/setFormState'
 import ModalComponent from '../../components/Modal'
+import { toast } from 'react-toastify'
 
 export default function Login() {
 	const [showModal, setShowModal] = React.useState(false)
@@ -34,7 +35,7 @@ export default function Login() {
 		password: '',
 	})
 
-	const { tempUser, clearTemporaryUserData } = useUserAuth()
+	const { tempUser } = useUserAuth()
 	
 
 	const [confirmPassword, setConfirmPassword] = useState('')
@@ -65,13 +66,17 @@ export default function Login() {
 				console.log(res)
 				if (res) handleModal()
 				setIsLoading(false)
-				// clearTemporaryUserData()
-				// console.log('Submit')
-			} catch (error) {
-				console.log(error)
+			}  catch ({ response }) {
+				const { data } = response
+				toast.error(data.message)
+				// If there user exist and the user has not completed their onboarding process, redirect to onboarding screens 
+				if(data.message === 'User already exist' && tempUser.email){
+								toast.success('You just have to complete the remaining steps')
+								navigate('/onboarding/biodata')
+				}
 				setTimeout(() => {
 					setIsLoading(false)
-				}, 4000)
+				}, 5000)
 			}
 		} else {
 			setError('Your passwords do not match!')
@@ -79,13 +84,14 @@ export default function Login() {
 		// console.log(values)
 	}
 
-	useEffect(() => {
-		if (tempUser.email) {
-			navigate('/onboarding/biodata')
-		} else {
-				clearTemporaryUserData()
-		}
-	}, [navigate, tempUser.email])
+	// useEffect(() => {
+	// 	if (tempUser.email) {
+	// 		toast.success('You just have to complete the remaining steps')
+	// 		navigate('/onboarding/biodata')
+	// 	} else {
+	// 		clearTemporaryUserData()
+	// 	}
+	// }, [navigate, tempUser.email])
 
 	
 

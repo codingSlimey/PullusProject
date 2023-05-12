@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Paginator = ({ itemsPerPage, totalItems, paginate }) => {
+export default function Paginator({ itemsPerPage, totalItems, paginate }) {
 	const [activePage, setActivePage] = useState(1)
 
 	const pageNumbers = []
@@ -62,5 +62,3 @@ const Paginator = ({ itemsPerPage, totalItems, paginate }) => {
 		</nav>
 	)
 }
-
-export default Paginator

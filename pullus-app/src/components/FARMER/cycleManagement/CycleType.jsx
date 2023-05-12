@@ -2,6 +2,8 @@ import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 import SingleBatch from '../../../components/FARMER/cycleManagement/singleBatch'
 import { useEffect, useState } from 'react'
 import { getMyCycles } from '../../../api'
+import Paginator from '../../Paginator'
+import { toast } from 'react-toastify'
 
 export default function CycleType({
 	item,
@@ -13,15 +15,28 @@ export default function CycleType({
 }) {
 	const [cycles, setCycles] = useState([])
 	const [skeleton, setSkeleton] = useState(false)
+	const [totalPages, setTotalPages] = useState(0)
+
+	// const [offset, setOffset] = useState(0)
+	// const [limit, setLimit] = useState(4)
 
 	useEffect(() => {
 		async function fetchData() {
 			setSkeleton(true)
-			// You can await here
-			const res = await getMyCycles(isActive)
-			// console.log(res.data.data.obj)
-			setCycles(res?.data?.data?.obj)
-			setSkeleton(false)
+			try {
+				// You can await here
+				const res = await getMyCycles(10, 0, isActive)
+				console.log(res.data.data.obj)
+				setTotalPages(res?.data?.data?.totalCount)
+				setCycles(res?.data?.data?.obj)
+				setSkeleton(false)
+			} catch ({ response }) {
+				const { data } = response
+				toast.error(data.message)
+				setTimeout(() => {
+					setSkeleton(false)
+				}, 5000)
+			}
 		}
 		fetchData()
 	}, [isActive])
@@ -63,6 +78,13 @@ export default function CycleType({
 								</div>
 							)
 						})}
+						{/* <div className='mt-2'>
+							<Paginator
+								totalItems={totalPages}
+								itemsPerPage={limit}
+								paginate={() => setOffset(offset + 1)}
+							/>
+						</div> */}
 					</>
 				) : (
 					<>

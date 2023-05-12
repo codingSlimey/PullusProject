@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Input from '../../components/FARMER/Input'
-import Button from '../../components/FARMER/button'
+// import Button from '../../components/FARMER/button'
 import { useNavigate } from 'react-router-dom'
 import { UpdateFormState } from '../../utils/setFormState'
 import { FaPlay } from 'react-icons/fa'
@@ -49,11 +49,17 @@ function BusinessInfo() {
 		}
 	}
 
+	// If the user has already started the registerRuntimeCompiler, it fetches the already inputted data and sets it
 	useEffect(() => {
-		if (tempUser.rcNumber) {
-			navigate('/onboarding/document-upload')
+		if (tempUser.tinNumber) {
+			setBizForm({
+				businessName: tempUser.businessName,
+				registeredDate: tempUser.registeredDate,
+				rcNumber: tempUser.rcNumber,
+				tinNumber: tempUser.tinNumber,
+			})
 		}
-	})
+	}, [tempUser])
 
 	return (
 		<div className='py-10 mx-auto  font-bold h-full flex justify-center'>

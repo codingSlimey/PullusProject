@@ -16,7 +16,9 @@ export default function Select(props) {
 				id={id}
 				className='h-12 md:h-14  px-6 text-black/60 placeholder:text-placeholder disabled:opacity-50 disabled:cursor-not-allowed mb-6 shadow-lg border border-grey bg-[#fff]  w-full rounded-full  focus:outline-none  focus:border-none '
 			></select>
-			{error && <p className='text-[red] font-light text-sm mt-1'>{error}</p>}
+			{error && (
+				<p className='text-[red] text-left font-light text-sm mt-1'>{error}</p>
+			)}
 		</div>
 	)
 }

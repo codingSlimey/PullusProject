@@ -7,7 +7,7 @@ export default function Footer() {
 		<div className='border-t border-grey bg-white text-primary h-fit'>
 			<div className='max-width py-2 max-w-full h-fit md:h-20 w-full generalPadding flex flex-col md:flex-row justify-between items-center'>
 				<div className=' py-4 md:py-0 md:pr-4  font-medium'>
-					<p>&#169; Pullus Africa 2022</p>
+					<p>&#169; Pullus Africa {new Date().getFullYear()}</p>
 				</div>
 
 				<div className='font-bold flex items-center'>

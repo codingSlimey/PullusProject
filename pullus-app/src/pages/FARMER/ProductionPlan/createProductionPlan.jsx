@@ -9,6 +9,7 @@ import { createProductionPlan } from '../../../api'
 import { Checkbox } from 'flowbite-react'
 import { useState } from 'react'
 import useCreateProductionPlanForm from '../../../hooks/FormValidators/useCreateProductionPlanForm'
+import { toast } from 'react-toastify'
 
 function CreateProductionPlan() {
 	const navigate = useNavigate()
@@ -67,8 +68,12 @@ function CreateProductionPlan() {
 				navigate(
 					`/farmer/production-plan/new-plan-summary?plan=${productionPlanForm.name}`
 				)
-			} catch (error) {
-				console.log(error)
+			} catch ({ response }) {
+				const { data } = response
+				toast.error(data.message)
+				setTimeout(() => {
+					setLoading(false)
+				}, 5000)
 			}
 		}
 	}

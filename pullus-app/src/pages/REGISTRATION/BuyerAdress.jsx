@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../../components/FARMER/Input'
-import Button from '../../components/FARMER/button'
+// import Button from '../../components/FARMER/button'
 import { useNavigate } from 'react-router-dom'
 import Select from '../../components/FARMER/Select'
 import Emodal from '../../modal/EModal'
@@ -10,79 +10,85 @@ import { FaPlay } from 'react-icons/fa'
 
 import { getStates } from '../../api'
 
+// import mapboxgl from 'mapbox-gl'
+import { toast } from 'react-toastify'
+
 //Hooks
+import useOnboardingAddressForm from '../../hooks/FormValidators/useOnboardingAddressForm'
+import { UpdateFormState } from '../../utils/setFormState'
 
-import axios from 'axios'
-
-import mapboxgl from 'mapbox-gl'
-
-const MAPBOX_ACCESS_TOKEN =
-	'pk.eyJ1Ijoic3dlZXQtcmlkZSIsImEiOiJjbGRpdjZ4cDAxaHhkM3BwaWYxN2xobHIzIn0.uVQdmc7mOq5m9x5ICDz8UA'
-
-// function getLocation() {
-// 	return new Promise((resolve, reject) => {
-// 		if (navigator.geolocation) {
-// 			navigator.geolocation.getCurrentPosition(resolve, reject)
-// 		} else {
-// 			reject('Geolocation is not supported by this browser.')
-// 		}
-// 	})
-// }
+// const MAPBOX_ACCESS_TOKEN =
+// 	'pk.eyJ1Ijoic3dlZXQtcmlkZSIsImEiOiJjbGRpdjZ4cDAxaHhkM3BwaWYxN2xobHIzIn0.uVQdmc7mOq5m9x5ICDz8UA'
 
 export default function BuyerAdress() {
 	// Function to warn users when they have not completed their onboarding steps
 	// useBeforeUnload()
 
+	const navigate = useNavigate()
+
 	const [states, setStates] = useState([])
-	const [lgas, setLgas] = useState([])
-	const [selectedState, setSelectedState] = useState('')
-	const [selectedLga, setSelectedLga] = useState('')
+	const [lgaList, setLgaList] = useState([])
 	const [showModal, setShowModal] = useState(false)
-	const [response, setResponse] = useState('')
-	const [lat, setLat] = useState('')
-	const [long, setLong] = useState('')
+
 	const { tempUser, setTemporaryUserData } = useUserAuth()
-	const [isdisabled, setIsdisabled] = useState(true)
 
-	const [location, setLocation] = useState('')
+	//Form validation hook
+	const { errors, validateField, validateForm } = useOnboardingAddressForm()
 
-	useEffect(() => {
-		navigator.geolocation.getCurrentPosition((position) => {
-			setLat(position.coords.latitude)
-			setLong(position.coords.longitude)
-		})
-	}, [])
+	const [addressForm, setAddressForm] = useState({
+		latitude: '',
+		longitude: '',
+		businessAddress: '',
+		state: '',
+		lga: '',
+	})
 
-	const getUserLocation = async (latitude, longitude) => {
-		const geocoderUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_ACCESS_TOKEN}`
-		const response = await fetch(geocoderUrl)
-		const data = await response.json()
+	// Function to get user location
+	const getUserLocation = async () => {
+		try {
+			navigator.geolocation.getCurrentPosition(async (position) => {
+				const { latitude, longitude } = position.coords
+				setAddressForm({
+					...addressForm,
+					latitude: latitude,
+					longitude: longitude,
+				})
 
-		return data.features[0].place_name // Return the user's location
+				// const geocoderUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${MAPBOX_ACCESS_TOKEN}`
+				// const response = await fetch(geocoderUrl)
+				// const data = await response.json()
+				// const location = data.features[0].place_name
+				// setLocation(location)
+			})
+		} catch (error) {
+			toast.error('There was an error getting your location')
+		}
 	}
 
+	const handleOnchange = (event) => {
+		let fieldValue = event.target.value
+
+		validateField(event.target.name, event.target.value)
+		UpdateFormState(event.target.name, fieldValue, addressForm, setAddressForm)
+	}
+
+	useEffect(() => {
+		const getLgas = async () => {
+			if (states && addressForm.state) {
+				const selectedState = states.find(
+					(item) => item.state === addressForm.state
+				)
+				setLgaList(await selectedState.lga)
+			}
+		}
+
+		getLgas()
+	}, [addressForm.state, states])
+
 	const theAnswer = (res) => {
-		setResponse(res)
 		if (res === 'yes') {
-			getUserLocation(lat, long).then((location) => {
-				console.log(location)
-				setLocation(location)
-			})
-			// axios
-			// 	.get(
-			// 		`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&location=${lat},${long}`
-			// 	)
-			// 	.then((res) => {
-			// 		const { address } = res.data
-			// 		console.log(address)
-			// 		console.log(address?.Region)
-			// 		console.log(lat)
-			// 		console.log(long)
-			// 		setLocation(address.Region)
-			// 		console.log(location)
-			// 	})
+			getUserLocation()
 			setShowModal(false)
-			// loader
 		} else {
 			alert('You have to be on your farm to be able to capture your location')
 			setShowModal(false)
@@ -90,69 +96,49 @@ export default function BuyerAdress() {
 		}
 	}
 
-	const handleFarmersLocation = () => {
-		setShowModal(true)
-	}
-
+	// Fetch states and lga on component mount
 	useEffect(() => {
-		axios
-			.get(
-				'https://pullusafrica.com.ng:8080/apis/v1/pullus/signup/statesAndLga'
-			)
-			.then((res) => {
-				const apiArray = Object.entries(res.data)
+		const fetchStatesAndLga = async () => {
+			try {
+				const response = await getStates()
+				const apiArray = Object.entries(response.data)
 				const mappedArray = apiArray.map((item) => {
 					return { state: item[0], lga: item[1] }
 				})
 				setStates(mappedArray)
-			})
-			.catch((err) => {
-				console.log(err)
-			})
+			} catch ({ response }) {
+				const { data } = response
+				toast.error(data.message)
+			}
+		}
+		fetchStatesAndLga()
 	}, [])
 
-	const handleStateChange = (e) => {
-		const state = e.target.value
-		console.log(state)
-		const selectedState = states.find((item) => item.state === state)
-		setLgas(selectedState.lga)
-		setSelectedState(state)
-	}
-
-	const handleLgaChange = (e) => {
-		setSelectedLga(e.target.value)
-	}
-
-	const navigate = useNavigate()
-
-	useEffect(() => {
-		if (lat && long && selectedState && selectedLga && location) {
-			setIsdisabled(false)
-			return
-		} else {
-			setIsdisabled(true)
-			return
-		}
-	}, [lat, location, long, selectedLga, selectedState])
-
 	const handleSubmit = () => {
-		setTemporaryUserData({
-			...tempUser,
-			latitude: `${lat}`,
-			longitude: `${long}`,
-			businessAddress: location,
-			state: selectedState,
-			lga: selectedLga,
-		})
-		console.log(tempUser)
-		navigate('/onboarding/business-info')
+		const isValid = validateForm(addressForm)
+		if (isValid) {
+			setTemporaryUserData({
+				...tempUser,
+				...addressForm,
+			})
+			navigate('/onboarding/business-info')
+		} else {
+			toast.error('Please attend to all fields errors')
+		}
 	}
 
+	// If the user has already started the registerRuntimeCompiler, it fetches the already inputted data and sets it
 	useEffect(() => {
-		if (tempUser.selectedState) {
-			navigate('/onboarding/business-info')
+		if (tempUser.latitude) {
+			setAddressForm({
+				latitude: tempUser.latitude,
+				longitude: tempUser.longitude,
+				businessAddress: tempUser.businessAddress,
+				state: tempUser.state,
+				lga: tempUser.lga,
+			})
 		}
-	})
+	}, [tempUser])
 
 	return (
 		<div className='py-10 font-bold h-full flex justify-center'>
@@ -165,17 +151,19 @@ export default function BuyerAdress() {
 							placeholder='Country: select Country'
 							value='Nigeria'
 							label='Select Country'
+							readOnly={true}
 							// onChange={handleStateChange}
 							disabled
 						/>
 					</div>
 
 					<Select
-						name='country'
-						id='countries'
+						name='state'
 						placeholder='country'
-						onChange={handleStateChange}
+						onChange={handleOnchange}
 						label='Select State'
+						value={addressForm.state}
+						error={errors.state}
 					>
 						<option> Select State</option>
 						{states.map((state, index) => {
@@ -192,13 +180,14 @@ export default function BuyerAdress() {
 
 					<Select
 						name='lga'
-						id='lgas'
 						placeholder='lga'
-						onChange={handleLgaChange}
+						onChange={handleOnchange}
 						label='Select LGA'
+						value={addressForm.lga}
+						error={errors.lga}
 					>
 						<option> Select LGA</option>
-						{lgas.map((lga, index) => {
+						{lgaList.map((lga, index) => {
 							return (
 								<option
 									key={index}
@@ -213,41 +202,51 @@ export default function BuyerAdress() {
 					<div className='flex flex-col'>
 						<Input
 							type='text'
-							placeholder='Adresss'
-							label='Address'
+							name='businessAddress'
+							placeholder='Address'
+							label='Address details'
+							onChange={handleOnchange}
+							value={addressForm.businessAddress}
+							error={errors.businessAddress}
 						/>
 					</div>
 				</div>
 				<div className='flex flex-col items-start'>
-					<p className='text-primary my-1'> Capture Address</p>
+					<p className='text-primary my-1'> Capture Coordinates</p>
 					<button
-						onClick={handleFarmersLocation}
+						onClick={() => setShowModal(true)}
 						className='font-bold px-2 py-3 rounded-sm my-3 text-white bg-fade w-full'
 					>
 						Click here to capture GPS Location{' '}
 					</button>
-					<Input
-						type='text'
-						placeholder='28, My street, PC414'
-						label='Address Details'
-						value={location}
-					/>
+					{addressForm.latitude && addressForm.longitude && (
+						<p className='text-green text-center w-full'>
+							Location has been successfully captured
+						</p>
+					)}
+
+					{errors.latitude && !addressForm.latitude && (
+						<p className='text-[red] text-center w-full font-light text-sm mt-1'>
+							{errors.latitude}
+						</p>
+					)}
+					{errors.longitude && !addressForm.longitude && (
+						<p className='text-[red] text-center w-full font-light text-sm mt-1'>
+							{errors.longitude}
+						</p>
+					)}
 				</div>
 
-				<div className='flex justify-center'>
+				<div className='flex justify-center mt-4'>
 					<button
-						// disabled={isdisabled}
 						onClick={handleSubmit}
-						className={`text-xs w-fit  py-4 px-10 flex items-center ${
-							isdisabled
-								? 'disabled:cursor-not-allowed bg-grey filter text-black/40'
-								: 'bg-fade text-white'
-						}   md:text-base rounded-full shadow-xl  my-auto`}
+						className={`text-xs w-fit  py-4 px-10 flex items-center bg-fade text-white md:text-base rounded-full shadow-xl  my-auto`}
 					>
 						Continue
 						<FaPlay className='ml-3 h-4 w-4' />
 					</button>
 				</div>
+
 				{showModal && (
 					<div className={` z-10 fixed bg-modal left-0 top-0 h-screen w-full`}>
 						<div className='emodal'>

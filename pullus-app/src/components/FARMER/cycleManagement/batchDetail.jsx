@@ -26,18 +26,11 @@ export default function BatchDetail() {
 				setActiveDetails(null)
 				try {
 					const res = await getSingleCycleInfo(paramValue)
-					// console.log(res)
 					setActiveDetails(res?.data?.data?.obj)
 					setDetailsSkeleton(false)
 				} catch ({ response }) {
-					// console.log(response)
-					const { status } = response
-					setDetailsSkeleton(false)
-					if (status === 500)
-						toast.error('Error fetching this particular cycle')
-					if (status === 400)
-						toast.error('This particular cycle does not exist')
-
+					const { data } = response
+					toast.error(data.message)
 					setTimeout(() => {
 						setDetailsSkeleton(false)
 					}, 5000)

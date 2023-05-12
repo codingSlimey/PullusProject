@@ -48,31 +48,13 @@ export default function Login() {
 		} catch ({response}) {
 			if(response){
 				const {data} = response
-				console.log(data)
-				switch(data.message){
-					case "Incorrect password":
-					  toast.error("Incorrect password")
-					  break;
-					case "Incorrect username":
-					  toast.error("incorrect Email")
-					  break;
-					  case "Email not confirmed":
-						toast.error("Please check your mail inbox for confirmation mail")
-						break;
-					case "user-not-found":
-					  toast.error("User Not Found")
-					  break;
-					  default:
-						toast.error("Something went wrong")
-				  }
+				toast.error(data.message)
 			} else {
-				toast.error("Something went wrong")
+				toast.error("Something went wrong. Try again later")
 			}
-
 			  setTimeout(()=>{
 				setIsLoading(false)
 			}, 5000)
-			  return
 			 }
 		}
 	return (

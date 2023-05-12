@@ -97,14 +97,10 @@ const FileUpload = () => {
 	}, [imagesUrl])
 
 	const handleFinalSubmit = async () => {
-		// Implement your upload logic here
-		// You can access the files using the files object
 		setIsloading(true)
-		const data = { ...keys, ...tempUser, ...imagesUrl }
-		setTemporaryUserData(data)
-		console.log(data)
-		console.log(tempUser)
 		try {
+			const data = { ...keys, ...tempUser, ...imagesUrl }
+			setTemporaryUserData(data)
 			const res = await completeSignUp(data)
 			console.log(res)
 			setIsloading(false)

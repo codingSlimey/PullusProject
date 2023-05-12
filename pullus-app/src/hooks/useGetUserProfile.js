@@ -17,9 +17,11 @@ export default function useGetUserProfile(){
 				console.log(error)
 			}
 		}
-
-		fetchProfile()
-	}, [user.userName])
+		
+		if(user){
+			fetchProfile()
+		}
+	}, [user])
 
     return{
         userData
