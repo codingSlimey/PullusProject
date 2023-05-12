@@ -14,7 +14,7 @@ import MobileSideBar from '../../pages/FARMER/MobileSideBar'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 export default function Navbar() {
-	const { user,userLogout } = useUserAuth()
+	const { user,userLogout, setIsBlockedRoute, isblockedRoute } = useUserAuth()
 	// console.log(user.jwtToken)
 	const { items } = useCart()
 	const navigate = useNavigate()
@@ -70,6 +70,13 @@ export default function Navbar() {
 
 		checkRouteName()
 	}, [pathname])
+	const handleClick = (url) => {
+		if (url === '/market-place' || url === '/farmer/my-orders' ||  url === '/farmer/notifications' ) {
+		  setIsBlockedRoute(true);
+		} else {
+		  setIsBlockedRoute(false);
+		}
+	  };
 
 	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
 	const toggleMobileSideBar = () => {
@@ -97,6 +104,10 @@ export default function Navbar() {
 							{userLinks.map((item, index) => {
 								return (
 									<NavLink
+									onClick={(e) => {
+										e.preventDefault();
+										handleClick(item.url);
+									  }}
 										to={item.url}
 										key={index}
 										className={` ${

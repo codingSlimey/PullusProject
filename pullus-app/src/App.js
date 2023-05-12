@@ -38,6 +38,7 @@ import { CartProvider } from './context/cart'
 
 import {ToastContainer} from 'react-toastify'
 import ScrollToTop from './hooks/useScrollToTop'
+import BlockedMessage from './utils/BlockedMessage'
 
 
 function App() {
@@ -72,7 +73,10 @@ function App() {
 				>	
 			<ToastContainer/>
 
+
 					<Navbar />
+					<BlockedMessage/>
+
 					<div
 					// 
 						className={`mt-20 md:mt-24`}

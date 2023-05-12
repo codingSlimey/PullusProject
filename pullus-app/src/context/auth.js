@@ -6,6 +6,7 @@ const userAuthContext = createContext()
 
 export function UserAuthContextProvider({ children }) {
 	const navigate = useNavigate()
+	const [isblockedRoute, setIsBlockedRoute] = useState(false) //For blocking routes [true/false
 	
 	//For first signup and setting of temporary user
 	const tempUserData = localStorage.getItem('tempUser')
@@ -54,6 +55,8 @@ export function UserAuthContextProvider({ children }) {
 		clearTemporaryUserData,
 		firstRegister,
 		userLogin,
+		setIsBlockedRoute,
+		isblockedRoute,
 	}
 
 	return (
