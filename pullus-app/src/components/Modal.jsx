@@ -1,6 +1,11 @@
 import { AiOutlineClose } from 'react-icons/ai'
 
-export default function ModalComponent({ isOpen, handleClose, children }) {
+export default function ModalComponent({
+	isOpen,
+	handleClose,
+	children,
+	specificWidth,
+}) {
 	return (
 		<>
 			{isOpen && (
@@ -16,7 +21,9 @@ export default function ModalComponent({ isOpen, handleClose, children }) {
 					</div>
 					<div
 						onClick={(e) => e.stopPropagation()}
-						className='bg-white px-8 py-5 max-h-[85%] overflow-auto rounded-2xl w-full max-w-[80%]'
+						className={`bg-white px-8 py-5 max-h-[85%] overflow-auto rounded-2xl ${
+							specificWidth ? specificWidth : 'w-full'
+						}  max-w-[80%]`}
 					>
 						{children}
 					</div>

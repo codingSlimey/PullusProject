@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router-dom'
-// import avatar from '../../images/avatar.svg'
 import Select from '../../components/FARMER/Select'
 import { useUserAuth } from '../../context/auth'
 
 import tabs from '../../constants/sideBarLinks'
-// import { BsPersonCircle } from 'react-icons/bs'
 
 import useGetUserProfile from '../../hooks/useGetUserProfile'
 

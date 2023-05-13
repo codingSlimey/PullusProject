@@ -28,8 +28,8 @@ import BusinessInfo from './pages/REGISTRATION/BusinessInfo'
 
 import EnterPin from './pages/FARMER/MyEwallet/EnterPin'
 import DocumentUpload from './pages/REGISTRATION/DocumentUpload'
-import Navbar from './components/NAVBAR/Navbar'
-import Footer from './components/FOOTER/Footer'
+import Navbar from './components/Layout/NAVBAR/Navbar'
+import Footer from './components/Layout/FOOTER/Footer'
 import CartFloatingButton from './components/buttons/cartFloatingButton'
 
 // State (Context API )
@@ -39,6 +39,7 @@ import { CartProvider } from './context/cart'
 import {ToastContainer} from 'react-toastify'
 import ScrollToTop from './hooks/useScrollToTop'
 import BlockedMessage from './utils/BlockedMessage'
+import { RestrictedRoutesProvider } from './context/restrictedRoutes'
 
 
 function App() {
@@ -65,127 +66,128 @@ function App() {
 
 		checkRouteName()
 	}, [pathname])
+
 	return (
-		<UserAuthContextProvider>
-			<CartProvider>
-				<main
-					className={`App  flex flex-col `}
-				>	
-			<ToastContainer/>
-
-
-					<Navbar />
+		<RestrictedRoutesProvider>
 					<BlockedMessage/>
-
-					<div
-					// 
-						className={`mt-20 md:mt-24`}
+			<UserAuthContextProvider>
+				<CartProvider>
+					<main
+						className={`App  flex flex-col `}
 					>	
-					<ScrollToTop />
-						<Routes>
+						<ToastContainer/>
+						<Navbar />
 
-							{/* //Unauthenticated Routes // */}
-							<Route
-								path='/'
-								// element={<Home />}
-								element={ !user ? <Home /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/login'
-								// element={<Login />}
-								element={ !user ? <Login /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/signup'
-								// element={<Signup />}
-								element={ !user ? <Signup /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/forgot-password'
-								// element={<ForgotPassword />}
-								element={ !user ? <ForgotPassword /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/reset-password'
-								// element={<ResetPassword />}
-								element={ !user ? <ResetPassword /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/new-password'
-								element={<NewPassword />}
-							/>
-							<Route
-								path='/privacy'
-								element={<Privacy />}
-							/>
-							{/* /////////////////////////// */}
-						
-							{/* //Authenticated Routes // */}
-							<Route
-								path='/farmer/*'
-								// element={ <Farmer /> }
-								element={user ? <Farmer /> :  <Navigate to='/login' replace />}
-							/>
-							<Route
-								path='/market-place'
-								element={
-									// <ProtectedRoute>
-										<MarketPlace />
-									// </ProtectedRoute>
-								}
-							/>
-							<Route
-								path='/product/:product'
-								element={<ProductDetail />}
-							/>
-							<Route
-								path='/cart'
-								element={<Cart />}
-							/>
+						<div
+						// 
+							className={`mt-20 md:mt-24`}
+						>	
+						<ScrollToTop />
+							<Routes>
+
+								{/* //Unauthenticated Routes // */}
+								<Route
+									path='/'
+									// element={<Home />}
+									element={ !user ? <Home /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/login'
+									// element={<Login />}
+									element={ !user ? <Login /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/signup'
+									// element={<Signup />}
+									element={ !user ? <Signup /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/forgot-password'
+									// element={<ForgotPassword />}
+									element={ !user ? <ForgotPassword /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/reset-password'
+									// element={<ResetPassword />}
+									element={ !user ? <ResetPassword /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/new-password'
+									element={<NewPassword />}
+								/>
+								<Route
+									path='/privacy'
+									element={<Privacy />}
+								/>
+								{/* /////////////////////////// */}
 							
-							<Route
-								path='/checkout'
-								element={<Checkout />}
-							/>
-							<Route
-								path='top-up-wallet'
-								element={<TopUpWallet />}
-							/>
-							<Route
-								path='/payment-method'
-								element={<PaymentMethod />}
-							/>
-							<Route
-								path='/enter-pin'
-								element={ <EnterPin />}
-							/>
-							<Route
-								path='/onboarding/biodata'
-								element={ !user ? <BuyerBioData /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/onboarding/address'
-								element={ !user ? 
-								<BuyerAdress /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-	
-							<Route
-								path='/onboarding/business-info'
-								element={ !user ? 
-								<BusinessInfo />: <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							<Route
-								path='/onboarding/document-upload'
-								element={ !user ? <DocumentUpload /> : <Navigate to='/farmer/cycle-management' replace />}
-							/>
-							{/* /////////////////////////// */}
-						</Routes>
-					</div>
-					<CartFloatingButton />
-					<Footer />
-				</main>
-			</CartProvider>
-		</UserAuthContextProvider>
+								{/* //Authenticated Routes // */}
+								<Route
+									path='/farmer/*'
+									// element={ <Farmer /> }
+									element={user ? <Farmer /> :  <Navigate to='/login' replace />}
+								/>
+								<Route
+									path='/market-place'
+									element={
+										// <ProtectedRoute>
+											<MarketPlace />
+										// </ProtectedRoute>
+									}
+								/>
+								<Route
+									path='/product/:product'
+									element={<ProductDetail />}
+								/>
+								<Route
+									path='/cart'
+									element={<Cart />}
+								/>
+								
+								<Route
+									path='/checkout'
+									element={<Checkout />}
+								/>
+								<Route
+									path='top-up-wallet'
+									element={<TopUpWallet />}
+								/>
+								<Route
+									path='/payment-method'
+									element={<PaymentMethod />}
+								/>
+								<Route
+									path='/enter-pin'
+									element={ <EnterPin />}
+								/>
+								<Route
+									path='/onboarding/biodata'
+									element={ !user ? <BuyerBioData /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/onboarding/address'
+									element={ !user ? 
+									<BuyerAdress /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+		
+								<Route
+									path='/onboarding/business-info'
+									element={ !user ? 
+									<BusinessInfo />: <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								<Route
+									path='/onboarding/document-upload'
+									element={ !user ? <DocumentUpload /> : <Navigate to='/farmer/cycle-management' replace />}
+								/>
+								{/* /////////////////////////// */}
+							</Routes>
+						</div>
+						<CartFloatingButton />
+						<Footer />
+					</main>
+				</CartProvider>
+			</UserAuthContextProvider>
+		</RestrictedRoutesProvider>
 	)
 }
 

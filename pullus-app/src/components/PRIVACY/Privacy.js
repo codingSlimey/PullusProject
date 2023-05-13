@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../NAVBAR/Navbar'
-import Footer from '../FOOTER/Footer'
+import Navbar from '../Layout/NAVBAR/Navbar'
+import Footer from '../Layout/FOOTER/Footer'
 import styles from './styles.module.css'
 
 export default function Privacy() {

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import logo from '../../images/logo.png'
-import Button from '../FARMER/button'
+import logo from '../../../images/logo.png'
+import Button from '../../FARMER/button'
 import { IoNotifications } from 'react-icons/io5'
 import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { ImMeter } from 'react-icons/im'
 import { HiBookmarkSquare } from 'react-icons/hi2'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
-import { useUserAuth } from '../../context/auth'
-import { useCart } from '../../context/cart'
-import MobileSideBar from '../../pages/FARMER/MobileSideBar'
+import { useUserAuth } from '../../../context/auth'
+import { useCart } from '../../../context/cart'
+import MobileSideBar from '../../../pages/FARMER/MobileSideBar'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 export default function Navbar() {
-	const { user,userLogout, setIsBlockedRoute, isblockedRoute } = useUserAuth()
+	const { user,userLogout } = useUserAuth()
 	// console.log(user.jwtToken)
 	const { items } = useCart()
 	const navigate = useNavigate()
@@ -48,35 +48,6 @@ export default function Navbar() {
 		},
 	]
 
-	const [userLayoutState, setUserLayoutState] = useState(false)
-
-	useEffect(() => {
-		const routes = [
-			'/',
-			'/login',
-			'/signup',
-			'/forgot-password',
-			'/reset-password',
-			'/new-password',
-			'/onboarding/biodata',
-			'/onboarding/address',
-			'/onboarding/business-info',
-			'/onboarding/document-upload',
-		]
-		const checkRouteName = () => {
-			const isRouteFixed = routes.includes(pathname)
-			setUserLayoutState(isRouteFixed)
-		}
-
-		checkRouteName()
-	}, [pathname])
-	const handleClick = (url) => {
-		if (url === '/market-place' || url === '/farmer/my-orders' ||  url === '/farmer/notifications' ) {
-		  setIsBlockedRoute(true);
-		} else {
-		  setIsBlockedRoute(false);
-		}
-	  };
 
 	const [showMobileSideBar, setShowMobileSideBar] = useState(false)
 	const toggleMobileSideBar = () => {
@@ -104,10 +75,6 @@ export default function Navbar() {
 							{userLinks.map((item, index) => {
 								return (
 									<NavLink
-									onClick={(e) => {
-										e.preventDefault();
-										handleClick(item.url);
-									  }}
 										to={item.url}
 										key={index}
 										className={` ${
