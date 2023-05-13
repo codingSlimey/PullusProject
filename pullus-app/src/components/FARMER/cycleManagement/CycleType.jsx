@@ -17,29 +17,42 @@ export default function CycleType({
 	const [skeleton, setSkeleton] = useState(false)
 	const [totalPages, setTotalPages] = useState(0)
 
-	// const [offset, setOffset] = useState(0)
-	// const [limit, setLimit] = useState(4)
+	const [offset, setOffset] = useState(0)
+	const limit = 6
+
+	const [currentPage, setCurrentPage] = useState(1)
+
+	const paginate = (pageNumber) => {
+		setCurrentPage(pageNumber)
+		if (pageNumber < currentPage) {
+			const newOffset = offset - limit
+			setOffset(newOffset)
+		} else {
+			const newOffset = offset + limit
+			setOffset(newOffset)
+		}
+	}
+
+	async function fetchData(newOffset) {
+		setSkeleton(true)
+		try {
+			const res = await getMyCycles(limit, newOffset, isActive)
+			setTotalPages(res?.data?.data?.totalCount)
+			setCycles(res?.data?.data?.obj)
+			setSkeleton(false)
+		} catch ({ response }) {
+			const { data } = response
+			toast.error(data.message)
+			setTimeout(() => {
+				setSkeleton(false)
+			}, 5000)
+		}
+	}
 
 	useEffect(() => {
-		async function fetchData() {
-			setSkeleton(true)
-			try {
-				// You can await here
-				const res = await getMyCycles(10, 0, isActive)
-				console.log(res.data.data.obj)
-				setTotalPages(res?.data?.data?.totalCount)
-				setCycles(res?.data?.data?.obj)
-				setSkeleton(false)
-			} catch ({ response }) {
-				const { data } = response
-				toast.error(data.message)
-				setTimeout(() => {
-					setSkeleton(false)
-				}, 5000)
-			}
-		}
-		fetchData()
-	}, [isActive])
+		fetchData(offset)
+	}, [isActive, limit, offset])
+
 	return (
 		<div
 			className={`mt-4  bg-white border border-primary/20 shadow-lg rounded-xl `}
@@ -78,17 +91,10 @@ export default function CycleType({
 								</div>
 							)
 						})}
-						{/* <div className='mt-2'>
-							<Paginator
-								totalItems={totalPages}
-								itemsPerPage={limit}
-								paginate={() => setOffset(offset + 1)}
-							/>
-						</div> */}
 					</>
 				) : (
 					<>
-						{[...Array(3)].map((_, idx) => {
+						{[...Array(limit)].map((_, idx) => {
 							return (
 								<div
 									key={idx}
@@ -97,6 +103,17 @@ export default function CycleType({
 							)
 						})}
 					</>
+				)}
+
+				{totalPages !== 0 && (
+					<div className='mt-2'>
+						<Paginator
+							totalItems={totalPages}
+							itemsPerPage={limit}
+							paginate={paginate}
+							currentPage={currentPage}
+						/>
+					</div>
 				)}
 
 				{!cycles.length && !skeleton && (
