@@ -24,7 +24,7 @@ function BuyerBioData() {
 	const { tempUser, setTemporaryUserData } = useUserAuth()
 
 	const navigate = useNavigate()
-	const [isdisabled, setIsdisabled] = useState(true)
+	// const [isdisabled, setIsdisabled] = useState(true)
 	const [isFormfilled, setIsFormFilled] = useState(true)
 	const [bvnError, setBvnError] = useState('')
 	const [successMsg, setSuccessMsg] = useState('')
